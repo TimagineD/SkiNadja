@@ -1,0 +1,5426 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Ски Рентал · Менаџер</title>
+<link rel="icon" href="data:image/svg+xml;utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20width='32'%20height='32'%20rx='9'%20fill='%23007AFF'/%3E%3Cpath%20d='M7%2023%20L13.5%2011%20L17%2017%20L20%2012%20L25%2023%20Z'%20fill='%23FFFFFF'/%3E%3Ccircle%20cx='23'%20cy='9'%20r='2.5'%20fill='%2364D8FF'/%3E%3C/svg%3E">
+<style>
+/* =====================================================================
+   AURA DESIGN SYSTEM — TOKENS & FOUNDATIONS
+   Apple-inspired, calm, precise, tactile UI
+===================================================================== */
+:root {
+  /* AURA Spacing Scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 96px;
+  --space-13: 128px;
+
+  /* AURA Neutral Palette (Light) */
+  --color-bg: #f5f5f7;
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f2f2f7;
+  --color-surface-tertiary: #e5e5ea;
+
+  --color-text: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-text-tertiary: #86868b;
+
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(0, 0, 0, 0.16);
+
+  /* AURA Semantic Accents */
+  --color-blue: #007aff;
+  --color-blue-hover: #0062cc;
+  --color-green: #34c759;
+  --color-orange: #ff9500;
+  --color-red: #ff3b30;
+  --color-purple: #af52de;
+  --color-pink: #ff2d55;
+  --color-indigo: #5856d6;
+  --color-teal: #5ac8fa;
+  --color-yellow: #ffcc00;
+
+  /* AURA Gradients */
+  --gradient-blue: linear-gradient(135deg, #64d8ff 0%, #4f7cff 100%);
+  --gradient-purple: linear-gradient(135deg, #c084fc 0%, #7c5cfc 100%);
+  --gradient-pink: linear-gradient(135deg, #ff8fb3 0%, #ff5c8a 100%);
+  --gradient-orange: linear-gradient(135deg, #ffd080 0%, #ff8a4c 100%);
+  --gradient-green: linear-gradient(135deg, #8be3a7 0%, #35c978 100%);
+  --gradient-cyan: linear-gradient(135deg, #7de7e7 0%, #32b5d8 100%);
+
+  /* AURA Radius Scale */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 999px;
+
+  /* AURA Shadows (Soft, layered depth) */
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md:
+    0 4px 16px rgba(0, 0, 0, 0.06),
+    0 12px 32px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 12px 40px rgba(0, 0, 0, 0.10),
+    0 24px 64px rgba(0, 0, 0, 0.08);
+
+  /* AURA Motion */
+  --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 450ms;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, system-ui, sans-serif;
+  --font-mono: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --color-bg: #000000;
+  --color-surface: #1c1c1e;
+  --color-surface-secondary: #2c2c2e;
+  --color-surface-tertiary: #3a3a3c;
+
+  --color-text: #f5f5f7;
+  --color-text-secondary: #98989d;
+  --color-text-tertiary: #6e6e73;
+
+  --color-border: rgba(255, 255, 255, 0.10);
+  --color-border-hover: rgba(255, 255, 255, 0.20);
+
+  --shadow-sm:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md:
+    0 4px 16px rgba(0, 0, 0, 0.45),
+    0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-lg:
+    0 12px 40px rgba(0, 0, 0, 0.60),
+    0 24px 64px rgba(0, 0, 0, 0.50);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #000000;
+    --color-surface: #1c1c1e;
+    --color-surface-secondary: #2c2c2e;
+    --color-surface-tertiary: #3a3a3c;
+
+    --color-text: #f5f5f7;
+    --color-text-secondary: #98989d;
+    --color-text-tertiary: #6e6e73;
+
+    --color-border: rgba(255, 255, 255, 0.10);
+    --color-border-hover: rgba(255, 255, 255, 0.20);
+
+    --shadow-sm:
+      0 1px 2px rgba(0, 0, 0, 0.35),
+      0 2px 8px rgba(0, 0, 0, 0.35);
+    --shadow-md:
+      0 4px 16px rgba(0, 0, 0, 0.45),
+      0 12px 32px rgba(0, 0, 0, 0.45);
+    --shadow-lg:
+      0 12px 40px rgba(0, 0, 0, 0.60),
+      0 24px 64px rgba(0, 0, 0, 0.50);
+  }
+}
+
+/* =====================================================================
+   BASE & RESET
+===================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.45;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-blue) 25%, transparent);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.mut {
+  color: var(--color-text-secondary);
+}
+
+.small {
+  font-size: 13px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =====================================================================
+   LAYOUT CONTAINERS & APP SHELL
+===================================================================== */
+#app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar (Desktop) */
+#sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  padding: var(--space-6) var(--space-4);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-3) var(--space-6);
+}
+
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--gradient-blue);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
+  flex-shrink: 0;
+}
+
+.bt {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  line-height: 1.15;
+}
+
+.brand-sub {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+#nav-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-item:hover {
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+}
+
+.nav-item:active {
+  transform: scale(0.98);
+}
+
+.nav-item.on {
+  background: color-mix(in srgb, var(--color-blue) 12%, var(--color-surface));
+  color: var(--color-blue);
+  font-weight: 600;
+}
+
+.nav-item svg {
+  flex-shrink: 0;
+}
+
+.nb {
+  margin-left: auto;
+  background: var(--color-red);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  min-width: 20px;
+  height: 20px;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  padding: 0 6px;
+}
+
+.nb:empty {
+  display: none;
+}
+
+.nb.ambb {
+  background: var(--color-orange);
+}
+
+.side-foot {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.side-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  min-height: 38px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:hover {
+  background: var(--color-surface-tertiary);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.khint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  padding: var(--space-2) var(--space-3) 0;
+}
+
+.khint kbd {
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1px 5px;
+  font-family: inherit;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* =====================================================================
+   MOBILE TOP APP BAR (iOS Style Frosted Glass)
+===================================================================== */
+#mobile-topbar {
+  display: none;
+}
+
+/* Main Content Area */
+#main {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-8) var(--space-8) var(--space-12);
+}
+
+.aura-container {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+
+.page {
+  display: none;
+}
+
+.page.on {
+  display: block;
+  animation: auraFadeIn var(--duration-normal) var(--ease-standard);
+}
+
+@keyframes auraFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.phead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.ptitle {
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.psub {
+  color: var(--color-text-secondary);
+  font-size: 13.5px;
+  font-weight: 500;
+  margin-top: var(--space-2);
+}
+
+.pactions {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* =====================================================================
+   AURA BUTTONS & CONTROLS
+===================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 42px;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  background: var(--color-surface);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    opacity var(--duration-fast) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-blue) 35%, transparent);
+  outline-offset: 2px;
+}
+
+.btn.pri {
+  background: var(--color-blue);
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 122, 255, 0.28);
+}
+
+.btn.pri:hover {
+  background: var(--color-blue-hover);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.35);
+}
+
+.btn.sec {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn.sec:hover {
+  background: var(--color-surface-secondary);
+  border-color: var(--color-border-hover);
+}
+
+.btn.gh {
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+.btn.gh:hover {
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+}
+
+.btn.dgr {
+  background: transparent;
+  color: var(--color-red);
+}
+
+.btn.dgr:hover {
+  background: color-mix(in srgb, var(--color-red) 10%, transparent);
+}
+
+.btn.dgrs {
+  background: var(--color-red);
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(255, 59, 48, 0.28);
+}
+
+.btn.dgrs:hover {
+  background: #e02d24;
+}
+
+.btn.sm {
+  min-height: 36px;
+  padding: 0 var(--space-3);
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+}
+
+.btn.xs {
+  min-height: 28px;
+  padding: 0 var(--space-2);
+  font-size: 11.5px;
+  border-radius: var(--radius-sm);
+}
+
+.btn.icb {
+  width: 38px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+}
+
+.btn.icb.xs {
+  width: 24px;
+  height: 24px;
+  min-height: 24px;
+  padding: 0;
+}
+
+/* Inputs, Selects, Textareas */
+input, select, textarea {
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0 var(--space-3);
+  height: 42px;
+  line-height: 42px;
+  transition:
+    border-color var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    background var(--duration-fast) var(--ease-standard);
+}
+
+textarea {
+  height: 84px;
+  padding: var(--space-3);
+  line-height: 1.45;
+  resize: vertical;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 3px solid color-mix(in srgb, var(--color-blue) 35%, transparent);
+  outline-offset: 1px;
+  border-color: var(--color-blue);
+}
+
+input[type=checkbox] {
+  accent-color: var(--color-blue);
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+input[type=date], input[type=datetime-local] {
+  padding: 0 12px;
+}
+
+input[type=number] {
+  font-family: var(--font-mono);
+}
+
+.toolbar {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.toolbar select {
+  height: 42px;
+}
+
+.search {
+  position: relative;
+  display: inline-flex;
+}
+
+.search input {
+  padding-left: 38px;
+  width: 280px;
+}
+
+.search::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386868B' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20.5 20.5 16.2 16.2'/%3E%3C/svg%3E") no-repeat center/contain;
+  opacity: 0.8;
+}
+
+/* Category Filter Chips */
+.chips {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding: var(--space-1) 0 var(--space-3);
+  margin-bottom: var(--space-3);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chips::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--duration-fast) var(--ease-standard);
+  box-shadow: var(--shadow-sm);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chip:hover {
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+  border-color: var(--color-border-hover);
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+.chip.on {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-surface);
+  font-weight: 600;
+}
+
+/* iOS Segmented Control */
+.seg {
+  display: inline-flex;
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 3px;
+  gap: 2px;
+}
+
+.segbtn {
+  border: 0;
+  background: transparent;
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.segbtn:hover {
+  color: var(--color-text);
+}
+
+.segbtn.on {
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Apple Switch Component */
+.swbtn {
+  width: 44px;
+  height: 26px;
+  border-radius: var(--radius-pill);
+  border: 0;
+  background: var(--color-surface-tertiary);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.swbtn::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ffffff;
+  transition: left var(--duration-fast) var(--ease-standard);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+.swbtn.on {
+  background: var(--color-green);
+}
+
+.swbtn.on::after {
+  left: 21px;
+}
+
+/* =====================================================================
+   AURA ACTION TILES & STAT CARDS
+===================================================================== */
+.aura-action-tile {
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  color: #ffffff;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition:
+    transform var(--duration-normal) var(--ease-standard),
+    box-shadow var(--duration-normal) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.aura-action-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.aura-action-tile:active {
+  transform: scale(0.98);
+}
+
+.aura-action-tile__icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.aura-action-tile h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-1);
+}
+
+.aura-action-tile p {
+  font-size: 13.5px;
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.aura-gradient-blue { background: var(--gradient-blue); }
+.aura-gradient-purple { background: var(--gradient-purple); }
+.aura-gradient-pink { background: var(--gradient-pink); }
+.aura-gradient-orange { background: var(--gradient-orange); }
+.aura-gradient-green { background: var(--gradient-green); }
+
+/* Quick Action Row */
+.dash-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+/* Metric Statline / Stat Grid */
+.statline {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+.stat, .statd {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stat {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+  text-align: left;
+}
+
+.stat:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-hover);
+}
+
+.stat:active {
+  transform: scale(0.98);
+}
+
+.stat .k, .statd .k {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.stat .v, .statd .v {
+  font-size: 26px;
+  line-height: 1.1;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+.v.red {
+  color: var(--color-red);
+}
+
+.v.amb {
+  color: var(--color-orange);
+}
+
+/* =====================================================================
+   AURA ROW CARDS & LISTS
+===================================================================== */
+.list-h {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: var(--space-7) 0 var(--space-3);
+}
+
+.lh {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.rowcard {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: var(--space-3);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.rowcard:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-hover);
+}
+
+.rowcard:active {
+  transform: scale(0.995);
+}
+
+.rowcard.late {
+  border-color: color-mix(in srgb, var(--color-red) 35%, transparent);
+  background: color-mix(in srgb, var(--color-red) 3%, var(--color-surface));
+}
+
+.rc-main {
+  flex: 1;
+  min-width: 240px;
+}
+
+.rc-l1 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.rc-l2 {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.rc-side {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.rc-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rc-btns {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tkno {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  background: var(--color-surface-secondary);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+}
+
+.cname {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.phonel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.phonel:hover {
+  color: var(--color-blue);
+  background: color-mix(in srgb, var(--color-blue) 8%, transparent);
+}
+
+.timer {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  line-height: 1;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+.rowcard.late .timer {
+  color: var(--color-red);
+}
+
+.timer i {
+  font-style: normal;
+  opacity: 0.8;
+  animation: auraBlink 1s steps(2, start) infinite;
+}
+
+@keyframes auraBlink {
+  50% { opacity: 0.15; }
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot.free { background: var(--color-green); }
+.dot.rented { background: var(--color-red); }
+.dot.off {
+  background: transparent;
+  border: 2px solid var(--color-text-tertiary);
+}
+
+.dot.pulse {
+  animation: auraPulse 1.8s infinite;
+}
+
+@keyframes auraPulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.45); }
+  70% { box-shadow: 0 0 0 8px rgba(255, 59, 48, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 59, 48, 0); }
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.b-ok {
+  background: color-mix(in srgb, var(--color-green) 14%, var(--color-surface));
+  color: #1e7d36;
+}
+
+.b-warn {
+  background: color-mix(in srgb, var(--color-orange) 14%, var(--color-surface));
+  color: #a85d00;
+}
+
+.b-late {
+  background: color-mix(in srgb, var(--color-red) 14%, var(--color-surface));
+  color: var(--color-red);
+}
+
+.b-mut {
+  background: var(--color-surface-secondary);
+  color: var(--color-text-secondary);
+}
+
+.ichip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.ichip.done {
+  opacity: 0.55;
+  text-decoration: line-through;
+}
+
+.sizeb {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
+  padding: 1px 7px;
+}
+
+.catl {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+}
+
+.price {
+  font-family: var(--font-mono);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-blue) 12%, var(--color-surface));
+  color: var(--color-blue);
+  font-size: 14px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.avatar.sm {
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+}
+
+.avatar.lg {
+  width: 48px;
+  height: 48px;
+  font-size: 17px;
+}
+
+.cnt {
+  text-align: center;
+  line-height: 1.2;
+}
+
+.cnt b {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.cnt span {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.chk {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--color-text-tertiary);
+  border-radius: 6px;
+  background: var(--color-surface);
+  flex-shrink: 0;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.rowcard.selchk .chk {
+  background: var(--color-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat;
+  border-color: var(--color-blue);
+}
+
+/* =====================================================================
+   DASHBOARD EXTRAS & AVAILABILITY
+===================================================================== */
+.banner {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  background: color-mix(in srgb, var(--color-orange) 12%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-orange) 25%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 14px 18px;
+  margin-bottom: var(--space-5);
+  flex-wrap: wrap;
+  color: var(--color-text);
+}
+
+.banner .btn {
+  margin-left: auto;
+}
+
+.avail {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5) var(--space-6);
+  margin-bottom: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+.avail .sec-t {
+  margin-bottom: var(--space-3);
+}
+
+.avail-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 64px;
+  gap: var(--space-3);
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.avail-row:last-child {
+  border-bottom: 0;
+}
+
+.avail-row .al {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.abar {
+  display: flex;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--color-surface-secondary);
+}
+
+.aseg {
+  height: 100%;
+  transition: flex var(--duration-normal) var(--ease-standard);
+}
+
+.aseg.g { background: var(--color-green); }
+.aseg.r { background: var(--color-blue); }
+.aseg.o { background: var(--color-text-tertiary); }
+
+.avail-row .ac {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+.sec-t {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.empty {
+  padding: var(--space-10) var(--space-6);
+  text-align: center;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-xl);
+  margin: var(--space-4) 0;
+}
+
+.empty .empty-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--color-surface-secondary);
+  display: grid;
+  place-items: center;
+  margin: 0 auto var(--space-3);
+  color: var(--color-text-secondary);
+}
+
+.empty .et {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: var(--space-2) 0 4px;
+}
+
+.empty .btn {
+  margin-top: var(--space-4);
+}
+
+.hero {
+  max-width: 520px;
+  margin: 60px auto;
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-8);
+  box-shadow: var(--shadow-md);
+}
+
+.hero-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-xl);
+  background: var(--gradient-blue);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  margin: 0 auto var(--space-4);
+  box-shadow: 0 8px 24px rgba(0, 122, 255, 0.25);
+}
+
+.hero h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+.hero p {
+  color: var(--color-text-secondary);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.hero .hbtns {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  margin-top: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.hero .note {
+  margin-top: var(--space-4);
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+}
+
+/* =====================================================================
+   AURA FLOATING SELECTION BAR
+===================================================================== */
+.selbar {
+  position: sticky;
+  bottom: 24px;
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  background: rgba(29, 29, 31, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  margin-top: var(--space-4);
+  flex-wrap: wrap;
+  z-index: 50;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.selbar .cnt {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.selbar .btn.sec {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.selbar .btn.sec:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.selbar .btn.gh {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.selbar .btn.gh:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+/* =====================================================================
+   AURA MODALS & BOTTOM SHEETS
+===================================================================== */
+.mwrap {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+}
+
+.mbackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: auraFadeIn var(--duration-fast) var(--ease-standard);
+}
+
+.modal {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(580px, 100%);
+  max-height: calc(100vh - 48px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  animation: auraModalUp var(--duration-normal) var(--ease-emphasized);
+  overflow: hidden;
+}
+
+.mwrap.wide .modal {
+  width: min(1040px, 100%);
+}
+
+@keyframes auraModalUp {
+  from {
+    transform: translateY(16px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.mhead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mhead h3 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.mclose {
+  border: 0;
+  background: transparent;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mclose:hover {
+  background: var(--color-surface-secondary);
+  color: var(--color-text);
+}
+
+.mbody {
+  padding: var(--space-5) var(--space-6);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mfoot {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  background: var(--color-surface);
+}
+
+body.lock {
+  overflow: hidden;
+}
+
+.cmsg {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-text);
+}
+
+.frow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--space-4);
+}
+
+.frow label, .frow .fl {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.frow input, .frow select, .frow textarea {
+  width: 100%;
+}
+
+.fgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--space-4);
+}
+
+.fcheck {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  margin: var(--space-2) 0 var(--space-4);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.kv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.kv > span:first-child {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.kv-edit {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hint {
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-2);
+}
+
+.quiet {
+  padding: var(--space-4) 0 var(--space-2);
+  color: var(--color-text-secondary);
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* =====================================================================
+   RENTAL BUILDER (2-COLUMN AURA WORKFLOW)
+===================================================================== */
+.rb {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 350px;
+  gap: var(--space-6);
+}
+
+.rb-step {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: var(--space-4) 0 var(--space-3);
+}
+
+.rb-step:first-child {
+  margin-top: 0;
+}
+
+.stepno {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-blue);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.mat {
+  background: var(--color-surface-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+}
+
+.cres {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  cursor: pointer;
+  margin-bottom: var(--space-2);
+  text-align: left;
+  flex-wrap: wrap;
+  transition: all var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cres:hover {
+  border-color: var(--color-blue);
+  background: color-mix(in srgb, var(--color-blue) 4%, var(--color-surface));
+}
+
+.nores {
+  padding: var(--space-3) 0;
+  color: var(--color-text-tertiary);
+  font-size: 13.5px;
+}
+
+.rb-picked {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  background: color-mix(in srgb, var(--color-blue) 8%, var(--color-surface));
+  border: 1px solid color-mix(in srgb, var(--color-blue) 30%, transparent);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  flex-wrap: wrap;
+}
+
+.rb-picked .b-new {
+  background: var(--color-blue);
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.04em;
+}
+
+.rb-gearbar {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  margin: var(--space-3) 0;
+  flex-wrap: wrap;
+}
+
+.rb-gearbar .search input {
+  width: 220px;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+  gap: var(--space-2);
+  max-height: 310px;
+  overflow-y: auto;
+  padding: 2px 2px 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tiles::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tiles::-webkit-scrollbar-thumb {
+  background: var(--color-surface-tertiary);
+  border-radius: var(--radius-pill);
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--duration-fast) var(--ease-standard);
+  box-shadow: var(--shadow-sm);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tile:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+.tile:active {
+  transform: scale(0.96);
+}
+
+.tile .ts {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.tile .tn {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.tile .tp {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+}
+
+.tile.sel {
+  background: color-mix(in srgb, var(--color-blue) 8%, var(--color-surface));
+  border-color: var(--color-blue);
+  box-shadow: 0 0 0 1px var(--color-blue);
+}
+
+.tile.sel .ts, .tile.sel .tn, .tile.sel .tp {
+  color: var(--color-blue);
+}
+
+.tile.sel::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/10px no-repeat;
+}
+
+/* Mobile rental builder elements hidden on desktop */
+.rb-mobile-tabs,
+.rb-mobile-bar,
+.rb-back-to-gear {
+  display: none;
+}
+
+.tk-cbox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 10px;
+  background: var(--color-surface-secondary);
+  border-radius: var(--radius-md);
+  margin-top: 4px;
+}
+
+.tk-dates-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.tk-date-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.dur-pills {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: var(--space-2) 0 var(--space-3);
+  flex-wrap: wrap;
+}
+
+.dur-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-right: 2px;
+}
+
+.dur-pill {
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
+  font-size: 11.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dur-pill:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue);
+}
+
+.dur-pill.on {
+  background: var(--color-blue);
+  border-color: var(--color-blue);
+  color: #ffffff;
+}
+
+.tr-item {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tr-del {
+  color: var(--color-text-tertiary);
+  opacity: 0.6;
+  margin-left: 4px;
+}
+
+.tr-del:hover {
+  opacity: 1;
+  color: var(--color-red);
+}
+
+/* =====================================================================
+   AURA RECEIPT TICKET (ORDER SUMMARY)
+===================================================================== */
+.ticket {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  position: relative;
+  font-size: 13px;
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
+.tk-dash {
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-3) 0;
+}
+
+.tr {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: 3px 0;
+  flex-wrap: wrap;
+}
+
+.tr .lead {
+  flex: 1;
+  border-bottom: 1px dotted var(--color-border);
+  min-width: 14px;
+  transform: translateY(-3px);
+}
+
+.tk-head {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--color-text);
+}
+
+.tk-date {
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.tk-sec {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin: 2px 0 4px;
+}
+
+.ticket input {
+  width: 100%;
+  height: 38px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  margin: 3px 0 6px;
+}
+
+.tk-lab {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-text-secondary);
+  margin-top: var(--space-2);
+}
+
+#tk-est {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--color-text);
+}
+
+.tk-note {
+  font-size: 11.5px;
+  color: var(--color-text-secondary);
+  margin: var(--space-3) 0 var(--space-4);
+  line-height: 1.45;
+}
+
+.tk-go {
+  width: 100%;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 12px;
+  min-height: 46px;
+  border-radius: var(--radius-md);
+}
+
+.paygrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--space-4);
+}
+
+.rad {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin: var(--space-2) 0;
+}
+
+.rad label {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ret-item {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.ri-chk {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  cursor: pointer;
+  flex: 1;
+  min-width: 200px;
+}
+
+.ri-days {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--color-text-secondary);
+}
+
+.ri-dmg {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-orange);
+  cursor: pointer;
+}
+
+.retinfo {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  padding-bottom: 6px;
+}
+
+.payline {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) 0;
+}
+
+.payline .big {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.dit {
+  display: grid;
+  grid-template-columns: 1fr 90px 48px 90px;
+  gap: var(--space-2);
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 13.5px;
+}
+
+.dit .di-d {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--color-text-secondary);
+}
+
+.dit .di-c {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.hrow {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  margin-bottom: var(--space-2);
+  cursor: pointer;
+  text-align: left;
+  flex-wrap: wrap;
+  transition: all var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hrow:hover {
+  border-color: var(--color-blue);
+  background: color-mix(in srgb, var(--color-blue) 4%, var(--color-surface));
+}
+
+.minipay {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.minipay .mono {
+  color: var(--color-text-secondary);
+}
+
+.cl-head {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cl-count {
+  margin-left: auto;
+  text-align: right;
+}
+
+.prgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2) var(--space-5);
+}
+
+.prgrid .pi {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prgrid .pi label {
+  font-size: 13.5px;
+  font-weight: 500;
+}
+
+.prgrid .pi input {
+  width: 96px;
+  height: 36px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-align: right;
+}
+
+.note {
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+  line-height: 1.5;
+  margin: var(--space-3) 0;
+}
+
+.datarow {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin: var(--space-2) 0 var(--space-3);
+}
+
+.repform {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-3);
+}
+
+.repform label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.rt {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+.rt th {
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.rt td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.rt td:last-child, .rt th:last-child {
+  text-align: right;
+}
+
+/* =====================================================================
+   AURA TOASTS
+===================================================================== */
+#toast-root {
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: 16px;
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+  background: rgba(29, 29, 31, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-lg);
+  font-size: 13.5px;
+  font-weight: 500;
+  max-width: min(380px, calc(100vw - 32px));
+  opacity: 0;
+  transform: translateY(-8px) scale(0.96);
+  transition: all var(--duration-normal) var(--ease-emphasized);
+  pointer-events: auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.toast.in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.toast.ok svg { color: #34c759; }
+.toast.err svg { color: #ff453a; }
+
+/* =====================================================================
+   BOTTOM NAVIGATION
+===================================================================== */
+#bottomnav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--color-border);
+  z-index: 50;
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+  justify-content: space-around;
+}
+
+[data-theme="dark"] #bottomnav {
+  background: rgba(28, 28, 30, 0.88);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) #bottomnav {
+    background: rgba(28, 28, 30, 0.88);
+  }
+}
+
+#bottomnav button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 48px;
+  padding: 4px 2px;
+  border: 0;
+  background: none;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  position: relative;
+  transition: color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+  -webkit-tap-highlight-color: transparent;
+}
+
+#bottomnav button:active {
+  transform: scale(0.92);
+}
+
+#bottomnav button.on {
+  color: var(--color-blue);
+}
+
+#bottomnav .nb {
+  position: absolute;
+  top: 3px;
+  right: calc(50% - 18px);
+  min-width: 16px;
+  height: 16px;
+  font-size: 10px;
+  padding: 0 4px;
+}
+
+/* =====================================================================
+   RESPONSIVE MOBILE BREAKPOINT (< 880px)
+   Full AURA Mobile Optimization
+===================================================================== */
+@media (max-width: 880px) {
+  #app {
+    flex-direction: column;
+  }
+
+  #sidebar {
+    display: none;
+  }
+
+  /* Mobile Top Navigation Bar */
+  #mobile-topbar {
+    display: flex;
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 45;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+    padding: calc(var(--space-2) + env(safe-area-inset-top, 0px)) var(--space-4) var(--space-2);
+  }
+
+  [data-theme="dark"] #mobile-topbar {
+    background: rgba(28, 28, 30, 0.88);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) #mobile-topbar {
+      background: rgba(28, 28, 30, 0.88);
+    }
+  }
+
+  .m-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .m-brand .brand-icon {
+    width: 32px;
+    height: 32px;
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.25);
+  }
+
+  .m-title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+  }
+
+  .m-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  #bottomnav {
+    display: flex;
+  }
+
+  #main {
+    padding: var(--space-4) var(--space-4) calc(88px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .aura-container {
+    width: 100%;
+  }
+
+  /* Compact Mobile Headers */
+  .phead {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .ptitle {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  .psub {
+    font-size: 12.5px;
+    margin-top: 2px;
+  }
+
+  .pactions {
+    display: flex;
+    width: 100%;
+    gap: var(--space-2);
+    align-items: center;
+  }
+
+  .pactions .search {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .pactions .search input {
+    width: 100%;
+  }
+
+  .toolbar {
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .toolbar .search {
+    width: 100%;
+    flex: 1 1 100%;
+  }
+
+  .toolbar .search input {
+    width: 100%;
+  }
+
+  .toolbar select, .toolbar input[type=date] {
+    flex: 1;
+    min-width: 120px;
+    font-size: 13px;
+  }
+
+  /* Compact Mobile Action Tiles & Stats */
+  .dash-actions-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .aura-action-tile {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+  }
+
+  .aura-action-tile__icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: var(--space-2);
+    border-radius: var(--radius-sm);
+  }
+
+  .aura-action-tile h3 {
+    font-size: 14.5px;
+    margin-bottom: 2px;
+  }
+
+  .aura-action-tile p {
+    font-size: 11.5px;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .statline {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2);
+    margin-bottom: var(--space-4);
+  }
+
+  .stat, .statd {
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-md);
+    gap: 4px;
+  }
+
+  .stat .k, .statd .k {
+    font-size: 11px;
+  }
+
+  .stat .v, .statd .v {
+    font-size: 21px;
+  }
+
+  /* Inventory Availability on Mobile */
+  .avail {
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--space-4);
+  }
+
+  .avail-row {
+    grid-template-columns: 105px 1fr 50px;
+    gap: var(--space-2);
+    padding: 6px 0;
+  }
+
+  .avail-row .al {
+    font-size: 12.5px;
+  }
+
+  .avail-row .ac {
+    font-size: 12px;
+  }
+
+  /* Mobile-Optimized Row Cards */
+  .rowcard {
+    padding: 13px 15px;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rc-main {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .rc-l1 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .rc-l2 {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: 12.5px;
+  }
+
+  .rc-side {
+    margin-left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    margin-top: 4px;
+    border-top: 1px dashed var(--color-border);
+    gap: var(--space-2);
+  }
+
+  .rc-side .timer {
+    font-size: 17px;
+  }
+
+  .rc-side .btn {
+    min-height: 38px;
+    padding: 0 16px;
+    font-size: 13.5px;
+  }
+
+  /* Mobile Native Bottom Sheets */
+  .mwrap {
+    padding: 0 !important;
+    align-items: flex-end !important;
+  }
+
+  .modal,
+  .mwrap.wide .modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 94vh !important;
+    max-height: calc(100dvh - 20px) !important;
+    border-radius: 24px 24px 0 0 !important;
+    border-bottom: 0 !important;
+    margin: 0 !important;
+    animation: auraSheetUp var(--duration-normal) var(--ease-emphasized);
+    box-shadow: 0 -8px 36px rgba(0, 0, 0, 0.28);
+  }
+
+  @keyframes auraSheetUp {
+    from {
+      transform: translateY(100%);
+      opacity: 0.5;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .mhead {
+    position: relative;
+    padding: 18px var(--space-4) var(--space-3);
+    flex-shrink: 0;
+  }
+
+  .mhead::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 38px;
+    height: 5px;
+    border-radius: var(--radius-pill);
+    background: var(--color-surface-tertiary);
+  }
+
+  .mbody {
+    max-height: calc(94vh - 65px) !important;
+    max-height: calc(100dvh - 85px) !important;
+    padding: var(--space-3) var(--space-4) !important;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal:has(.mfoot) .mbody {
+    max-height: calc(94vh - 130px) !important;
+    max-height: calc(100dvh - 150px) !important;
+  }
+
+  .mfoot {
+    padding: var(--space-3) var(--space-4) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+    gap: var(--space-2);
+  }
+
+  .mfoot .btn {
+    flex: 1;
+    min-height: 44px;
+  }
+
+  /* Forms and Grids on Mobile */
+  .fgrid, .paygrid, .prgrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* RENTAL BUILDER MOBILE WORKFLOW */
+  .rb {
+    display: block !important;
+    gap: 0 !important;
+  }
+
+  /* Mobile Step Tabs */
+  .rb-mobile-tabs {
+    display: flex !important;
+    background: var(--color-surface-secondary);
+    border-radius: var(--radius-pill);
+    padding: 3px;
+    margin-bottom: var(--space-4);
+    border: 1px solid var(--color-border);
+    position: sticky;
+    top: -12px;
+    z-index: 15;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .rb-tab-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 36px;
+    border-radius: var(--radius-pill);
+    border: 0;
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease-standard);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .rb-tab-btn.on {
+    background: var(--color-surface);
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .rb-tab-badge {
+    background: var(--color-blue);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    padding: 1px 7px;
+    min-width: 18px;
+    text-align: center;
+  }
+
+  /* Tab View Switching on Mobile */
+  .rb[data-tab="gear"] .rb-left {
+    display: block !important;
+  }
+  .rb[data-tab="gear"] .rb-right {
+    display: none !important;
+  }
+
+  .rb[data-tab="ticket"] .rb-left {
+    display: none !important;
+  }
+  .rb[data-tab="ticket"] .rb-right {
+    display: block !important;
+  }
+
+  .rb-gearbar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: var(--space-2) 0 var(--space-3);
+  }
+
+  .rb-gearbar .search {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rb-gearbar .search input {
+    width: 100%;
+    font-size: 16px !important;
+  }
+
+  .tiles {
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    max-height: calc(100dvh - 360px);
+    min-height: 240px;
+    gap: 8px;
+    padding-bottom: 76px;
+  }
+
+  .tile {
+    min-height: 72px;
+    padding: 10px;
+  }
+
+  .tile .ts {
+    font-size: 15px;
+  }
+
+  .tile.sel::after {
+    top: 6px;
+    right: 6px;
+  }
+
+  /* Mobile Sticky Summary Bar */
+  .rb-mobile-bar {
+    display: flex !important;
+    position: sticky;
+    bottom: -12px;
+    left: 0;
+    right: 0;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+    margin: var(--space-3) calc(-1 * var(--space-4)) calc(-1 * var(--space-3));
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    z-index: 20;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .rb-bar-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .rb-bar-count {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .rb-bar-price {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-blue);
+  }
+
+  .rb-bar-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 18px;
+    height: 42px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .rb-back-to-gear {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: var(--space-3);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .mat {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .ticket {
+    padding: var(--space-4);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .tk-dates-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .ticket input,
+  .frow input,
+  .frow select,
+  .frow textarea,
+  #rb-start,
+  #rb-exp,
+  #rb-note {
+    font-size: 16px !important;
+    height: 44px;
+  }
+
+  .tk-go {
+    min-height: 50px;
+    font-size: 16px;
+    border-radius: var(--radius-lg);
+    margin-top: var(--space-3);
+  }
+
+  /* Mobile Floating Selection Bar */
+  .selbar {
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    padding: 10px 14px;
+    border-radius: var(--radius-lg);
+    gap: var(--space-2);
+  }
+
+  .selbar .btn {
+    flex: 1;
+    min-height: 38px;
+    padding: 0 10px;
+    font-size: 12.5px;
+  }
+}
+
+/* Print Stylesheet */
+@media print {
+  body.printing #app,
+  body.printing #modal-root,
+  body.printing #toast-root {
+    display: none !important;
+  }
+  body.printing {
+    background: #ffffff;
+    color: #000000;
+  }
+}
+
+#print-sheet {
+  display: none;
+}
+
+@media print {
+  body.printing #print-sheet {
+    display: block;
+    padding: 24px;
+  }
+}
+
+#print-sheet h2 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+#print-sheet .rt {
+  font-size: 11px;
+}
+
+#print-sheet .pt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #555555;
+  margin: 6px 0 16px;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal-root"></div>
+<div id="toast-root"></div>
+<div id="print-sheet"></div>
+<input type="file" id="file-restore" accept=".json,application/json" hidden>
+
+<script>
+/* =====================================================================
+   СКИ РЕНТАЛ · МЕНАЏЕР
+   AURA Design System Edition
+   Single-file, offline-first, localStorage. Macedonian UI.
+===================================================================== */
+'use strict';
+
+/* ---------- categories ---------- */
+const CATS = [
+  { id: 'skis',    e: '⛷️', n: 'Скии',    hint: 'должина см' },
+  { id: 'board',   e: '🏂', n: 'Борд',    hint: 'должина см' },
+  { id: 'sled',    e: '🛷', n: 'Санка',   hint: 'тип / големина' },
+  { id: 'poles',   e: '🦯', n: 'Стапови', hint: 'должина см' },
+  { id: 'boots',   e: '⛸️', n: 'Кондури', hint: 'број на кондур' },
+  { id: 'helmet',  e: '🪖', n: 'Кацига',  hint: 'S / M / L' },
+  { id: 'goggles', e: '🥽', n: 'Наочари', hint: 'модел' },
+  { id: 'gloves',  e: '🧤', n: 'Раквици', hint: 'S / M / L' },
+];
+const CATIDX = {};
+CATS.forEach((c, i) => CATIDX[c.id] = i);
+const catById = id => CATS.find(c => c.id === id) || CATS[0];
+const catName = id => catById(id).n;
+const catEmoji = id => catById(id).e;
+
+/* ---------- icons (AURA clean Lucide-style inline SVGs, offline-safe) ---------- */
+const ICONS = {
+  search: '<circle cx="11" cy="11" r="7"/><path d="M20.5 20.5 16.2 16.2"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  x: '<path d="M6 6l12 12M18 6 6 18"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M15.5 4.7a3.5 3.5 0 0 1 0 6.6"/><path d="M17.8 14.4a6.5 6.5 0 0 1 3.7 5.6"/>',
+  wallet: '<rect x="2.5" y="6" width="19" height="13" rx="2.5"/><circle cx="12" cy="12.5" r="2.2"/><path d="M6 12.5h.01M18 12.5h.01"/>',
+  box: '<path d="M12 3 3.5 7.5v9L12 21l8.5-4.5v-9L12 3Z"/><path d="M3.5 7.5 12 12l8.5-4.5M12 12v9"/>',
+  dash: '<rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/>',
+  gear: '<circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v3M12 18.5v3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M2.5 12h3M18.5 12h3M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/>',
+  trash: '<path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/><path d="M10 11v5.5M14 11v5.5"/>',
+  edit: '<path d="M4 20h4L19.5 8.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/><path d="M13.5 6.5l3 3"/>',
+  phone: '<path d="M5 3h4l1.5 5-2.5 2a14 14 0 0 0 6 6l2-2.5 5 1.5v4a2 2 0 0 1-2 2A17 17 0 0 1 3 5a2 2 0 0 1 2-2Z"/>',
+  down: '<path d="M12 3v13m0 0 5-5m-5 5-5-5M4 21h16"/>',
+  up: '<path d="M12 16V3m0 0 5 5M12 3 7 8M4 21h16"/>',
+  alert: '<path d="M12 3 2.5 19.5h19L12 3Z"/><path d="M12 10v4M12 17.2h.01"/>',
+  hist: '<path d="M3.5 12a8.5 8.5 0 1 0 2.5-6L3.5 8.5"/><path d="M3.5 3.5v5h5"/><path d="M12 7.5V12l3.5 2"/>',
+  print: '<path d="M7 8V3h10v5"/><path d="M7 16H3v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6h-4"/><rect x="7" y="14" width="10" height="7"/>',
+  receipt: '<path d="M5 21V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v17l-2.3-1.6-2.3 1.6-2.4-1.6-2.3 1.6-2.4-1.6L5 21Z"/><path d="M9 7.5h6M9 11h6M9 14.5h4"/>',
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>',
+  moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+  sparkle: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>',
+  arrR: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  arrL: '<path d="M19 12H5M11 18l-6-6 6-6"/>',
+};
+
+const ic = (n, s = 18) => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n] || ''}</svg>`;
+const brandMark = `<div class="brand-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 L11 8 L14 13 L17 9 L21 20 Z"/><circle cx="18" cy="6" r="1.8" fill="currentColor"/></svg></div>`;
+
+/* ---------- state ---------- */
+const LS = 'skirental.v1';
+const defPrices = () => { const o = {}; CATS.forEach(c => o[c.id] = 1); return o; };
+const freshState = () => ({
+  v: 1,
+  settings: { shopName: 'Ски Рентал', currency: 'EUR', expectedHour: 17, defPrices: defPrices(), theme: 'auto' },
+  clients: [],
+  equipment: [],
+  rentals: [],
+  meta: { no: 0, lastBackupAt: null, createdAt: Date.now() }
+});
+
+let warnedStorage = false;
+function load() {
+  try {
+    const s = localStorage.getItem(LS);
+    if (!s) return null;
+    const d = JSON.parse(s);
+    if (!d || typeof d !== 'object') return null;
+    d.settings = Object.assign({ shopName: 'Ски Рентал', currency: 'EUR', expectedHour: 17, theme: 'auto' }, d.settings || {});
+    d.settings.defPrices = Object.assign(defPrices(), d.settings.defPrices || {});
+    d.meta = Object.assign({ no: 0, lastBackupAt: null, createdAt: Date.now() }, d.meta || {});
+    ['clients', 'equipment', 'rentals'].forEach(k => { if (!Array.isArray(d[k])) d[k] = []; });
+    if (!d.meta.no) d.meta.no = d.rentals.length;
+    return d;
+  } catch (e) {
+    return null;
+  }
+}
+
+function save() {
+  try {
+    localStorage.setItem(LS, JSON.stringify(state));
+  } catch (e) {
+    if (!warnedStorage) {
+      warnedStorage = true;
+      toast('Не можам да зачувам во складот на прелистувачот', 'err');
+    }
+  }
+}
+
+let state = load() || freshState();
+
+/* ---------- ui state ---------- */
+const ui = {
+  page: 'dash',
+  dash: { q: '' },
+  ren: { seg: 'active', qa: '', sa: 'late', qh: '', from: '', to: '', cat: 'all', paid: 'all', sort: 'new' },
+  eq: { q: '', cat: 'all', status: 'all', sort: 'cat', mode: 'normal', sel: new Set() },
+  cl: { q: '', onlyActive: false, sort: 'name' },
+  pay: { q: '', status: 'all', from: '', to: '', sort: 'new' }
+};
+
+/* ---------- utils ---------- */
+const $ = s => document.querySelector(s);
+const pad = n => String(n).padStart(2, '0');
+const pad4 = n => String(n).padStart(4, '0');
+const uid = () => 'x' + Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const norm = s => String(s ?? '').toLowerCase().trim();
+const tokens = q => norm(q).split(/\s+/).filter(Boolean);
+const matchTok = (fields, toks) => toks.every(t => fields.some(f => norm(f).includes(t)));
+const money = n => {
+  const cur = state.settings.currency;
+  const v = (Math.round((+n || 0) * 100) / 100).toFixed(2).replace('.', ',');
+  return cur === 'EUR' ? v + ' €' : v + ' ден';
+};
+const curSym = () => state.settings.currency === 'EUR' ? '€' : 'МКД';
+const WEEK = ['Недела', 'Понеделник', 'Вторник', 'Среда', 'Четврток', 'Петок', 'Сабота'];
+const fmtDT = ms => {
+  const d = new Date(ms);
+  return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + '.' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes());
+};
+const fmtD = ms => {
+  const d = new Date(ms);
+  return pad(d.getDate()) + '.' + pad(d.getMonth() + 1) + '.' + d.getFullYear();
+};
+const fmtT = ms => {
+  const d = new Date(ms);
+  return pad(d.getHours()) + ':' + pad(d.getMinutes());
+};
+const toInput = ms => {
+  const d = new Date(ms);
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+};
+const fromInput = v => {
+  const t = new Date(v).getTime();
+  return isNaN(t) ? null : t;
+};
+const d000 = v => {
+  if (!v) return null;
+  const [y, m, d] = v.split('-').map(Number);
+  return new Date(y, m - 1, d).getTime();
+};
+const d999 = v => {
+  const a = d000(v);
+  return a == null ? null : a + 864e5 - 1;
+};
+const isoDate = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const sameDay = (a, b) => new Date(a).toDateString() === new Date(b).toDateString();
+const calDays = (a, b) => {
+  const A = new Date(a), B = new Date(b);
+  const ma = new Date(A.getFullYear(), A.getMonth(), A.getDate()).getTime();
+  const mb = new Date(B.getFullYear(), B.getMonth(), B.getDate()).getTime();
+  return Math.max(1, Math.round((mb - ma) / 864e5) + 1);
+};
+const durParts = ms => {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  return { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 };
+};
+const fmtDur = ms => {
+  const p = durParts(ms);
+  return p.d ? p.d + 'д ' + p.h + 'ч' : (p.h ? p.h + 'ч ' + pad(p.m) + 'м' : p.m + 'м');
+};
+const liveTimerHTML = ms => {
+  const p = durParts(ms);
+  return (p.d ? p.d + 'д ' : '') + pad(p.h) + '<i>:</i>' + pad(p.m) + '<i>:</i>' + pad(p.s);
+};
+const clockText = now => {
+  const d = new Date(now);
+  return `${WEEK[d.getDay()]}, ${fmtD(now)} · ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+};
+const itemN = n => `${n} ${n === 1 ? 'предмет' : 'предмети'}`;
+const rentN = n => `${n} ${n === 1 ? 'изнајмување' : 'изнајмувања'}`;
+const daysLbl = n => `${n} ${n === 1 ? 'ден' : 'дена'}`;
+
+/* ---------- theme handling ---------- */
+function updateThemeIcons() {
+  const isDark = document.documentElement.dataset.theme === 'dark' ||
+    (!document.documentElement.dataset.theme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  document.querySelectorAll('.theme-toggle').forEach(b => {
+    b.innerHTML = ic(isDark ? 'sun' : 'moon', 18);
+    b.title = isDark ? 'Префрли на светла тема' : 'Префрли на темна тема';
+  });
+}
+
+function applyTheme(th) {
+  state.settings.theme = th || 'auto';
+  if (th === 'dark') {
+    document.documentElement.dataset.theme = 'dark';
+  } else if (th === 'light') {
+    document.documentElement.dataset.theme = 'light';
+  } else {
+    delete document.documentElement.dataset.theme;
+  }
+  updateThemeIcons();
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.dataset.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  save();
+  toast(next === 'dark' ? 'Темна тема вклучена' : 'Светла тема вклучена');
+}
+
+/* ---------- derived data ---------- */
+const rentalById = id => state.rentals.find(r => r.id === id);
+const clientById = id => state.clients.find(c => c.id === id);
+const eqById = id => state.equipment.find(e => e.id === id);
+const clientLabel = id => {
+  const c = clientById(id);
+  return c ? (c.first + ' ' + (c.last || '')).trim() : '(избришан клиент)';
+};
+const clientPhone = id => {
+  const c = clientById(id);
+  return c ? (c.phone || '—') : '—';
+};
+const activeRentals = () => state.rentals.filter(r => !r.closedAt);
+function rentedEqIds() {
+  const s = new Set();
+  activeRentals().forEach(r => r.items.forEach(it => {
+    if (!it.returnedAt && it.eqId) s.add(it.eqId);
+  }));
+  return s;
+}
+const eqState = e => !e.enabled ? 'off' : (rentedEqIds().has(e.id) ? 'rented' : 'free');
+const itemDays = (it, r) => calDays(r.start, it.returnedAt || Date.now());
+const itemCost = (it, r) => (it.price || 0) * itemDays(it, r);
+const rentalTotal = r => (r.closedAt && r.total != null) ? r.total : r.items.reduce((s, it) => s + itemCost(it, r), 0);
+const isLate = (r, now = Date.now()) => !r.closedAt && now > r.expected;
+const clientRentCount = cid => state.rentals.filter(r => r.clientId === cid).length;
+const clientHasActive = cid => activeRentals().some(r => r.clientId === cid);
+const clientOwed = cid => state.rentals.filter(r => r.clientId === cid && !r.paid).reduce((s, r) => s + rentalTotal(r), 0);
+const initials = c => ((c.first || '?')[0] + (c.last || '')[0] || '').toUpperCase();
+const costLine = (r, now = Date.now()) => {
+  const d = Math.max(1, ...r.items.map(it => itemDays(it, r)));
+  return `${daysLbl(d)} · ${money(rentalTotal(r))} досега`;
+};
+
+function rentalFields(r) {
+  const c = clientById(r.clientId) || {};
+  return [
+    '#' + pad4(r.no), String(r.no), c.first, c.last, c.phone, c.card, r.note,
+    ...r.items.map(it => it.name + ' ' + (it.size || '') + ' ' + catName(it.cat)),
+    fmtDT(r.start), r.closedAt ? fmtDT(r.closedAt) : 'активна',
+    r.paid ? 'наплатено платено' : 'ненаплатено', r.payMethod || '', money(rentalTotal(r))
+  ];
+}
+
+function itemChips(items) {
+  return items.map(it => `<span class="ichip ${it.returnedAt ? 'done' : ''}" title="${esc(it.name)}">${catEmoji(it.cat)}${it.size ? `<span>${esc(it.size)}</span>` : ''}</span>`).join('');
+}
+
+function catCountChips(items) {
+  const m = {};
+  items.forEach(it => m[it.cat] = (m[it.cat] || 0) + 1);
+  return Object.entries(m).map(([c, n]) => `<span class="ichip">${catEmoji(c)} × ${n}</span>`).join('');
+}
+
+const backupDue = () => {
+  const lb = state.meta.lastBackupAt || state.meta.createdAt;
+  return Date.now() - lb > 7 * 864e5 && (state.equipment.length || state.rentals.length);
+};
+
+/* ---------- toasts / confirm ---------- */
+function toast(msg, type = 'ok', ms = 3600) {
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.innerHTML = `${ic(type === 'err' ? 'alert' : 'check', 17)}<span>${msg}</span>`;
+  $('#toast-root').appendChild(t);
+  requestAnimationFrame(() => t.classList.add('in'));
+  setTimeout(() => {
+    t.classList.remove('in');
+    setTimeout(() => t.remove(), 260);
+  }, ms);
+}
+
+let pendingConfirm = null;
+function confirmBox({ title = 'Потврди', msg, ok = 'Потврди', danger = false, onOk }) {
+  pendingConfirm = onOk || null;
+  openModal(mShell(title, `<p class="cmsg">${msg}</p>`,
+    `<button class="btn sec" data-act="modal-close">Откажи</button><button class="btn ${danger ? 'dgrs' : 'pri'}" data-act="confirm-ok">${ok}</button>`));
+}
+
+/* ---------- modal framework ---------- */
+const modalRoot = () => document.getElementById('modal-root');
+let modalStack = [];
+function openModal(html, opts = {}) {
+  const w = document.createElement('div');
+  w.className = 'mwrap' + (opts.wide ? ' wide' : '');
+  w.innerHTML = `<div class="mbackdrop" data-act="modal-back"></div><div class="modal" role="dialog" aria-modal="true">${html}</div>`;
+  modalRoot().appendChild(w);
+  modalStack.push(w);
+  document.body.classList.add('lock');
+  const f = w.querySelector(opts.focus || 'input:not([type=hidden]),select,textarea');
+  if (f) setTimeout(() => f.focus(), 40);
+  return w;
+}
+
+function closeModal() {
+  const w = modalStack.pop();
+  if (w) w.remove();
+  if (!modalStack.length) document.body.classList.remove('lock');
+}
+
+function closeAllModals() {
+  modalStack.forEach(w => w.remove());
+  modalStack = [];
+  document.body.classList.remove('lock');
+}
+
+function mShell(title, body, foot = '') {
+  return `<div class="mhead"><h3>${title}</h3>
+   <button class="mclose" data-act="modal-close" aria-label="Затвори">${ic('x', 18)}</button></div>
+   <div class="mbody">${body}</div>${foot ? `<div class="mfoot">${foot}</div>` : ''}`;
+}
+
+/* ---------- app shell mount ---------- */
+function mountApp() {
+  $('#app').innerHTML = `
+  <!-- Desktop Sidebar -->
+  <aside id="sidebar">
+    <div class="brand">
+      ${brandMark}
+      <div>
+        <div class="bt">СКИ РЕНТАЛ</div>
+        <div class="brand-sub">Менаџер на опрема</div>
+      </div>
+    </div>
+    <nav id="nav-main">
+      ${[
+        ['dash', 'dash', 'Контролна табла'],
+        ['ren', 'clock', 'Изнајмувања'],
+        ['eq', 'box', 'Опрема'],
+        ['cl', 'users', 'Клиенти'],
+        ['pay', 'wallet', 'Плаќања']
+      ].map(([k, i, l]) => `
+        <button class="nav-item${k === 'dash' ? ' on' : ''}" data-act="nav" data-arg="${k}">
+          ${ic(i, 19)}<span>${l}</span>
+          ${k === 'ren' ? '<b class="nb" id="nb-ren"></b>' : ''}
+          ${k === 'pay' ? '<b class="nb ambb" id="nb-pay"></b>' : ''}
+        </button>
+      `).join('')}
+    </nav>
+    <div class="side-foot">
+      <div class="side-row">
+        <button class="nav-item" style="flex:1" data-act="settings">${ic('gear', 18)}<span>Поставки</span></button>
+        <button class="theme-toggle" data-act="toggle-theme" title="Смени тема" aria-label="Смени тема">${ic('moon', 17)}</button>
+      </div>
+      <div class="khint"><kbd>/</kbd> пребарај · <kbd>Esc</kbd> затвори</div>
+    </div>
+  </aside>
+
+  <!-- Mobile Top Navigation Bar (Frosted Glass Header) -->
+  <header id="mobile-topbar">
+    <div class="m-brand">
+      ${brandMark}
+      <span class="m-title">СКИ РЕНТАЛ</span>
+    </div>
+    <div class="m-actions">
+      <button class="theme-toggle" data-act="toggle-theme" title="Смени тема" aria-label="Смени тема">
+        ${ic('moon', 18)}
+      </button>
+      <button class="btn icb gh" data-act="settings" title="Поставки" aria-label="Поставки">
+        ${ic('gear', 19)}
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="aura-container">
+      <!-- Dashboard Page -->
+      <section class="page on" id="pg-dash">
+        <header class="phead">
+          <div>
+            <h1 class="ptitle">Контролна табла</h1>
+            <div class="psub" id="dash-clock"></div>
+          </div>
+          <div class="pactions">
+            <label class="search"><input id="q-dash" placeholder="Пребарај во активни…"></label>
+            <button class="btn pri" data-act="new-rental">${ic('plus', 16)}<span>Ново</span></button>
+          </div>
+        </header>
+        <div id="dash-body"></div>
+      </section>
+
+      <!-- Rentals Page -->
+      <section class="page" id="pg-ren">
+        <header class="phead">
+          <div>
+            <h1 class="ptitle">Изнајмувања</h1>
+            <div class="seg" style="margin-top:10px">
+              <button class="segbtn on" data-act="seg" data-arg="active">Активни <b id="seg-a-n" class="mono"></b></button>
+              <button class="segbtn" data-act="seg" data-arg="hist">Историја</button>
+            </div>
+          </div>
+          <div class="pactions">
+            <button class="btn pri" data-act="new-rental">${ic('plus', 16)}<span>Ново</span></button>
+          </div>
+        </header>
+        <div class="toolbar" id="tb-ren-a">
+          <label class="search"><input id="q-ren-a" placeholder="Пребарај клиент, опрема, белешка…"></label>
+          <select id="s-ren-a">
+            <option value="late">Доцнење прво</option>
+            <option value="new">Најнови</option>
+            <option value="old">Најстари</option>
+          </select>
+        </div>
+        <div class="toolbar hidden" id="tb-ren-h">
+          <label class="search"><input id="q-ren-h" placeholder="Пребарај во историјата…"></label>
+          <input type="date" id="f-h-from" title="Од">
+          <input type="date" id="f-h-to" title="До">
+          <select id="f-h-cat"></select>
+          <select id="f-h-paid">
+            <option value="all">Сите плаќања</option>
+            <option value="paid">Наплатени</option>
+            <option value="unpaid">Ненаплатени</option>
+          </select>
+          <select id="s-h">
+            <option value="new">Најнови прво</option>
+            <option value="old">Најстари прво</option>
+            <option value="dur">По траење</option>
+            <option value="sum">По сума</option>
+          </select>
+        </div>
+        <div id="ren-body"></div>
+      </section>
+
+      <!-- Equipment Page -->
+      <section class="page" id="pg-eq">
+        <header class="phead">
+          <div>
+            <h1 class="ptitle">Опрема</h1>
+            <div class="psub" id="eq-count"></div>
+          </div>
+          <div class="pactions">
+            <button class="btn gh" id="eq-mode-btn" data-act="eq-mode">${ic('check', 15)}<span>Избор</span></button>
+            <button class="btn sec" data-act="eq-bulk">${ic('plus', 15)}<span>Брзо</span></button>
+            <button class="btn pri" data-act="eq-new">${ic('plus', 15)}<span>Додај</span></button>
+          </div>
+        </header>
+        <div class="chips" id="eq-chips"></div>
+        <div class="toolbar">
+          <label class="search"><input id="q-eq" placeholder="Пребарај име, големина, белешка…"></label>
+          <select id="f-eq-status">
+            <option value="all">Сите статуси</option>
+            <option value="free">Слободна</option>
+            <option value="rented">Изнајмена</option>
+            <option value="off">Исклучена</option>
+            <option value="dmg">Оштетена</option>
+          </select>
+          <select id="s-eq">
+            <option value="cat">По категорија</option>
+            <option value="name">По име</option>
+            <option value="price">По цена</option>
+            <option value="times">По изнајмувања</option>
+            <option value="status">По статус</option>
+          </select>
+        </div>
+        <div id="eq-body"></div>
+        <div class="selbar hidden" id="eq-selbar"></div>
+      </section>
+
+      <!-- Clients Page -->
+      <section class="page" id="pg-cl">
+        <header class="phead">
+          <div>
+            <h1 class="ptitle">Клиенти</h1>
+            <div class="psub" id="cl-count"></div>
+          </div>
+          <div class="pactions">
+            <button class="btn pri" data-act="client-new">${ic('plus', 15)}<span>Нов клиент</span></button>
+          </div>
+        </header>
+        <div class="toolbar">
+          <label class="search"><input id="q-cl" placeholder="Пребарај име, телефон, картичка…"></label>
+          <select id="f-cl">
+            <option value="0">Сите клиенти</option>
+            <option value="1">Со активни изнајмувања</option>
+          </select>
+          <select id="s-cl">
+            <option value="name">По име</option>
+            <option value="last">По презиме</option>
+            <option value="phone">По телефон</option>
+            <option value="cnt">По број изнајмувања</option>
+          </select>
+        </div>
+        <div id="cl-body"></div>
+      </section>
+
+      <!-- Payments Page -->
+      <section class="page" id="pg-pay">
+        <header class="phead">
+          <div>
+            <h1 class="ptitle">Плаќања</h1>
+            <div class="psub">Наплатени и ненаплатени изнајмувања</div>
+          </div>
+          <div class="pactions">
+            <button class="btn sec" data-act="report-open">${ic('receipt', 16)}<span>Извештај</span></button>
+          </div>
+        </header>
+        <div class="toolbar">
+          <label class="search"><input id="q-pay" placeholder="Пребарај клиент, билет, сума…"></label>
+          <select id="f-pay-status">
+            <option value="all">Сите</option>
+            <option value="paid">Наплатени</option>
+            <option value="unpaid">Ненаплатени</option>
+          </select>
+          <input type="date" id="f-pay-from" title="Од">
+          <input type="date" id="f-pay-to" title="До">
+          <select id="s-pay">
+            <option value="new">Најнови прво</option>
+            <option value="old">Најстари прво</option>
+            <option value="sum">По сума</option>
+          </select>
+        </div>
+        <div id="pay-body"></div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Mobile Bottom Tab Bar -->
+  <nav id="bottomnav">
+    ${[
+      ['dash', 'dash', 'Табла'],
+      ['ren', 'clock', 'Изнајм.'],
+      ['eq', 'box', 'Опрема'],
+      ['cl', 'users', 'Клиенти'],
+      ['pay', 'wallet', 'Плаќања']
+    ].map(([k, i, l]) => `
+      <button class="${k === 'dash' ? 'on' : ''}" data-act="nav" data-arg="${k}">
+        ${ic(i, 20)}
+        <span>${l}</span>
+        ${k === 'ren' ? '<b class="nb" id="bn-ren"></b>' : ''}
+        ${k === 'pay' ? '<b class="nb ambb" id="bn-pay"></b>' : ''}
+      </button>
+    `).join('')}
+  </nav>`;
+
+  $('#eq-chips').innerHTML = `<button class="chip on" data-act="chip" data-scope="eq" data-arg="all">Сите</button>`
+    + CATS.map(c => `<button class="chip" data-act="chip" data-scope="eq" data-arg="${c.id}">${c.e} ${c.n}</button>`).join('');
+
+  $('#f-h-cat').innerHTML = `<option value="all">Сите категории</option>`
+    + CATS.map(c => `<option value="${c.id}">${c.e} ${c.n}</option>`).join('');
+
+  applyTheme(state.settings.theme || 'auto');
+}
+
+/* ---------- routing ---------- */
+function nav(p) {
+  ui.page = p;
+  ['dash', 'ren', 'eq', 'cl', 'pay'].forEach(k => $('#pg-' + k).classList.toggle('on', k === p));
+  document.querySelectorAll('#nav-main .nav-item, #bottomnav button').forEach(b => b.classList.toggle('on', b.dataset.arg === p));
+  window.scrollTo({ top: 0 });
+  renderPage();
+}
+
+function renderPage() {
+  ({ dash: renderDash, ren: renderRentals, eq: renderEquip, cl: renderClients, pay: renderPayments })[ui.page]();
+  refreshBadges();
+}
+
+function commit() {
+  save();
+  renderPage();
+  refreshBadges();
+}
+
+function refreshBadges() {
+  const a = activeRentals().length;
+  const u = state.rentals.filter(r => !r.paid).length;
+  [['#nb-ren', '#bn-ren', a], ['#nb-pay', '#bn-pay', u]].forEach(([d, m, v]) => {
+    [d, m].forEach(s => {
+      const el = $(s);
+      if (el) el.textContent = v || '';
+    });
+  });
+}
+
+/* ---------- shared renderers ---------- */
+function activeRow(r, re) {
+  const now = Date.now(), late = isLate(r, now);
+  const out = r.items.filter(i => i.returnedAt).length;
+  return `
+  <div class="rowcard ${late ? 'late' : ''}" data-rrow data-act="rental-view" data-arg="${r.id}">
+    <div class="rc-main">
+      <div class="rc-l1">
+        <span class="tkno">#${pad4(r.no)}</span>
+        <b class="cname">${esc(clientLabel(r.clientId))}</b>
+        <a class="phonel" data-act="tel" href="tel:${esc(clientPhone(r.clientId))}">
+          ${ic('phone', 13)}<span>${esc(clientPhone(r.clientId))}</span>
+        </a>
+        <span class="badge b-mut">до ${fmtD(r.expected)} · ${fmtT(r.expected)}</span>
+        <span class="badge b-late ${late ? '' : 'hidden'}" data-latewrap>
+          <span class="dot rented pulse"></span>
+          <span data-late>${late ? 'ДОЦНИ ' + fmtDur(now - r.expected) : ''}</span>
+        </span>
+        ${out ? `<span class="mut small">${out}/${r.items.length} вратени</span>` : ''}
+      </div>
+      <div class="rc-l2">
+        ${itemChips(r.items)}
+        <span class="mono" data-cost>${costLine(r, now)}</span>
+        ${r.note ? `<span title="${esc(r.note)}">📝</span>` : ''}
+      </div>
+    </div>
+    <div class="rc-side">
+      <span class="timer" data-timer="${r.id}">${liveTimerHTML(now - r.start)}</span>
+      <button class="btn sm pri" data-act="rental-return" data-arg="${r.id}"${re ? ` data-re="${re}"` : ''}>Врати</button>
+    </div>
+  </div>`;
+}
+
+function emptyHTML(t, sub, act, label) {
+  return `
+  <div class="empty">
+    <div class="empty-icon">${ic('box', 28)}</div>
+    <div class="et">${t}</div>
+    <div>${sub}</div>
+    ${act ? `<button class="btn sec" data-act="${act}">${label}</button>` : ''}
+  </div>`;
+}
+
+function bannerHTML() {
+  return `
+  <div class="banner">
+    ${ic('alert', 18)}
+    <span><b>Резервна копија</b> — помина повеќе од една недела од последната копија.</span>
+    <button class="btn sm pri" data-act="backup-now">${ic('down', 14)}<span>Превземи сега</span></button>
+    <button class="btn sm gh" data-act="backup-later">Подоцна</button>
+  </div>`;
+}
+
+/* ---------- dashboard ---------- */
+function renderDash() {
+  $('#dash-clock').textContent = clockText(Date.now());
+  const el = $('#dash-body');
+  if (!state.equipment.length && !state.rentals.length) {
+    el.innerHTML = `
+    <div class="hero">
+      <div class="hero-icon">${ic('sparkle', 36)}</div>
+      <h2>Почни со инвентарот</h2>
+      <p>Додај ја опремата што ја изнајмуваш или вчитај подготвени пробни податоци за брзо тестирање — сè работи локално и брзо, без интернет.</p>
+      <div class="hbtns">
+        <button class="btn pri" data-act="eq-new">${ic('plus', 15)}<span>Додај опрема</span></button>
+        <button class="btn sec" data-act="demo-load">Вчитај пробни податоци</button>
+      </div>
+      <div class="note">Пробните податоци лесно може да ги избришеш подоцна во Поставки.</div>
+    </div>`;
+    return;
+  }
+
+  const now = Date.now(), act = activeRentals(), late = act.filter(r => isLate(r, now)), rented = rentedEqIds();
+  const paidToday = state.rentals.filter(r => r.paid && r.paidAt && sameDay(r.paidAt, now)).reduce((s, r) => s + rentalTotal(r), 0);
+  const unpaidAll = state.rentals.filter(r => !r.paid).reduce((s, r) => s + rentalTotal(r), 0);
+  const toks = tokens(ui.dash.q);
+  let list = act.filter(r => toks.length ? matchTok(rentalFields(r), toks) : true);
+  list.sort((a, b) => {
+    const la = isLate(a, now) ? 1 : 0, lb = isLate(b, now) ? 1 : 0;
+    if (lb !== la) return lb - la;
+    return b.start - a.start;
+  });
+
+  const avail = state.equipment.length ? `
+    <div class="avail">
+      <div class="sec-t">Достапност на инвентарот по категорија</div>
+      ${CATS.map(c => {
+        const all = state.equipment.filter(e => e.cat === c.id);
+        if (!all.length) return '';
+        const r = all.filter(e => rented.has(e.id)).length;
+        const o = all.filter(e => !e.enabled).length;
+        const f = all.length - r - o;
+        return `
+        <div class="avail-row">
+          <span class="al">${c.e} ${c.n}</span>
+          <span class="abar">
+            ${f ? `<span class="aseg g" style="flex:${f}"></span>` : ''}
+            ${r ? `<span class="aseg r" style="flex:${r}"></span>` : ''}
+            ${o ? `<span class="aseg o" style="flex:${o}"></span>` : ''}
+          </span>
+          <span class="ac">${f} / ${all.length}</span>
+        </div>`;
+      }).join('')}
+    </div>` : '';
+
+  el.innerHTML = `
+    ${backupDue() ? bannerHTML() : ''}
+
+    <!-- AURA Signature Action Tiles -->
+    <div class="dash-actions-grid">
+      <article class="aura-action-tile aura-gradient-blue" data-act="new-rental">
+        <div class="aura-action-tile__icon">${ic('plus', 22)}</div>
+        <h3>Ново изнајмување</h3>
+        <p>Издади опрема со прецизен тајмер и автоматска пресметка.</p>
+      </article>
+      <article class="aura-action-tile aura-gradient-purple" data-act="eq-new">
+        <div class="aura-action-tile__icon">${ic('box', 22)}</div>
+        <h3>Додај нова опрема</h3>
+        <p>Заведи скии, борд, кондури или додатоци во инвентарот.</p>
+      </article>
+    </div>
+
+    <!-- Metrics Statline -->
+    <div class="statline">
+      <button class="stat" data-act="nav" data-arg="ren">
+        <span class="k">Активни</span>
+        <span class="v">${act.length}</span>
+      </button>
+      <button class="stat" data-act="nav" data-arg="ren">
+        <span class="k">Доцнат</span>
+        <span class="v ${late.length ? 'red' : ''}">${late.length}</span>
+      </button>
+      <button class="stat" data-act="nav" data-arg="eq">
+        <span class="k">Слободна опрема</span>
+        <span class="v">${state.equipment.length - rented.size} / ${state.equipment.length}</span>
+      </button>
+      <button class="stat" data-act="nav" data-arg="pay">
+        <span class="k">Наплатено денес</span>
+        <span class="v">${money(paidToday)}</span>
+      </button>
+      <button class="stat" data-act="nav" data-arg="pay">
+        <span class="k">Ненаплатено</span>
+        <span class="v ${unpaidAll ? 'amb' : ''}">${money(unpaidAll)}</span>
+      </button>
+    </div>
+
+    ${avail}
+
+    <div class="list-h">
+      <h2 class="lh">Активни изнајмувања</h2>
+      <span class="mono mut">${list.length}</span>
+    </div>
+    ${list.map(r => activeRow(r)).join('') || emptyHTML('Нема активни изнајмувања', 'Сите изнајмувања се вратени или архивирани.', 'new-rental', 'Ново изнајмување')}
+  `;
+}
+
+/* ---------- rentals page ---------- */
+function renderRentals() {
+  const now = Date.now();
+  $('#tb-ren-a').classList.toggle('hidden', ui.ren.seg !== 'active');
+  $('#tb-ren-h').classList.toggle('hidden', ui.ren.seg !== 'hist');
+  $('#seg-a-n').textContent = activeRentals().length || '';
+  document.querySelectorAll('#pg-ren .segbtn').forEach(b => b.classList.toggle('on', b.dataset.arg === ui.ren.seg));
+  const el = $('#ren-body');
+
+  if (ui.ren.seg === 'active') {
+    const toks = tokens(ui.ren.qa);
+    let list = activeRentals().filter(r => toks.length ? matchTok(rentalFields(r), toks) : true);
+    const s = ui.ren.sa;
+    list.sort((a, b) => {
+      const la = isLate(a, now) ? 1 : 0, lb = isLate(b, now) ? 1 : 0;
+      if (s === 'late' && lb !== la) return lb - la;
+      if (s === 'late' && la && lb) return (now - b.expected) - (now - a.expected);
+      return s === 'old' ? a.start - b.start : b.start - a.start;
+    });
+    el.innerHTML = `
+      <div class="list-h">
+        <h2 class="lh">Активни</h2>
+        <span class="mono mut">${list.length}</span>
+      </div>`
+      + (list.map(r => activeRow(r)).join('') || emptyHTML('Нема активни изнајмувања', 'Пребарај или создади ново изнајмување.', 'new-rental', 'Ново изнајмување'));
+  } else {
+    const toks = tokens(ui.ren.qh);
+    const { from, to, cat, paid, sort } = ui.ren;
+    let list = state.rentals.filter(r => r.closedAt);
+    const f = d000(from), t = d999(to);
+    if (f != null) list = list.filter(r => r.closedAt >= f);
+    if (t != null) list = list.filter(r => r.closedAt <= t);
+    if (cat !== 'all') list = list.filter(r => r.items.some(it => it.cat === cat));
+    if (paid !== 'all') list = list.filter(r => paid === 'paid' ? r.paid : !r.paid);
+    if (toks.length) list = list.filter(r => matchTok(rentalFields(r), toks));
+    list.sort((a, b) => sort === 'old' ? a.closedAt - b.closedAt : sort === 'dur' ? (b.closedAt - b.start) - (a.closedAt - a.start) : sort === 'sum' ? rentalTotal(b) - rentalTotal(a) : b.closedAt - a.closedAt);
+    el.innerHTML = `
+      <div class="list-h">
+        <h2 class="lh">Историја</h2>
+        <span class="mono mut">${list.length}</span>
+      </div>`
+      + (list.map(r => {
+        const dur = fmtDur(r.closedAt - r.start), d = calDays(r.start, r.closedAt);
+        return `
+        <div class="rowcard" data-act="rental-view" data-arg="${r.id}">
+          <div class="rc-main">
+            <div class="rc-l1">
+              <span class="tkno">#${pad4(r.no)}</span>
+              <b class="cname">${esc(clientLabel(r.clientId))}</b>
+              <span class="mono mut small">${fmtDT(r.start)} → ${fmtDT(r.closedAt)}</span>
+              ${r.paid ? `<span class="badge b-ok">Наплатено</span>` : `<span class="badge b-warn">Ненаплатено</span>`}
+            </div>
+            <div class="rc-l2">
+              ${catCountChips(r.items)}
+              <span class="mono">${dur} · ${daysLbl(d)}</span>
+              ${r.note ? `<span title="${esc(r.note)}">📝</span>` : ''}
+            </div>
+          </div>
+          <div class="rc-side">
+            <b class="price" style="font-size:16px">${money(rentalTotal(r))}</b>
+          </div>
+        </div>`;
+      }).join('') || emptyHTML('Историјата е празна', 'Вратените и архивирани изнајмувања ќе се појават тука.', '', ''));
+  }
+}
+
+/* ---------- equipment page ---------- */
+const numCmp = (a, b) => {
+  const x = parseFloat(a) || 0, y = parseFloat(b) || 0;
+  return x - y || String(a).localeCompare(String(b), 'mk');
+};
+
+function filteredEq() {
+  const toks = tokens(ui.eq.q);
+  const { cat, status, sort } = ui.eq;
+  const rented = rentedEqIds();
+  const stOrd = { free: 0, rented: 1, off: 2 };
+  let list = state.equipment.filter(e => {
+    if (cat !== 'all' && e.cat !== cat) return false;
+    const st = !e.enabled ? 'off' : (rented.has(e.id) ? 'rented' : 'free');
+    if (status === 'dmg') {
+      if (!e.damaged) return false;
+    } else if (status !== 'all' && st !== status) {
+      return false;
+    }
+    const stN = { free: 'слободна', rented: 'изнајмена', off: 'исклучена' }[st];
+    if (toks.length && !matchTok([e.name, e.size, catName(e.cat), e.comment, String(e.price), stN], toks)) return false;
+    return true;
+  });
+  const cmp = {
+    cat: (a, b) => CATIDX[a.cat] - CATIDX[b.cat] || numCmp(a.size, b.size) || a.name.localeCompare(b.name, 'mk'),
+    name: (a, b) => a.name.localeCompare(b.name, 'mk') || numCmp(a.size, b.size),
+    price: (a, b) => b.price - a.price,
+    times: (a, b) => b.timesRented - a.timesRented,
+    status: (a, b) => stOrd[eqState(a)] - stOrd[eqState(b)] || a.name.localeCompare(b.name, 'mk')
+  }[sort] || (() => 0);
+  return list.sort(cmp);
+}
+
+function renderEquip() {
+  const list = filteredEq();
+  const rented = rentedEqIds();
+  const free = state.equipment.length - rented.size - (state.equipment.filter(e => !e.enabled && !rented.has(e.id)).length);
+  $('#eq-count').textContent = `${state.equipment.length} предмети · ${free} слободни`;
+  const mb = $('#eq-mode-btn');
+  if (mb) mb.querySelector('span').textContent = ui.eq.mode === 'sel' ? 'Откажи' : 'Избор';
+
+  $('#eq-body').innerHTML = list.map(e => {
+    const st = eqState(e), seld = ui.eq.sel.has(e.id);
+    const stN = { free: 'слободна', rented: 'изнајмена', off: 'исклучена' }[st];
+    return `
+    <div class="rowcard ${ui.eq.mode === 'sel' ? 'selchk' : ''} ${seld ? 'selchk' : ''}" data-act="eq-row" data-arg="${e.id}">
+      <div class="rc-main">
+        <div class="rc-l1">
+          ${ui.eq.mode === 'sel' ? `<span class="chk"></span>` : ''}
+          <span class="dot ${st}"></span>
+          <b>${catEmoji(e.cat)} ${esc(e.name)}</b>
+          ${e.size ? `<span class="sizeb">${esc(e.size)}</span>` : ''}
+          ${e.damaged ? `<span class="badge b-warn">оштетена</span>` : ''}
+          <span class="catl">${esc(catName(e.cat))}</span>
+        </div>
+        ${(e.comment || stN) ? `<div class="rc-l2"><span>${stN}</span>${e.comment ? `<span>· ${esc(e.comment)}</span>` : ''}</div>` : ''}
+      </div>
+      <div class="rc-side">
+        <div class="rc-meta">
+          <span class="price">${money(e.price)}<span class="mut small">/ден</span></span>
+          <span class="mono mut small" title="Изнајмено досега">· ${e.timesRented}×</span>
+        </div>
+        <div class="rc-btns">
+          <button class="swbtn ${e.enabled ? 'on' : ''}" data-act="eq-toggle" data-arg="${e.id}" role="switch" aria-checked="${e.enabled}" title="${e.enabled ? 'Исклучи од изнајмување' : 'Вклучи за изнајмување'}"></button>
+          <button class="btn icb gh" data-act="eq-row" data-arg="${e.id}" title="Уреди">${ic('edit', 16)}</button>
+          <button class="btn icb gh dgr" data-act="eq-del" data-arg="${e.id}" title="Избриши">${ic('trash', 16)}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('') || emptyHTML('Нема опрема во овој приказ', 'Промени го филтерот или додај нова опрема.', 'eq-new', 'Додај опрема');
+  renderSelbar(list.length);
+}
+
+function renderSelbar(total) {
+  const bar = $('#eq-selbar');
+  const on = ui.eq.mode === 'sel';
+  bar.classList.toggle('hidden', !on);
+  if (!on) return;
+  bar.innerHTML = `
+    <span class="cnt">Избрано: <b>${ui.eq.sel.size}</b></span>
+    <button class="btn sm sec" data-act="eq-selall">Сите (${total ?? filteredEq().length})</button>
+    <button class="btn sm pri" data-act="eq-bulk-price">Постави цена</button>
+    <button class="btn sm sec" data-act="eq-bulk-del">Избриши</button>
+    <button class="btn sm gh" data-act="eq-mode">Откажи</button>
+  `;
+}
+
+/* ---------- equipment forms ---------- */
+function openEqForm(a) {
+  const e = a ? eqById(a) : null;
+  const dp = state.settings.defPrices;
+  openModal(mShell(e ? 'Уреди опрема' : 'Нова опрема', `
+    <div class="fgrid">
+      <div class="frow">
+        <label>Категорија *</label>
+        <select id="ef-cat">${CATS.map(c => `<option value="${c.id}"${e && e.cat === c.id ? ' selected' : ''}>${c.e} ${c.n}</option>`).join('')}</select>
+      </div>
+      <div class="frow">
+        <label>Големина</label>
+        <input id="ef-size" value="${esc(e ? e.size : '')}" placeholder="пр. ${catById(e ? e.cat : 'skis').hint}">
+      </div>
+    </div>
+    <div class="frow">
+      <label>Име (празно = категорија + големина)</label>
+      <input id="ef-name" value="${esc(e ? e.name : '')}">
+    </div>
+    <div class="fgrid">
+      <div class="frow">
+        <label>Цена по ден (${curSym()})</label>
+        <input type="number" id="ef-price" min="0" step="0.5" value="${e ? e.price : dp[e ? e.cat : 'skis']}">
+      </div>
+    </div>
+    <div class="frow">
+      <label>Белешка</label>
+      <textarea id="ef-com">${esc(e ? e.comment : '')}</textarea>
+    </div>
+    <label class="fcheck">
+      <input type="checkbox" id="ef-on" ${(!e || e.enabled) ? 'checked' : ''}> Достапна за изнајмување
+    </label>`,
+    `${e ? `<button class="btn dgr" data-act="eq-del" data-arg="${e.id}">${ic('trash', 15)}<span>Избриши</span></button>` : ''}
+     <button class="btn sec" data-act="modal-close">Откажи</button>
+     <button class="btn pri" data-act="eq-save" data-arg="${a || ''}">Зачувај</button>`));
+}
+
+function saveEq(a) {
+  const cat = $('#ef-cat').value;
+  const name = norm($('#ef-name').value);
+  const size = norm($('#ef-size').value);
+  let price = parseFloat($('#ef-price').value);
+  if (isNaN(price) || price < 0) {
+    toast('Внеси валидна цена', 'err');
+    return;
+  }
+  const comment = norm($('#ef-com').value);
+  const enabled = $('#ef-on').checked;
+  const nm = name || (catName(cat) + (size ? ' ' + size : ''));
+  if (a && eqById(a)) {
+    Object.assign(eqById(a), { cat, name: nm, size, price, comment, enabled });
+  } else {
+    state.equipment.push({ id: uid(), cat, name: nm, size, price, comment, enabled, damaged: false, timesRented: 0, createdAt: Date.now() });
+  }
+  commit();
+  closeModal();
+  toast('Опремата е зачувана');
+}
+
+function openBulkAdd() {
+  const dp = state.settings.defPrices;
+  openModal(mShell('Брзо додавање (повеќе парчиња)', `
+    <p class="note">Создава повеќе предмети од ист тип — на пример 6 парчиња Кондури број 41.</p>
+    <div class="fgrid">
+      <div class="frow">
+        <label>Категорија</label>
+        <select id="ba-cat">${CATS.map(c => `<option value="${c.id}">${c.e} ${c.n}</option>`).join('')}</select>
+      </div>
+      <div class="frow">
+        <label>Големина</label>
+        <input id="ba-size" placeholder="пр. ${CATS[0].hint}">
+      </div>
+    </div>
+    <div class="fgrid">
+      <div class="frow">
+        <label>Количина</label>
+        <input type="number" id="ba-qty" min="1" max="99" value="1">
+      </div>
+      <div class="frow">
+        <label>Цена по ден (${curSym()})</label>
+        <input type="number" id="ba-price" min="0" step="0.5" value="${dp.skis}">
+      </div>
+    </div>
+    <div class="frow">
+      <label>Префикс на име</label>
+      <input id="ba-name" placeholder="пр. ${CATS[0].n}">
+    </div>`,
+    `<button class="btn sec" data-act="modal-close">Откажи</button>
+     <button class="btn pri" data-act="bulk-add">Додај</button>`));
+}
+
+function applyBulkAdd() {
+  const cat = $('#ba-cat').value;
+  const size = norm($('#ba-size').value);
+  let price = parseFloat($('#ba-price').value);
+  let qty = parseInt($('#ba-qty').value);
+  if (isNaN(price) || price < 0) { toast('Внеси валидна цена', 'err'); return; }
+  if (isNaN(qty) || qty < 1 || qty > 99) { toast('Количина 1–99', 'err'); return; }
+  const prefix = norm($('#ba-name').value) || catName(cat);
+  for (let i = 1; i <= qty; i++) {
+    state.equipment.push({
+      id: uid(), cat,
+      name: `${prefix}${size ? ' ' + size : ''} #${i}`,
+      size, price, comment: '', enabled: true, damaged: false, timesRented: 0, createdAt: Date.now()
+    });
+  }
+  commit();
+  closeModal();
+  toast(`Додадени ${itemN(qty)}`);
+}
+
+/* ---------- clients page ---------- */
+function renderClients() {
+  let list = state.clients.slice();
+  if (ui.cl.onlyActive) list = list.filter(c => clientHasActive(c.id));
+  const toks = tokens(ui.cl.q);
+  if (toks.length) list = list.filter(c => matchTok([c.first, c.last, c.phone, c.card], toks));
+  const cnt = id => clientRentCount(id);
+  list.sort((a, b) => ui.cl.sort === 'last' ? a.last.localeCompare(b.last, 'mk')
+    : ui.cl.sort === 'phone' ? a.phone.localeCompare(b.phone, 'mk')
+    : ui.cl.sort === 'cnt' ? cnt(b.id) - cnt(a.id)
+    : a.first.localeCompare(b.first, 'mk'));
+  $('#cl-count').textContent = `${state.clients.length} клиенти`;
+  $('#cl-body').innerHTML = list.map(c => {
+    const hasA = clientHasActive(c.id);
+    const actInfo = hasA ? activeRentals().filter(r => r.clientId === c.id).map(r => `#${pad4(r.no)}`).join(' · ') : '';
+    return `
+    <div class="rowcard" data-act="client-view" data-arg="${c.id}">
+      <div style="display:flex;align-items:center;gap:12px">
+        <span class="avatar">${initials(c)}</span>
+        <div class="rc-main">
+          <div class="rc-l1">
+            <b class="cname">${esc(c.first)} ${esc(c.last || '')}</b>
+            <a class="phonel" data-act="tel" href="tel:${esc(c.phone)}">
+              ${ic('phone', 13)}<span>${esc(c.phone)}</span>
+            </a>
+            ${c.card ? `<span class="mut small">карт. ${esc(c.card)}</span>` : ''}
+            ${hasA ? `<span class="badge b-ok">активен</span>` : ''}
+          </div>
+          ${actInfo ? `<div class="rc-l2"><span>активно: ${actInfo}</span></div>` : ''}
+        </div>
+      </div>
+      <div class="rc-side">
+        <div class="rc-meta">
+          <span class="mono" style="font-weight:700">${cnt(c.id)}</span> <span class="mut small">изнајм.</span>
+        </div>
+        <div class="rc-btns">
+          <button class="btn icb gh" data-act="client-history" data-arg="${c.id}" title="Историја">${ic('hist', 17)}</button>
+          <button class="btn icb gh" data-act="client-edit" data-arg="${c.id}" title="Уреди">${ic('edit', 16)}</button>
+          <button class="btn icb gh dgr" data-act="client-del" data-arg="${c.id}" title="Избриши">${ic('trash', 16)}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('') || emptyHTML('Нема клиенти', 'Клиентите се креираат автоматски при првото изнајмување, или рачно.', 'client-new', 'Нов клиент');
+}
+
+function openClientForm(a) {
+  const c = a ? clientById(a) : null;
+  openModal(mShell(c ? 'Уреди клиент' : 'Нов клиент', `
+    <div class="fgrid">
+      <div class="frow"><label>Име *</label><input id="cf-first" value="${esc(c ? c.first : '')}"></div>
+      <div class="frow"><label>Презиме</label><input id="cf-last" value="${esc(c ? c.last : '')}"></div>
+    </div>
+    <div class="fgrid">
+      <div class="frow"><label>Телефон * (уникатен)</label><input id="cf-phone" type="tel" value="${esc(c ? c.phone : '')}" placeholder="07x xxx xxx"></div>
+      <div class="frow"><label>Број на картичка</label><input id="cf-card" value="${esc(c ? c.card : '')}"></div>
+    </div>`,
+    `<button class="btn sec" data-act="modal-close">Откажи</button>
+     <button class="btn pri" data-act="client-save" data-arg="${a || ''}">Зачувај</button>`));
+}
+
+function saveClient(a) {
+  const f = norm($('#cf-first').value), l = norm($('#cf-last').value),
+    p = norm($('#cf-phone').value), card = norm($('#cf-card').value);
+  if (!f || !p) { toast('Името и телефонот се задолжителни', 'err'); return; }
+  const dup = state.clients.find(c => norm(c.phone) === p && c.id !== a);
+  if (dup) { toast(`Клиент со телефон ${esc(p)} веќе постои: ${esc(dup.first + ' ' + dup.last)}`, 'err', 5000); return; }
+  if (a && clientById(a)) {
+    Object.assign(clientById(a), { first: f, last: l, phone: p, card });
+  } else {
+    state.clients.push({ id: uid(), first: f, last: l, phone: p, card, createdAt: Date.now() });
+  }
+  commit();
+  closeModal();
+  toast('Клиентот е зачуван');
+}
+
+/* ---------- client modal / history ---------- */
+function openClientModal(cid) {
+  const c = clientById(cid);
+  if (!c) return;
+  const act = activeRentals().filter(r => r.clientId === cid);
+  const unpaid = state.rentals.filter(r => r.clientId === cid && !r.paid);
+  const owed = unpaid.reduce((s, r) => s + rentalTotal(r), 0);
+  openModal(mShell(`${esc(c.first)} ${esc(c.last || '')}`, `
+    <div class="cl-head">
+      <span class="avatar lg">${initials(c)}</span>
+      <div>
+        <b style="font-size:17px">${esc(c.first)} ${esc(c.last || '')}</b>
+        <div class="mono mut small" style="margin-top:3px">
+          <a class="phonel" data-act="tel" href="tel:${esc(c.phone)}">${ic('phone', 13)}<span>${esc(c.phone)}</span></a>
+          ${c.card ? ` · картичка ${esc(c.card)}` : ''}
+        </div>
+      </div>
+      <div class="cl-count">
+        <b class="mono" style="font-size:20px">${clientRentCount(cid)}</b>
+        <span class="mut small">${'изнајмувања'}</span>
+      </div>
+    </div>
+    <div class="tk-dash"></div>
+    <div class="sec-t">Активни изнајмувања (${act.length})</div>
+    ${act.map(r => activeRow(r, cid)).join('') || `<div class="quiet">${ic('check', 16)} Нема активни изнајмувања — сè е вратено.</div>`}
+    ${unpaid.length ? `
+      <div class="sec-t">Ненаплатено · ${money(owed)}</div>
+      ${unpaid.map(r => `
+        <div class="minipay">
+          <span class="mono">#${pad4(r.no)} · ${fmtD(r.closedAt || r.start)}</span>
+          <b class="mono">${money(rentalTotal(r))}</b>
+          <button class="btn sm pri" data-act="pay-open" data-arg="${r.id}" data-re="${cid}">Наплати</button>
+        </div>
+      `).join('')}` : ''}`,
+    `<button class="btn sec" data-act="client-history" data-arg="${cid}">${ic('hist', 15)}<span>Историја</span></button>
+     <button class="btn sec" data-act="client-edit" data-arg="${cid}">${ic('edit', 15)}<span>Уреди</span></button>
+     <button class="btn dgr" data-act="client-del" data-arg="${cid}">${ic('trash', 15)}<span>Избриши</span></button>`));
+}
+
+function openClientHistory(cid) {
+  const c = clientById(cid);
+  if (!c) return;
+  const list = state.rentals.filter(r => r.clientId === cid).sort((a, b) => b.start - a.start);
+  openModal(mShell(`Историја · ${esc(c.first)} ${esc(c.last || '')}`, list.map(r => {
+    const active = !r.closedAt;
+    return `
+    <button class="hrow" data-act="rental-view" data-arg="${r.id}">
+      <span class="mono mut">#${pad4(r.no)}</span>
+      <span class="mono small">${fmtDT(r.start)} → ${active ? '<b style="color:var(--color-blue)">активна</b>' : fmtDT(r.closedAt)}</span>
+      <span>${catCountChips(r.items)}</span>
+      <span class="mono small">${active ? '—' : fmtDur(r.closedAt - r.start)}</span>
+      <b class="mono">${money(rentalTotal(r))}</b>
+      ${r.paid ? `<span class="badge b-ok">Наплатено</span>` : active ? `<span class="badge b-mut">Активна</span>` : `<span class="badge b-warn">Ненаплатено</span>`}
+    </button>`;
+  }).join('') || `<div class="quiet">${ic('hist', 16)} Сè уште нема изнајмувања за овој клиент.</div>`, { wide: true }));
+}
+
+/* ---------- payments page ---------- */
+function renderPayments() {
+  const toks = tokens(ui.pay.q);
+  const { status, from, to, sort } = ui.pay;
+  let list = state.rentals.slice();
+  const f = d000(from), t = d999(to);
+  if (status !== 'all') list = list.filter(r => status === 'paid' ? r.paid : !r.paid);
+  if (toks.length) list = list.filter(r => matchTok(rentalFields(r), toks));
+  list = list.filter(r => {
+    const b = r.closedAt || r.start;
+    return (f == null || b >= f) && (t == null || b <= t);
+  });
+  list.sort((a, b) => {
+    const ba = a.closedAt || a.start, bb = b.closedAt || b.start;
+    return sort === 'old' ? ba - bb : sort === 'sum' ? rentalTotal(b) - rentalTotal(a) : bb - ba;
+  });
+  const paidS = list.filter(r => r.paid).reduce((s, r) => s + rentalTotal(r), 0);
+  const unpS = list.filter(r => !r.paid).reduce((s, r) => s + rentalTotal(r), 0);
+  $('#pay-body').innerHTML = `
+    <div class="statline">
+      <div class="statd"><span class="k">Наплатено</span><span class="v">${money(paidS)}</span></div>
+      <div class="statd"><span class="k">Ненаплатено</span><span class="v ${unpS ? 'amb' : ''}">${money(unpS)}</span></div>
+      <div class="statd"><span class="k">Изнајмувања</span><span class="v">${list.length}</span></div>
+    </div>
+    ${list.map(r => {
+      const active = !r.closedAt, basis = r.closedAt || r.start;
+      return `
+      <div class="rowcard" data-act="rental-view" data-arg="${r.id}">
+        <div class="rc-main">
+          <div class="rc-l1">
+            <span class="tkno">#${pad4(r.no)}</span>
+            <b class="cname">${esc(clientLabel(r.clientId))}</b>
+            <a class="phonel" data-act="tel" href="tel:${esc(clientPhone(r.clientId))}">${ic('phone', 13)}<span>${esc(clientPhone(r.clientId))}</span></a>
+            ${active ? `<span class="badge b-mut">активна</span>` : ''}
+            ${r.paid ? `<span class="badge b-ok">Наплатено</span>` : `<span class="badge b-warn">Ненаплатено</span>`}
+          </div>
+          <div class="rc-l2">
+            <span class="mono">${fmtD(basis)}</span>
+            ${catCountChips(r.items)}
+            ${r.paid ? `<span>· ${esc(r.payMethod || '')} ${r.paidAt ? fmtT(r.paidAt) : ''}</span>` : ''}
+          </div>
+        </div>
+        <div class="rc-side">
+          <b class="price" style="font-size:16px">${money(rentalTotal(r))}</b>
+          ${!r.paid ? `<button class="btn sm pri" data-act="pay-open" data-arg="${r.id}">Наплати</button>` : ''}
+        </div>
+      </div>`;
+    }).join('') || emptyHTML('Нема изнајмувања во овој приказ', 'Промени го филтерот или периодот.')}
+  `;
+}
+
+/* ---------- pay modal ---------- */
+let afterAction = null;
+function openPay(rid) {
+  const r = rentalById(rid);
+  if (!r) return;
+  openModal(mShell('Наплата', `
+    <div class="retinfo">БИЛЕТ #${pad4(r.no)} · ${esc(clientLabel(r.clientId))} · ${esc(clientPhone(r.clientId))}</div>
+    <div class="tk-dash"></div>
+    <div class="payline"><span class="mut">Износ за наплата</span><b class="big mono">${money(rentalTotal(r))}</b></div>
+    <div class="rad">
+      <label><input type="radio" name="paym" value="Готовина" checked>Готовина</label>
+      <label><input type="radio" name="paym" value="Карта">Карта</label>
+    </div>`,
+    `<button class="btn sec" data-act="modal-close">Откажи</button>
+     <button class="btn pri" data-act="pay-confirm" data-arg="${r.id}">Потврди наплата</button>`));
+}
+
+/* ---------- rental detail ---------- */
+function openRentalDetail(rid) {
+  const r = rentalById(rid);
+  if (!r) return;
+  const active = !r.closedAt, late = active && isLate(r);
+  const items = r.items.map(it => `
+    <div class="dit">
+      <span>${catEmoji(it.cat)} ${esc(it.name)} ${it.size ? `<b class="mono small">${esc(it.size)}</b>` : ''}${it.damaged ? ' <span class="badge b-warn">оштетено</span>' : ''}</span>
+      <span class="di-d">${it.returnedAt ? fmtT(it.returnedAt) : '—'}</span>
+      <span class="di-d">${itemDays(it, r)}д</span>
+      <span class="di-c">${money(itemCost(it, r))}</span>
+    </div>
+  `).join('');
+
+  openModal(mShell(`Билет #${pad4(r.no)}`, `
+    <div class="rc-l1" style="margin-bottom:12px">
+      <span class="badge ${active ? (late ? 'b-late' : 'b-mut') : 'b-ok'}">${active ? (late ? 'АКТИВНА · ДОЦНИ' : 'АКТИВНА') : 'ВРАТЕНА'}</span>
+    </div>
+    <div class="kv">
+      <span>Клиент</span>
+      <span>${esc(clientLabel(r.clientId))} <a class="phonel" data-act="tel" href="tel:${esc(clientPhone(r.clientId))}">${ic('phone', 13)}<span>${esc(clientPhone(r.clientId))}</span></a></span>
+    </div>
+    <div class="kv"><span>Почеток</span><b class="mono">${fmtDT(r.start)}</b></div>
+    ${active ? `
+      <div class="kv">
+        <span>Очекувано враќање</span>
+        <span class="kv-edit">
+          <input type="datetime-local" id="dt-exp" value="${toInput(r.expected)}">
+          <button class="btn sm sec" data-act="exp-save" data-arg="${r.id}">Зачувај</button>
+        </span>
+      </div>`
+      : `<div class="kv"><span>Вратено</span><b class="mono">${fmtDT(r.closedAt)}</b></div>`}
+    <div class="tk-dash"></div>
+    <div class="sec-t">Опрема</div>
+    ${items}
+    <div class="tk-dash"></div>
+    ${active ? `
+      <div class="kv"><span>Траење</span><span class="timer" data-timer="${r.id}">${liveTimerHTML(Date.now() - r.start)}</span></div>`
+      : `<div class="kv"><span>Траење</span><b class="mono">${fmtDur(r.closedAt - r.start)} · ${daysLbl(calDays(r.start, r.closedAt))}</b></div>`}
+    <div class="kv"><span>Вкупно</span><b class="mono" style="font-size:18px">${money(rentalTotal(r))}</b></div>
+    <div class="kv">
+      <span>Статус на наплата</span>
+      <span>${r.paid
+        ? `<span class="badge b-ok">Наплатено · ${esc(r.payMethod || '')} · ${r.paidAt ? fmtDT(r.paidAt) : ''}</span> <button class="btn sm gh" data-act="pay-unmark" data-arg="${r.id}">поништи</button>`
+        : `<button class="btn sm pri" data-act="pay-open" data-arg="${r.id}" data-re="det">Наплати ${money(rentalTotal(r))}</button>`}</span>
+    </div>
+    ${r.note ? `<div class="kv"><span>Белешка</span><span>${esc(r.note)}</span></div>` : ''}`,
+    `${active ? `<button class="btn pri" data-act="rental-return" data-arg="${r.id}" data-re="det">${ic('check', 15)}<span>Врати опрема</span></button>` : ''}
+     <button class="btn sec" data-act="modal-close">Затвори</button>
+     <button class="btn dgr" data-act="rental-del" data-arg="${r.id}">${ic('trash', 15)}<span>Избриши</span></button>`));
+}
+
+/* ---------- rental builder ---------- */
+let rb = null;
+function openRentalBuilder() {
+  rb = {
+    tab: 'gear',
+    clientMode: 'search',
+    clientId: null,
+    newc: { first: '', last: '', phone: '', card: '' },
+    sel: new Set(),
+    cat: 'all',
+    qg: '',
+    qc: '',
+    form: { start: toInput(Date.now()), exp: toInput(defaultExpected()), note: '' }
+  };
+  openModal(mShell('Ново изнајмување', `
+    <div class="rb" data-tab="gear">
+      <div class="rb-mobile-tabs">
+        <button class="rb-tab-btn on" data-act="rb-tab" data-arg="gear">
+          ${ic('box', 15)}<span>1. Клиент и Опрема</span>
+        </button>
+        <button class="rb-tab-btn" data-act="rb-tab" data-arg="ticket" id="rb-tab-tk-btn">
+          ${ic('receipt', 15)}<span>2. Билет и Преглед</span>
+          <span class="rb-tab-badge" id="rb-tab-badge" style="display:none">0</span>
+        </button>
+      </div>
+      <div class="rb-left">
+        <div class="rb-step"><span class="stepno">1</span>Клиент</div>
+        <div id="rb-client"></div>
+        <div class="rb-step"><span class="stepno">2</span>Опрема</div>
+        <div class="chips" id="rb-chips">
+          <button class="chip on" data-act="chip" data-scope="rb" data-arg="all">Сите</button>
+          ${CATS.map(c => `<button class="chip" data-act="chip" data-scope="rb" data-arg="${c.id}">${c.e} ${c.n}</button>`).join('')}
+        </div>
+        <div class="rb-gearbar">
+          <label class="search"><input id="rb-qg" placeholder="Пребарај опрема / големина…"></label>
+          <span class="mono mut small" id="rb-avail"></span>
+        </div>
+        <div class="tiles" id="rb-grid"></div>
+        <div class="rb-mobile-bar" id="rb-mobile-bar">
+          <div class="rb-bar-summary">
+            <div class="rb-bar-count" id="rb-bar-count">Нема избрано опрема</div>
+            <div class="rb-bar-price mono" id="rb-bar-price">0 ${curSym()}/ден</div>
+          </div>
+          <button class="btn pri rb-bar-next" data-act="rb-tab" data-arg="ticket" disabled style="opacity:0.6">
+            <span>Кон билет</span>${ic('arrR', 14)}
+          </button>
+        </div>
+      </div>
+      <div class="rb-right">
+        <button class="btn gh sm rb-back-to-gear" data-act="rb-tab" data-arg="gear">
+          ${ic('arrL', 14)}<span>Назад кон избор на опрема</span>
+        </button>
+        <div class="mat">
+          <div class="ticket" id="rb-ticket"></div>
+        </div>
+      </div>
+    </div>`, ''), { wide: true });
+  renderRBClient();
+  renderRBGrid();
+  renderRBTicket();
+  updateRBTabState();
+}
+
+function defaultExpected(now = Date.now()) {
+  const h = state.settings.expectedHour;
+  const d = new Date(now);
+  let t = new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, 0).getTime();
+  if (t <= now) t += 864e5;
+  return t;
+}
+
+function tkClientHTML() {
+  if (rb.clientId) {
+    const c = clientById(rb.clientId);
+    return c ? `<div class="tk-cbox"><span class="avatar sm">${initials(c)}</span><div style="flex:1;min-width:0"><b>${esc(c.first + ' ' + (c.last || ''))}</b><div class="mono mut small">${esc(c.phone)}</div></div><button class="btn gh xs" data-act="rb-tab" data-arg="gear">Смени</button></div>` : '(клиент)';
+  }
+  const n = rb.newc;
+  return (norm(n.first) || norm(n.phone)) ? `<div class="tk-cbox"><span class="avatar sm">+</span><div style="flex:1;min-width:0"><b>${esc(n.first + ' ' + (n.last || ''))}</b><div class="mono mut small">${esc(n.phone)}</div></div><button class="btn gh xs" data-act="rb-tab" data-arg="gear">Смени</button></div>` : `<div class="tk-cbox mut"><span class="small">— не е избран клиент —</span><button class="btn gh xs" data-act="rb-tab" data-arg="gear" style="margin-left:auto">Избери</button></div>`;
+}
+
+function renderRBClient() {
+  const z = $('#rb-client');
+  if (!z) return;
+  if (rb.clientMode === 'search') {
+    z.innerHTML = `
+      <label class="search" style="width:100%"><input id="rb-qc" placeholder="Внеси име, телефон или картичка…" autocomplete="off"></label>
+      <div id="rb-results" style="margin-top:8px"></div>
+      <button class="btn gh sm" style="margin-top:6px" data-act="rb-new">${ic('plus', 14)}<span>Креирај нов клиент</span></button>`;
+    renderRBResults();
+  } else if (rb.clientMode === 'form') {
+    z.innerHTML = `
+      <div class="fgrid">
+        <div class="frow"><label>Име *</label><input id="rb-first" value="${esc(rb.newc.first)}"></div>
+        <div class="frow"><label>Презиме</label><input id="rb-last" value="${esc(rb.newc.last)}"></div>
+      </div>
+      <div class="fgrid">
+        <div class="frow"><label>Телефон * (уникатен)</label><input id="rb-phone" type="tel" value="${esc(rb.newc.phone)}"></div>
+        <div class="frow"><label>Број на картичка</label><input id="rb-card" value="${esc(rb.newc.card)}"></div>
+      </div>
+      <button class="btn gh sm" data-act="rb-clear-client">${ic('hist', 14)}<span>Назад кон пребарување</span></button>`;
+  } else {
+    const isNew = !rb.clientId;
+    const c = rb.clientId ? clientById(rb.clientId) : rb.newc;
+    z.innerHTML = `
+      <div class="rb-picked">
+        <span class="avatar">${rb.clientId ? initials(c) : '+'}</span>
+        <div style="flex:1;min-width:140px">
+          <b>${esc(c.first + ' ' + (c.last || ''))}</b>
+          <div class="mono mut small">${esc(c.phone || '—')}${c.card ? ` · карт. ${esc(c.card)}` : ''}</div>
+        </div>
+        ${isNew ? `<span class="b-new">НОВ КЛИЕНТ</span><button class="btn icb gh" data-act="rb-edit-new" title="Уреди">${ic('edit', 15)}</button>` : ''}
+        <button class="btn icb gh" data-act="rb-clear-client" title="Смени клиент">${ic('x', 15)}</button>
+      </div>`;
+  }
+}
+
+function renderRBResults() {
+  const box = $('#rb-results');
+  if (!box) return;
+  const toks = tokens(rb.qc);
+  let list = state.clients.slice();
+  if (toks.length) list = list.filter(c => matchTok([c.first, c.last, c.phone, c.card], toks));
+  list = list.slice(0, 7);
+  box.innerHTML = list.length ? list.map(c => `
+    <button class="cres" data-act="rb-pick" data-arg="${c.id}">
+      <b>${esc(c.first + ' ' + (c.last || ''))}</b><span class="mono small">${esc(c.phone)}</span>
+      ${c.card ? `<span class="mut small">карт. ${esc(c.card)}</span>` : ''}
+      <span class="mut small" style="margin-left:auto">${rentN(clientRentCount(c.id))}</span>
+    </button>
+  `).join('')
+    : (rb.qc ? `<div class="nores">Нема резултат — <b style="cursor:pointer;color:var(--color-blue)" data-act="rb-new">креирај нов клиент</b></div>`
+      : `<div class="nores">Започни со внес на име, телефон или картичка…</div>`);
+}
+
+function renderRBGrid() {
+  const grid = $('#rb-grid');
+  if (!grid) return;
+  const rented = rentedEqIds();
+  const toks = tokens(rb.qg);
+  let list = state.equipment.filter(e => e.enabled && !rented.has(e.id));
+  if (rb.cat !== 'all') list = list.filter(e => e.cat === rb.cat);
+  if (toks.length) list = list.filter(e => matchTok([e.name, e.size, catName(e.cat)], toks));
+  list.sort((a, b) => CATIDX[a.cat] - CATIDX[b.cat] || numCmp(a.size, b.size) || a.name.localeCompare(b.name, 'mk'));
+  $('#rb-avail').textContent = `${list.length} слободни`;
+  grid.innerHTML = list.map(e => `
+    <button class="tile ${rb.sel.has(e.id) ? 'sel' : ''}" data-act="rb-tile" data-arg="${e.id}">
+      <span class="ts">${esc(e.size || catEmoji(e.cat))}</span>
+      <span class="tn">${esc(e.name)}</span>
+      <span class="tp">${money(e.price)}</span>
+    </button>
+  `).join('') || `<div class="nores" style="grid-column:1/-1">Нема слободна опрема во овој приказ.</div>`;
+  updateRBTabState();
+}
+
+function updateRBTabState() {
+  if (!rb) return;
+  const items = [...rb.sel].map(id => eqById(id)).filter(Boolean);
+  const perDay = items.reduce((s, e) => s + e.price, 0);
+
+  const badge = $('#rb-tab-badge');
+  if (badge) {
+    badge.textContent = items.length;
+    badge.style.display = items.length ? 'inline-flex' : 'none';
+  }
+  const barCount = $('#rb-bar-count');
+  if (barCount) barCount.textContent = items.length ? `${itemN(items.length)} избрани` : 'Нема избрано опрема';
+
+  const barPrice = $('#rb-bar-price');
+  if (barPrice) barPrice.textContent = `${money(perDay)}/ден`;
+
+  const barNext = $('.rb-bar-next');
+  if (barNext) {
+    barNext.disabled = !items.length;
+    barNext.style.opacity = items.length ? '1' : '0.6';
+  }
+}
+
+function renderRBTicket() {
+  const tk = $('#rb-ticket');
+  if (!tk) return;
+  const items = [...rb.sel].map(id => eqById(id)).filter(Boolean);
+  const perDay = items.reduce((s, e) => s + e.price, 0);
+  const st = fromInput(rb.form.start) || Date.now(), ex = fromInput(rb.form.exp) || defaultExpected();
+  const d = calDays(st, ex), tot = perDay * d;
+  tk.innerHTML = `
+    <div class="tk-head">
+      <span>${esc(state.settings.shopName).toUpperCase()}</span>
+      <span>БИЛЕТ #${pad4(state.meta.no + 1)}</span>
+    </div>
+    <div class="tk-date">${fmtDT(Date.now())}</div>
+    <div class="tk-dash"></div>
+    <div class="tk-sec">КЛИЕНТ</div>
+    <div id="tk-client">${tkClientHTML()}</div>
+    <div class="tk-dash"></div>
+    <div class="tk-sec">ОПРЕМА (${items.length})</div>
+    <div class="tk-items-list">
+      ${items.map(e => `
+        <div class="tr">
+          <span class="tr-item">${catEmoji(e.cat)} ${esc(e.name)} ${esc(e.size || '')}</span>
+          <span class="lead"></span>
+          <span class="mono">${money(e.price)}</span>
+          <button class="btn icb gh xs tr-del" data-act="rb-tile" data-arg="${e.id}" title="Отстрани">${ic('x', 13)}</button>
+        </div>
+      `).join('') || '<div class="mut" style="padding:6px 0">— избери опрема —</div>'}
+    </div>
+    <div class="tk-dash"></div>
+    <div class="tr">
+      <span>${itemN(items.length)}</span>
+      <span class="lead"></span>
+      <span class="mono">${money(perDay)}/ден</span>
+    </div>
+    <div class="tk-dash"></div>
+    <div class="tk-dates-grid">
+      <div class="tk-date-col">
+        <label class="tk-lab">ПОЧЕТОК</label>
+        <input type="datetime-local" id="rb-start" value="${rb.form.start}">
+      </div>
+      <div class="tk-date-col">
+        <label class="tk-lab">ОЧЕКУВАНО ВРАЌАЊЕ</label>
+        <input type="datetime-local" id="rb-exp" value="${rb.form.exp}">
+      </div>
+    </div>
+    <div class="dur-pills">
+      <span class="dur-lbl">Брзо:</span>
+      <button class="dur-pill ${d === 1 ? 'on' : ''}" data-act="rb-dur" data-arg="1">1 ден</button>
+      <button class="dur-pill ${d === 2 ? 'on' : ''}" data-act="rb-dur" data-arg="2">2 дена</button>
+      <button class="dur-pill ${d === 3 ? 'on' : ''}" data-act="rb-dur" data-arg="3">3 дена</button>
+      <button class="dur-pill ${d === 7 ? 'on' : ''}" data-act="rb-dur" data-arg="7">7 дена</button>
+    </div>
+    <label class="tk-lab">ЗАБЕЛЕШКА</label>
+    <input type="text" id="rb-note" value="${esc(rb.form.note)}" placeholder="по желба…">
+    <div class="tk-dash"></div>
+    <div class="tr tr-total">
+      <span style="font-weight:700">ВКУПНО ПРОЦЕНКА</span>
+      <span class="lead"></span>
+      <span id="tk-est" style="font-weight:700;font-size:15px;color:var(--color-blue)">${daysLbl(d)} · ${money(tot)}</span>
+    </div>
+    <div class="tk-note">Пресметката е по календарски ден. Доколку опремата се задржи подолго, доплатата автоматски се пресметува при враќање.</div>
+    <button class="btn pri tk-go" data-act="rb-save">ПОТВРДИ И ИЗНАЈМИ</button>`;
+  updateRBTabState();
+}
+
+function updateTkEst() {
+  const el = $('#tk-est');
+  if (!el || !rb) return;
+  const items = [...rb.sel].map(id => eqById(id)).filter(Boolean);
+  const perDay = items.reduce((s, e) => s + e.price, 0);
+  const st = fromInput(rb.form.start) || Date.now(), ex = fromInput(rb.form.exp) || defaultExpected();
+  const d = calDays(st, ex);
+  el.textContent = `${daysLbl(d)} · ${money(perDay * d)}`;
+  document.querySelectorAll('.dur-pill').forEach(b => {
+    b.classList.toggle('on', b.getAttribute('data-arg') === String(d));
+  });
+  updateRBTabState();
+}
+
+function updateTkClient() {
+  const el = $('#tk-client');
+  if (el) el.innerHTML = tkClientHTML();
+}
+
+function saveRental() {
+  if (!rb) return;
+  let client;
+  if (rb.clientId) {
+    client = clientById(rb.clientId);
+    if (!client) {
+      toast('Клиентот не постои', 'err');
+      const tabBtn = document.querySelector('.rb-tab-btn[data-arg="gear"]');
+      if (tabBtn) tabBtn.click();
+      return;
+    }
+  } else {
+    const { first, last, phone, card } = rb.newc;
+    if (!norm(first) || !norm(phone)) {
+      toast('Внеси име и телефон за клиентот во Чекор 1', 'err');
+      const tabBtn = document.querySelector('.rb-tab-btn[data-arg="gear"]');
+      if (tabBtn) tabBtn.click();
+      return;
+    }
+    const ex = state.clients.find(c => norm(c.phone) === norm(phone));
+    if (ex) {
+      toast(`Веќе постои клиент со телефон ${esc(phone)}: ${esc(ex.first + ' ' + ex.last)} — избери го од пребарувањето`, 'err', 5000);
+      const tabBtn = document.querySelector('.rb-tab-btn[data-arg="gear"]');
+      if (tabBtn) tabBtn.click();
+      return;
+    }
+    client = { id: uid(), first: norm(first), last: norm(last), phone: norm(phone), card: norm(card), createdAt: Date.now() };
+    state.clients.push(client);
+  }
+
+  const items = [...rb.sel].map(id => eqById(id)).filter(Boolean);
+  if (!items.length) {
+    toast('Избери барем еден предмет во Чекор 1', 'err');
+    const tabBtn = document.querySelector('.rb-tab-btn[data-arg="gear"]');
+    if (tabBtn) tabBtn.click();
+    return;
+  }
+  const rented = rentedEqIds();
+  if (items.some(e => !e.enabled || rented.has(e.id))) {
+    toast('Еден од избраните предмети е веќе недостапен', 'err');
+    renderRBGrid();
+    return;
+  }
+  const start = fromInput(rb.form.start) || Date.now();
+  const exp = fromInput(rb.form.exp) || defaultExpected();
+  if (exp <= start) { toast('Очекуваното враќање мора да е по почетокот', 'err'); return; }
+
+  const no = ++state.meta.no;
+  state.rentals.push({
+    id: uid(), no, clientId: client.id, start, expected: exp, note: norm(rb.form.note),
+    items: items.map(e => ({ eqId: e.id, cat: e.cat, name: e.name, size: e.size, price: e.price, returnedAt: null, damaged: false })),
+    closedAt: null, total: null, paid: false, paidAt: null, payMethod: null
+  });
+  items.forEach(e => e.timesRented++);
+  commit();
+  closeAllModals();
+  nav('dash');
+  toast(`Изнајмено ${itemN(items.length)} на ${esc(client.first)}`);
+}
+
+/* ---------- return modal ---------- */
+function openReturn(rid) {
+  const r = rentalById(rid);
+  if (!r || r.closedAt) return;
+  const open = r.items.map((it, i) => ({ it, i })).filter(x => !x.it.returnedAt);
+  const now = Date.now();
+  openModal(mShell('Враќање на опрема', `
+    <div class="retinfo">БИЛЕТ #${pad4(r.no)} · ${esc(clientLabel(r.clientId))} · изнајмено пред ${fmtDur(now - r.start)}</div>
+    <div class="tk-dash"></div>
+    ${open.map(({ it, i }) => `
+      <div class="ret-item">
+        <label class="ri-chk">
+          <input type="checkbox" checked id="ret-${i}">
+          <span>${catEmoji(it.cat)} ${esc(it.name)} ${it.size ? `<b class="mono small">${esc(it.size)}</b>` : ''}</span>
+        </label>
+        <span class="ri-days">${itemDays(it, r)}д · ${money(itemCost(it, r))}</span>
+        <label class="ri-dmg"><input type="checkbox" id="dmg-${i}">оштетено</label>
+      </div>
+    `).join('')}
+    <div class="hint">Одштиклирај предмет ако клиентот го задржува подолго (делумно враќање).</div>
+    <div class="tk-dash"></div>
+    <div class="paygrid">
+      <div class="frow">
+        <label>ВКУПНО ПРИ ВРАЌАЊЕ (${curSym()})</label>
+        <input type="number" id="ret-total" step="0.5" min="0" value="${rentalTotal(r).toFixed(2)}">
+      </div>
+      <div class="frow">
+        <label>НАПЛАТА</label>
+        <div class="rad" style="flex-direction:column;gap:8px">
+          <label><input type="radio" name="ret-pay" value="cash" checked>Платено сега · готовина</label>
+          <label><input type="radio" name="ret-pay" value="card">Платено сега · карта</label>
+          <label><input type="radio" name="ret-pay" value="later">Ќе плати подоцна</label>
+        </div>
+      </div>
+    </div>
+    <div class="hint">Пресметка по календарски ден. Сумата може рачно да се коригира за попуст.</div>`,
+    `<button class="btn sec" data-act="modal-close">Откажи</button>
+     <button class="btn pri" data-act="ret-confirm" data-arg="${r.id}">Потврди враќање</button>`));
+}
+
+function confirmReturn(rid) {
+  const r = rentalById(rid);
+  if (!r) return;
+  const now = Date.now();
+  let retN = 0;
+  r.items.forEach((it, i) => {
+    if (it.returnedAt) return;
+    const cb = document.getElementById('ret-' + i);
+    if (cb && cb.checked) {
+      it.returnedAt = now;
+      retN++;
+      const dm = document.getElementById('dmg-' + i);
+      if (dm && dm.checked) {
+        it.damaged = true;
+        const e = eqById(it.eqId);
+        if (e) {
+          e.damaged = true;
+          e.comment = (e.comment ? e.comment + ' · ' : '') + 'Оштетено при враќање ' + fmtD(now);
+        }
+      }
+    }
+  });
+
+  const all = r.items.every(it => it.returnedAt);
+  let pay = 'later';
+  const pr = document.querySelector('input[name=ret-pay]:checked');
+  if (pr) pay = pr.value;
+  if (all) {
+    r.closedAt = now;
+    let tot = r.items.reduce((s, it) => s + it.price * calDays(r.start, it.returnedAt), 0);
+    const v = parseFloat((document.getElementById('ret-total') || {}).value);
+    if (!isNaN(v) && v >= 0) tot = v;
+    r.total = tot;
+  }
+  if (pay !== 'later') {
+    r.paid = true;
+    r.paidAt = now;
+    r.payMethod = pay === 'card' ? 'Карта' : 'Готовина';
+  } else if (all) {
+    r.paid = false;
+  }
+  commit();
+  closeModal();
+  const f = afterAction;
+  afterAction = null;
+  if (f) f();
+  toast(all ? (r.paid ? `Вратено · наплатено ${money(rentalTotal(r))} (${r.payMethod})` : 'Вратено · останува ненаплатено')
+    : `Делумно враќање · ${itemN(r.items.filter(i => !i.returnedAt).length)} останати`);
+}
+
+/* ---------- report ---------- */
+let repLast = null;
+function openReport() {
+  const d = new Date();
+  const from = new Date(d.getFullYear(), d.getMonth(), 1);
+  openModal(mShell('Извештај за период', `
+    <div class="repform">
+      <label>Од<input type="date" id="rp-from" value="${isoDate(from)}"></label>
+      <label>До<input type="date" id="rp-to" value="${isoDate(d)}"></label>
+      <button class="btn sec sm" data-act="report-run">Прикажи</button>
+    </div>
+    <div id="rep-body"></div>`,
+    `<button class="btn sec" data-act="report-csv">${ic('down', 15)}<span>Извези CSV</span></button>
+     <button class="btn pri" data-act="report-print">${ic('print', 15)}<span>Печати</span></button>`), { wide: true });
+  runReport();
+}
+
+function runReport() {
+  const fv = ($('#rp-from') || {}).value || isoDate(new Date());
+  const tv = ($('#rp-to') || {}).value || isoDate(new Date());
+  const f = d000(fv), t = d999(tv);
+  if (f == null || t == null) return;
+  const rows = state.rentals.filter(r => r.closedAt && r.closedAt >= f && r.closedAt <= t)
+    .sort((a, b) => b.closedAt - a.closedAt);
+  repLast = { from: f, to: t, rows };
+  const tot = rows.reduce((s, r) => s + rentalTotal(r), 0);
+  const paid = rows.filter(r => r.paid).reduce((s, r) => s + rentalTotal(r), 0);
+  const perCat = CATS.map(c => {
+    let cnt = 0, rev = 0;
+    rows.forEach(r => r.items.forEach(it => {
+      if (it.cat === c.id) {
+        cnt++;
+        rev += it.price * calDays(r.start, it.returnedAt || r.closedAt);
+      }
+    }));
+    return { c, cnt, rev };
+  }).filter(x => x.cnt);
+  const byDay = {};
+  rows.forEach(r => {
+    const k = fmtD(r.closedAt);
+    byDay[k] = byDay[k] || { n: 0, s: 0 };
+    byDay[k].n++;
+    byDay[k].s += rentalTotal(r);
+  });
+
+  $('#rep-body').innerHTML = `
+    <div class="statline">
+      <div class="statd"><span class="k">Изнајмувања</span><span class="v">${rows.length}</span></div>
+      <div class="statd"><span class="k">Вкупно</span><span class="v">${money(tot)}</span></div>
+      <div class="statd"><span class="k">Наплатено</span><span class="v">${money(paid)}</span></div>
+      <div class="statd"><span class="k">Ненаплатено</span><span class="v ${tot - paid ? 'amb' : ''}">${money(tot - paid)}</span></div>
+    </div>
+    <div class="sec-t">По категории</div>
+    <table class="rt">
+      <tr><th>Категорија</th><th>Предмети</th><th>Приход</th></tr>
+      ${perCat.map(x => `<tr><td>${x.c.e} ${x.c.n}</td><td>${x.cnt}</td><td>${money(x.rev)}</td></tr>`).join('') || '<tr><td colspan="3" class="mut">—</td></tr>'}
+    </table>
+    <div class="sec-t">По денови</div>
+    <table class="rt">
+      <tr><th>Датум</th><th>Изнајмувања</th><th>Приход</th></tr>
+      ${Object.entries(byDay).sort((a, b) => d000a(a[0]) - d000a(b[0])).map(([k, v]) => `<tr><td>${k}</td><td>${v.n}</td><td>${money(v.s)}</td></tr>`).join('') || '<tr><td colspan="3" class="mut">—</td></tr>'}
+    </table>
+    <div class="hint">Период: ${fmtD(f)} – ${fmtD(t)} · според датумот на враќање на опремата.</div>
+  `;
+}
+
+const d000a = s => {
+  const [d, m, y] = s.split('.').map(Number);
+  return new Date(y, m - 1, d).getTime();
+};
+
+function repCSV() {
+  if (!repLast) return;
+  const rows = repLast.rows;
+  const csv = [
+    csvRow('Билет', 'Клиент', 'Телефон', 'Почеток', 'Враќање', 'Опрема', 'Дена', 'Сума', 'Платено', 'Начин'),
+    ...rows.map(r => csvRow(
+      '#' + pad4(r.no), clientLabel(r.clientId), clientPhone(r.clientId), fmtDT(r.start), fmtDT(r.closedAt),
+      r.items.map(it => `${catName(it.cat)} ${it.name} ${it.size || ''}`).join(' + '),
+      calDays(r.start, r.closedAt), (rentalTotal(r).toFixed(2) + '').replace('.', ','),
+      r.paid ? 'Да' : 'Не', r.payMethod || ''
+    ))
+  ].join('\n');
+  dl(`izvestaj-${isoDate(new Date(repLast.from))}_${isoDate(new Date(repLast.to))}.csv`, csv);
+  toast('Извештајот е извезен во CSV');
+}
+
+function repPrint() {
+  if (!repLast) return;
+  const el = $('#rep-body');
+  if (!el) return;
+  $('#print-sheet').innerHTML = `
+    <h2>${esc(state.settings.shopName)}</h2>
+    <div class="pt">Извештај · ${fmtD(repLast.from)} – ${fmtD(repLast.to)}</div>
+    ${el.innerHTML}`;
+  document.body.classList.add('printing');
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => document.body.classList.remove('printing'), 400);
+  }, 60);
+}
+
+/* ---------- settings ---------- */
+function openSettings() {
+  openModal(mShell('Поставки', `
+    <div class="fgrid">
+      <div class="frow">
+        <label>Име на продавница</label>
+        <input id="st-shop" value="${esc(state.settings.shopName)}">
+      </div>
+      <div class="frow">
+        <label>Валута</label>
+        <select id="st-cur">
+          <option value="EUR"${state.settings.currency === 'EUR' ? ' selected' : ''}>€ (EUR)</option>
+          <option value="MKD"${state.settings.currency === 'MKD' ? ' selected' : ''}>МКД</option>
+        </select>
+      </div>
+    </div>
+    <div class="fgrid">
+      <div class="frow">
+        <label>Стандарден час на враќање (0–23)</label>
+        <input type="number" id="st-hour" min="0" max="23" value="${state.settings.expectedHour}">
+      </div>
+      <div class="frow">
+        <label>Тема на интерфејс</label>
+        <select id="st-theme">
+          <option value="auto"${state.settings.theme === 'auto' ? ' selected' : ''}>Автоматски (системска)</option>
+          <option value="light"${state.settings.theme === 'light' ? ' selected' : ''}>Светла (AURA Light)</option>
+          <option value="dark"${state.settings.theme === 'dark' ? ' selected' : ''}>Темна (AURA Dark)</option>
+        </select>
+      </div>
+    </div>
+    <div class="tk-sec" style="margin-top:16px">ОСНОВНИ ЦЕНИ / ДЕН (за новододадена опрема)</div>
+    <div class="prgrid">
+      ${CATS.map(c => `
+        <div class="pi">
+          <label>${c.e} ${c.n}</label>
+          <input type="number" min="0" step="0.5" id="st-price-${c.id}" value="${state.settings.defPrices[c.id]}">
+        </div>
+      `).join('')}
+    </div>
+    <div class="note">Наплатата се пресметува по календарски ден. Промената на основните цени важи само за новододадени парчиња. Постоечките цени се менуваат во табот Опрема.</div>
+    <div class="tk-dash"></div>
+    <div class="tk-sec">БЕЗБЕДНОСТ И ПОДАТОЦИ</div>
+    <div class="note">${state.clients.length} клиенти · ${state.equipment.length} опрема · ${state.rentals.length} изнајмувања · последна резервна копија: ${state.meta.lastBackupAt ? fmtDT(state.meta.lastBackupAt) : 'никогаш'}</div>
+    <div class="datarow">
+      <button class="btn pri" data-act="backup-now">${ic('down', 15)}<span>Резервна копија (JSON)</span></button>
+      <button class="btn sec" data-act="restore">${ic('up', 15)}<span>Вчитај копија</span></button>
+    </div>
+    <div class="datarow">
+      <button class="btn sec sm" data-act="export-csv" data-arg="eq">CSV · Опрема</button>
+      <button class="btn sec sm" data-act="export-csv" data-arg="cl">CSV · Клиенти</button>
+      <button class="btn sec sm" data-act="export-csv" data-arg="ren">CSV · Изнајмувања</button>
+    </div>
+    <div class="datarow">
+      <button class="btn gh sm" data-act="demo-load">Вчитај пробни податоци</button>
+      <button class="btn dgr sm" data-act="wipe-all">Избриши сè</button>
+    </div>
+    <div class="note">Податоците се чуваат локално и приватно во овој прелистувач. Се препорачува редовна резервна копија.</div>`,
+    `<button class="btn sec" data-act="modal-close">Откажи</button>
+     <button class="btn pri" data-act="settings-save">Зачувај</button>`), { wide: true });
+}
+
+function saveSettings() {
+  state.settings.shopName = norm($('#st-shop').value) || 'Ски Рентал';
+  state.settings.currency = $('#st-cur').value;
+  let h = parseInt($('#st-hour').value);
+  if (isNaN(h) || h < 0 || h > 23) h = 17;
+  state.settings.expectedHour = h;
+  const th = $('#st-theme').value;
+  applyTheme(th);
+
+  CATS.forEach(c => {
+    let v = parseFloat(($('#st-price-' + c.id) || {}).value);
+    if (!isNaN(v) && v >= 0) state.settings.defPrices[c.id] = v;
+  });
+  commit();
+  closeModal();
+  toast('Поставките се зачувани');
+}
+
+/* ---------- backup / restore / csv ---------- */
+const stamp = () => {
+  const d = new Date();
+  return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${pad(d.getHours())}${pad(d.getMinutes())}`;
+};
+
+function dl(name, content, mime = 'text/csv;charset=utf-8') {
+  const a = document.createElement('a');
+  const b = new Blob(['\ufeff' + content], { type: mime });
+  a.href = URL.createObjectURL(b);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+
+function doBackup() {
+  state.meta.lastBackupAt = Date.now();
+  dl(`skirental-rezerva-${stamp()}.json`, JSON.stringify({ ...state, exportedAt: Date.now() }, null, 2), 'application/json');
+  save();
+  renderPage();
+  toast('Резервната копија е превземена');
+}
+
+const csvCell = v => {
+  v = String(v ?? '');
+  return /[";\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+};
+const csvRow = (...c) => c.map(csvCell).join(';');
+
+function exportCSV(kind) {
+  const num = v => (v.toFixed(2) + '').replace('.', ',');
+  if (kind === 'eq') {
+    const rented = rentedEqIds();
+    dl('oprema.csv', [
+      csvRow('Име', 'Категорија', 'Големина', 'Цена/ден', 'Статус', 'Вклучена', 'Изнајмувања', 'Оштетена', 'Белешка'),
+      ...filteredEq().map(e => {
+        const st = !e.enabled ? 'Исклучена' : (rented.has(e.id) ? 'Изнајмена' : 'Слободна');
+        return csvRow(e.name, catName(e.cat), e.size, num(e.price), st, e.enabled ? 'Да' : 'Не', e.timesRented, e.damaged ? 'Да' : 'Не', e.comment);
+      })
+    ].join('\n'));
+  }
+  if (kind === 'cl') {
+    dl('klienti.csv', [
+      csvRow('Име', 'Презиме', 'Телефон', 'Картичка', 'Изнајмувања'),
+      ...state.clients.map(c => csvRow(c.first, c.last, c.phone, c.card, clientRentCount(c.id)))
+    ].join('\n'));
+  }
+  if (kind === 'ren') {
+    dl('iznajmuvanja.csv', [
+      csvRow('Билет', 'Клиент', 'Телефон', 'Почеток', 'Враќање', 'Опрема', 'Дена', 'Сума', 'Платено', 'Начин', 'Белешка'),
+      ...state.rentals.slice().sort((a, b) => b.start - a.start).map(r => csvRow(
+        '#' + pad4(r.no), clientLabel(r.clientId), clientPhone(r.clientId), fmtDT(r.start),
+        r.closedAt ? fmtDT(r.closedAt) : 'активна',
+        r.items.map(it => `${catName(it.cat)} ${it.name} ${it.size || ''}`).join(' + '),
+        calDays(r.start, r.closedAt || Date.now()), num(rentalTotal(r)), r.paid ? 'Да' : 'Не', r.payMethod || '', r.note
+      ))
+    ].join('\n'));
+  }
+  toast('CSV-то е превземено');
+}
+
+function onRestoreFile(e) {
+  const f = e.target.files[0];
+  if (!f) return;
+  e.target.value = '';
+  const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const d = JSON.parse(rd.result);
+      if (!d || !Array.isArray(d.clients) || !Array.isArray(d.equipment) || !Array.isArray(d.rentals) || !d.settings) throw 0;
+      confirmBox({
+        title: 'Вчитај резервна копија',
+        ok: 'Вчитај',
+        msg: `Копијата содржи ${d.clients.length} клиенти, ${d.equipment.length} предмети и ${d.rentals.length} изнајмувања. Тековните податоци ќе бидат заменети.`,
+        onOk: () => {
+          state = d;
+          state.meta = Object.assign({ no: 0, lastBackupAt: Date.now(), createdAt: Date.now() }, state.meta || {});
+          if (!state.meta.no) state.meta.no = state.rentals.length;
+          closeAllModals();
+          nav('dash');
+          commit();
+          toast('Резервната копија е вчитана');
+        }
+      });
+    } catch (err) {
+      toast('Невалидна резервна копија', 'err');
+    }
+  };
+  rd.readAsText(f);
+}
+
+/* ---------- demo data ---------- */
+function seedDemo() {
+  const now = Date.now(), H = 36e5, D = 864e5;
+  const s = freshState();
+  const eqd = [];
+  const mk = (cat, name, size, qty = 1) => {
+    for (let i = 0; i < qty; i++) {
+      eqd.push({ id: uid(), cat, name, size: String(size), price: 1, comment: '', enabled: true, damaged: false, timesRented: 0, createdAt: now - 40 * D });
+    }
+  };
+  mk('skis', 'Скии Atomic', '140');
+  mk('skis', 'Скии Salomon', '150');
+  mk('skis', 'Скии Head', '155');
+  mk('skis', 'Скии Rossignol', '160', 2);
+  mk('skis', 'Скии Fischer', '165');
+  mk('skis', 'Скии Blizzard', '170');
+  mk('board', 'Борд Burton', '148');
+  mk('board', 'Борд Nitro', '150');
+  mk('board', 'Борд K2', '152');
+  mk('board', 'Борд Salomon', '156');
+  mk('board', 'Борд Ride', '158');
+  mk('sled', 'Санка дрвена', 'Мала', 2);
+  mk('sled', 'Санка спортска', 'Голема', 2);
+  mk('poles', 'Стапови карбон', '110');
+  mk('poles', 'Стапови алуминиум', '115');
+  mk('poles', 'Стапови спорт', '120');
+  mk('poles', 'Стапови спорт', '125');
+  mk('poles', 'Стапови про', '130');
+  for (let b = 36; b <= 45; b++) mk('boots', 'Кондури Nordica', String(b));
+  mk('helmet', 'Кацига Uvex', 'S');
+  mk('helmet', 'Кацига Smith', 'M', 2);
+  mk('helmet', 'Кацига Giro', 'L', 2);
+  mk('goggles', 'Наочари Oakley', 'Модел А');
+  mk('goggles', 'Наочари Anon', 'Модел Б');
+  mk('gloves', 'Раквици Gore-Tex', 'S');
+  mk('gloves', 'Раквици Reusch', 'M');
+  mk('gloves', 'Раквици Leki', 'L', 2);
+
+  const eq = (cat, size, n = 0) => {
+    const l = eqd.filter(e => e.cat === cat && e.size === String(size));
+    return l[Math.min(n, l.length - 1)];
+  };
+  s.equipment = eqd;
+  s.clients = [
+    ['Марко', 'Стојановски', '070 123 456', '4821'],
+    ['Елена', 'Николовска', '071 234 567', '1057'],
+    ['Стефан', 'Петревски', '075 345 678', '9310'],
+    ['Ана', 'Митревска', '070 456 789', '2246'],
+    ['Никола', 'Попов', '076 567 890', '7702'],
+    ['Мартина', 'Јовановска', '072 678 901', '3388'],
+    ['Филип', 'Ангеловски', '070 789 012', '6154'],
+    ['Софија', 'Димитрова', '077 890 123', '4093']
+  ].map(([first, last, phone, card]) => ({ id: uid(), first, last, phone, card, createdAt: now - 20 * D }));
+
+  const cd = s.clients;
+  const at = (dA, h) => {
+    const d = new Date(now - dA * D);
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, 0).getTime();
+  };
+  let no = 0;
+  const rent = (ci, specs, start, end, expected, paid, opts = {}) => {
+    const items = specs.map(([c, sz, n]) => {
+      const e = eq(c, sz, n || 0);
+      return { eqId: e.id, cat: e.cat, name: e.name, size: e.size, price: e.price, returnedAt: end, damaged: false };
+    });
+    const r = {
+      id: uid(), no: ++no, clientId: cd[ci].id, start, expected, note: opts.note || '', items,
+      closedAt: end, total: items.reduce((t, i) => t + i.price * calDays(start, end), 0),
+      paid: !!paid, paidAt: paid ? end : null, payMethod: paid ? 'Готовина' : null
+    };
+    s.rentals.push(r);
+    return r;
+  };
+
+  // 10 historical closed rentals
+  rent(0, [['skis', '160'], ['boots', '41'], ['poles', '120']], at(8, 9), at(8, 15), at(8, 17), true);
+  rent(1, [['board', '150'], ['boots', '38'], ['helmet', 'M']], at(7, 10), at(7, 15), at(7, 17), true);
+  rent(2, [['sled', 'Голема']], at(6, 12), at(6, 16), at(6, 17), true);
+  rent(3, [['skis', '150'], ['boots', '39'], ['goggles', 'Модел А'], ['gloves', 'M']], at(5, 9), at(5, 16), at(5, 17), true);
+  rent(4, [['board', '156'], ['boots', '43']], at(4, 13), at(4, 16), at(4, 17), false);
+  rent(5, [['skis', '165'], ['boots', '44'], ['poles', '125'], ['helmet', 'L']], at(3, 9), at(3, 17), at(3, 17), true);
+  rent(6, [['sled', 'Мала'], ['goggles', 'Модел Б']], at(2, 14), at(2, 17), at(2, 17), true);
+  rent(7, [['skis', '155'], ['boots', '37']], at(2, 10), at(2, 15), at(2, 17), false);
+  rent(0, [['board', '158'], ['boots', '42'], ['gloves', 'L']], at(1, 9), at(1, 16), at(1, 17), true);
+  rent(1, [['sled', 'Мала', 0], ['sled', 'Мала', 1]], at(1, 10), at(1, 14), at(1, 17), false);
+
+  // Active rentals
+  rent(6, [['skis', '160', 1], ['boots', '41'], ['poles', '115']], now - 3.5 * H, null, at(0, 17), false);
+  s.rentals[s.rentals.length - 1].closedAt = null;
+  s.rentals[s.rentals.length - 1].total = null;
+
+  rent(4, [['sled', 'Голема'], ['goggles', 'Модел А']], at(1, 9), null, at(1, 17), false);
+  s.rentals[s.rentals.length - 1].closedAt = null;
+  s.rentals[s.rentals.length - 1].total = null;
+
+  const rc = rent(5, [['board', '152'], ['boots', '43'], ['helmet', 'M'], ['goggles', 'Модел Б']], at(2, 10), null, at(-1, 17), false);
+  rc.closedAt = null;
+  rc.total = null;
+  rc.items[3].returnedAt = at(1, 15);
+
+  const rd = rent(3, [['helmet', 'S'], ['gloves', 'S']], now - 40 * 6e4, null, at(0, 17), false);
+  rd.closedAt = null;
+  rd.total = null;
+  rd.paid = true;
+  rd.paidAt = now - 35 * 6e4;
+  rd.payMethod = 'Готовина';
+
+  s.rentals.forEach(r => r.items.forEach(it => {
+    const e = eqd.find(x => x.id === it.eqId);
+    if (e) e.timesRented++;
+  }));
+  s.meta.no = no;
+  s.meta.lastBackupAt = now;
+  state = s;
+}
+
+/* ---------- actions registry ---------- */
+const Acts = {
+  nav: a => nav(a),
+  tel: () => {},
+  'toggle-theme': () => toggleTheme(),
+  'new-rental': () => openRentalBuilder(),
+  seg: a => { ui.ren.seg = a; renderPage(); },
+  chip: (a, el) => {
+    const sc = el.dataset.scope;
+    [...el.parentElement.children].forEach(c => c.classList.toggle('on', c === el));
+    if (sc === 'eq') { ui.eq.cat = a; renderPage(); }
+    else if (sc === 'rb' && rb) { rb.cat = a; renderRBGrid(); }
+  },
+  'rental-view': a => openRentalDetail(a),
+  'rental-return': (a, el) => {
+    const re = el.dataset.re;
+    afterAction = re ? (re === 'det' ? () => { closeModal(); closeModal(); openRentalDetail(a); } : () => { closeModal(); closeModal(); openClientModal(re); }) : null;
+    openReturn(a);
+  },
+  'rental-del': a => {
+    const r = rentalById(a);
+    if (!r) return;
+    confirmBox({
+      title: 'Избриши изнајмување', ok: 'Избриши', danger: true,
+      msg: `Билет #${pad4(r.no)} ќе биде избришан ${r.closedAt ? 'од историјата и од плаќањата' : 'и опремата веднаш ослободена'}. Ова не може да се врати.`,
+      onOk: () => {
+        r.items.forEach(it => {
+          const e = eqById(it.eqId);
+          if (e && e.timesRented > 0) e.timesRented--;
+        });
+        state.rentals = state.rentals.filter(x => x.id !== a);
+        closeAllModals();
+        commit();
+        toast('Изнајмувањето е избришано');
+      }
+    });
+  },
+  'exp-save': a => {
+    const r = rentalById(a);
+    const v = fromInput(($('#dt-exp') || {}).value);
+    if (!r || v == null) return;
+    if (v <= r.start) { toast('Враќањето мора да е по почетокот', 'err'); return; }
+    r.expected = v;
+    commit();
+    closeModal();
+    openRentalDetail(a);
+    toast('Очекуваното враќање е сменето');
+  },
+  'pay-open': (a, el) => {
+    const re = el.dataset.re;
+    afterAction = re ? (re === 'det' ? () => { closeModal(); closeModal(); openRentalDetail(a); } : () => { closeModal(); closeModal(); openClientModal(re); }) : null;
+    openPay(a);
+  },
+  'pay-confirm': a => {
+    const r = rentalById(a);
+    if (!r) return;
+    const m = (document.querySelector('input[name=paym]:checked') || {}).value || 'Готовина';
+    r.paid = true;
+    r.paidAt = Date.now();
+    r.payMethod = m;
+    commit();
+    closeModal();
+    const f = afterAction;
+    afterAction = null;
+    if (f) f();
+    toast(`Наплатено ${money(rentalTotal(r))} (${esc(m)})`);
+  },
+  'pay-unmark': a => {
+    const r = rentalById(a);
+    if (!r) return;
+    r.paid = false;
+    r.payMethod = null;
+    r.paidAt = null;
+    commit();
+    closeModal();
+    openRentalDetail(a);
+    toast('Наплатата е поништена');
+  },
+  'client-view': a => openClientModal(a),
+  'client-history': a => openClientHistory(a),
+  'client-edit': a => openClientForm(a),
+  'client-new': () => openClientForm(),
+  'client-save': a => saveClient(a),
+  'client-del': a => {
+    const c = clientById(a);
+    if (!c) return;
+    if (clientHasActive(a)) { toast('Клиентот има активно изнајмување — врати ја прво опремата', 'err', 5000); return; }
+    const n = clientRentCount(a);
+    confirmBox({
+      title: 'Избриши клиент', ok: 'Избриши', danger: true,
+      msg: `${esc(c.first + ' ' + (c.last || ''))}${n ? ` има ${n} ${n === 1 ? 'изнајмување' : 'изнајмувања'} во историјата — тие ќе останат, но без поврзан клиент.` : ' ќе биде избришан.'}`,
+      onOk: () => {
+        state.clients = state.clients.filter(x => x.id !== a);
+        closeAllModals();
+        commit();
+        toast('Клиентот е избришан');
+      }
+    });
+  },
+  'eq-new': () => openEqForm(),
+  'eq-row': (a, el) => {
+    if (el.dataset.arg === undefined) return;
+    if (ui.eq.mode === 'sel') {
+      ui.eq.sel.has(a) ? ui.eq.sel.delete(a) : ui.eq.sel.add(a);
+      renderPage();
+    } else {
+      openEqForm(a);
+    }
+  },
+  'eq-del': a => {
+    if (rentedEqIds().has(a)) { toast('Опремата е моментално изнајмена — не може да се избрише', 'err', 5000); return; }
+    const e = eqById(a);
+    if (!e) return;
+    confirmBox({
+      title: 'Избриши опрема', ok: 'Избриши', danger: true,
+      msg: `„${esc(e.name)} ${esc(e.size || '')}“ ќе биде избришана од инвентарот. Историјата на изнајмувања останува зачувана.`,
+      onOk: () => {
+        state.equipment = state.equipment.filter(x => x.id !== a);
+        commit();
+        toast('Опремата е избришана');
+      }
+    });
+  },
+  'eq-save': a => saveEq(a),
+  'eq-toggle': a => {
+    const e = eqById(a);
+    if (!e) return;
+    e.enabled = !e.enabled;
+    commit();
+  },
+  'eq-mode': () => {
+    ui.eq.mode = ui.eq.mode === 'sel' ? 'normal' : 'sel';
+    if (ui.eq.mode === 'normal') ui.eq.sel.clear();
+    renderPage();
+  },
+  'eq-selall': () => {
+    filteredEq().forEach(e => ui.eq.sel.add(e.id));
+    renderPage();
+  },
+  'eq-bulk': () => openBulkAdd(),
+  'bulk-add': () => applyBulkAdd(),
+  'eq-bulk-price': () => {
+    if (!ui.eq.sel.size) { toast('Прво избери опрема', 'err'); return; }
+    openModal(mShell('Постави цена за избраните', `
+      <div class="frow">
+        <label>Цена по ден (${curSym()})</label>
+        <input type="number" id="bp-val" min="0" step="0.5" placeholder="пр. 2.5">
+      </div>
+      <p class="note">Ќе биде применета на ${ui.eq.sel.size} ${ui.eq.sel.size === 1 ? 'предмет' : 'предмети'}.</p>`,
+      `<button class="btn sec" data-act="modal-close">Откажи</button>
+       <button class="btn pri" data-act="bp-apply">Примени</button>`));
+  },
+  'bp-apply': () => {
+    const v = parseFloat(($('#bp-val') || {}).value);
+    if (isNaN(v) || v < 0) { toast('Внеси валидна цена', 'err'); return; }
+    let n = 0;
+    ui.eq.sel.forEach(id => {
+      const e = eqById(id);
+      if (e) { e.price = v; n++; }
+    });
+    ui.eq.mode = 'normal';
+    ui.eq.sel.clear();
+    closeModal();
+    commit();
+    toast(`Цената е поставена на ${money(v)} за ${itemN(n)}`);
+  },
+  'eq-bulk-del': () => {
+    const ids = [...ui.eq.sel];
+    if (!ids.length) return;
+    const rented = rentedEqIds();
+    const del = ids.filter(id => !rented.has(id));
+    const skip = ids.length - del.length;
+    if (!del.length) { toast('Избраната опрема е моментално изнајмена — не може да се избрише', 'err', 5000); return; }
+    confirmBox({
+      title: 'Избриши опрема', ok: 'Избриши', danger: true,
+      msg: `${del.length} ${del.length === 1 ? 'предмет' : 'предмети'} ќе бидат избришани.${skip ? ` ${skip} изнајмени ќе бидат прескокнати.` : ''}`,
+      onOk: () => {
+        const set = new Set(del);
+        state.equipment = state.equipment.filter(e => !set.has(e.id));
+        ui.eq.mode = 'normal';
+        ui.eq.sel.clear();
+        commit();
+        toast(`Избришани ${itemN(del.length)}`);
+      }
+    });
+  },
+  settings: () => openSettings(),
+  'settings-save': () => saveSettings(),
+  'backup-now': () => doBackup(),
+  'backup-later': () => {
+    state.meta.lastBackupAt = Date.now();
+    save();
+    renderPage();
+  },
+  restore: () => $('#file-restore').click(),
+  'demo-load': () => {
+    const has = state.clients.length || state.equipment.length || state.rentals.length;
+    const run = () => { seedDemo(); closeAllModals(); nav('dash'); commit(); toast('Пробните податоци се вчитани'); };
+    if (has) confirmBox({ title: 'Вчитај пробни податоци', ok: 'Вчитај', msg: 'Тековните податоци ќе бидат заменети со подготвени пробни податоци.', onOk: run });
+    else run();
+  },
+  'wipe-all': () => confirmBox({
+    title: 'Избриши сè', ok: 'Избриши сè', danger: true,
+    msg: 'Сите клиенти, опрема и изнајмувања ќе бидат трајно избришани од овој уред. Препорака: превземи резервна копија прво.',
+    onOk: () => {
+      state = freshState();
+      save();
+      closeAllModals();
+      nav('dash');
+      renderPage();
+      refreshBadges();
+      toast('Сите податоци се избришани');
+    }
+  }),
+  'export-csv': a => exportCSV(a),
+  'report-open': () => openReport(),
+  'report-run': () => runReport(),
+  'report-csv': () => repCSV(),
+  'report-print': () => repPrint(),
+  'rb-pick': a => {
+    if (!rb) return;
+    rb.clientId = a;
+    rb.clientMode = 'picked';
+    rb.newc = { first: '', last: '', phone: '', card: '' };
+    renderRBClient();
+    renderRBTicket();
+  },
+  'rb-new': () => {
+    if (!rb) return;
+    rb.clientMode = 'form';
+    renderRBClient();
+  },
+  'rb-clear-client': () => {
+    if (!rb) return;
+    rb.clientId = null;
+    rb.clientMode = 'search';
+    rb.newc = { first: '', last: '', phone: '', card: '' };
+    renderRBClient();
+    renderRBTicket();
+  },
+  'rb-edit-new': () => {
+    if (!rb) return;
+    rb.clientMode = 'form';
+    renderRBClient();
+  },
+  'rb-tile': a => {
+    if (!rb) return;
+    rb.sel.has(a) ? rb.sel.delete(a) : rb.sel.add(a);
+    renderRBGrid();
+    renderRBTicket();
+  },
+  'rb-tab': a => {
+    if (!rb) return;
+    rb.tab = a;
+    const rbEl = $('.rb');
+    if (rbEl) rbEl.setAttribute('data-tab', a);
+    document.querySelectorAll('.rb-tab-btn').forEach(b => {
+      b.classList.toggle('on', b.getAttribute('data-arg') === a);
+    });
+    const mbody = $('.mbody');
+    if (mbody) mbody.scrollTop = 0;
+    if (a === 'ticket') renderRBTicket();
+  },
+  'rb-dur': a => {
+    if (!rb) return;
+    const days = parseInt(a, 10) || 1;
+    const st = fromInput(rb.form.start) || Date.now();
+    const h = state.settings.expectedHour || 17;
+    const d = new Date(st + (days - 1) * 864e5);
+    let t = new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, 0).getTime();
+    if (t <= st) t += 864e5;
+    rb.form.exp = toInput(t);
+    const inp = $('#rb-exp');
+    if (inp) inp.value = rb.form.exp;
+    updateTkEst();
+  },
+  'rb-save': () => saveRental(),
+  'ret-confirm': a => confirmReturn(a),
+  'confirm-ok': () => {
+    const cb = pendingConfirm;
+    pendingConfirm = null;
+    closeModal();
+    if (cb) cb();
+  },
+  'modal-close': () => closeModal(),
+  'modal-back': (a, el, e) => {
+    if (e.target === el) closeModal();
+  }
+};
+
+/* ---------- input routing ---------- */
+let debT = null;
+const renderListsSoon = () => {
+  clearTimeout(debT);
+  debT = setTimeout(renderPage, 110);
+};
+
+function onFormInput(e) {
+  const t = e.target;
+  if (!t || t.id === 'file-restore') return;
+  const id = t.id;
+  switch (id) {
+    case 'q-dash': ui.dash.q = t.value; renderListsSoon(); break;
+    case 'q-ren-a': ui.ren.qa = t.value; renderListsSoon(); break;
+    case 's-ren-a': ui.ren.sa = t.value; renderPage(); break;
+    case 'q-ren-h': ui.ren.qh = t.value; renderListsSoon(); break;
+    case 'f-h-from': ui.ren.from = t.value; renderPage(); break;
+    case 'f-h-to': ui.ren.to = t.value; renderPage(); break;
+    case 'f-h-cat': ui.ren.cat = t.value; renderPage(); break;
+    case 'f-h-paid': ui.ren.paid = t.value; renderPage(); break;
+    case 's-h': ui.ren.sort = t.value; renderPage(); break;
+    case 'q-eq': ui.eq.q = t.value; renderListsSoon(); break;
+    case 'f-eq-status': ui.eq.status = t.value; renderPage(); break;
+    case 's-eq': ui.eq.sort = t.value; renderPage(); break;
+    case 'q-cl': ui.cl.q = t.value; renderListsSoon(); break;
+    case 'f-cl': ui.cl.onlyActive = t.value === '1'; renderPage(); break;
+    case 's-cl': ui.cl.sort = t.value; renderPage(); break;
+    case 'q-pay': ui.pay.q = t.value; renderListsSoon(); break;
+    case 'f-pay-status': ui.pay.status = t.value; renderPage(); break;
+    case 'f-pay-from': ui.pay.from = t.value; renderPage(); break;
+    case 'f-pay-to': ui.pay.to = t.value; renderPage(); break;
+    case 's-pay': ui.pay.sort = t.value; renderPage(); break;
+    case 'rb-qc': if (rb) { rb.qc = t.value; renderRBResults(); } break;
+    case 'rb-qg': if (rb) { rb.qg = t.value; renderRBGrid(); } break;
+    case 'rb-start': if (rb) { rb.form.start = t.value; updateTkEst(); } break;
+    case 'rb-exp': if (rb) { rb.form.exp = t.value; updateTkEst(); } break;
+    case 'rb-note': if (rb) rb.form.note = t.value; break;
+    case 'rb-first': if (rb) { rb.newc.first = t.value; updateTkClient(); } break;
+    case 'rb-last': if (rb) { rb.newc.last = t.value; updateTkClient(); } break;
+    case 'rb-phone': if (rb) { rb.newc.phone = t.value; updateTkClient(); } break;
+    case 'rb-card': if (rb) rb.newc.card = t.value; break;
+    case 'rp-from': case 'rp-to': runReport(); break;
+    case 'ef-cat': {
+      const h = catById(t.value).hint;
+      const si = $('#ef-size');
+      if (si) si.placeholder = 'пр. ' + h;
+      break;
+    }
+  }
+}
+
+/* ---------- live ticker ---------- */
+function tick() {
+  const now = Date.now();
+  document.querySelectorAll('[data-timer]').forEach(el => {
+    const r = rentalById(el.dataset.timer);
+    if (!r) return;
+    const active = !r.closedAt;
+    el.innerHTML = active ? liveTimerHTML(now - r.start) : fmtDur(r.closedAt - r.start);
+    const row = el.closest('[data-rrow]');
+    if (row && active) {
+      const late = isLate(r, now);
+      row.classList.toggle('late', late);
+      const lw = row.querySelector('[data-latewrap]');
+      if (lw) lw.classList.toggle('hidden', !late);
+      const c = row.querySelector('[data-cost]');
+      if (c) c.textContent = costLine(r, now);
+    }
+  });
+  const dc = $('#dash-clock');
+  if (dc) dc.textContent = clockText(now);
+}
+
+/* ---------- global listeners & initialization ---------- */
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  const A = Acts[el.dataset.act];
+  if (A) A(el.dataset.arg, el, e);
+});
+
+document.addEventListener('input', onFormInput);
+document.addEventListener('change', onFormInput);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    if (modalStack.length) closeModal();
+    return;
+  }
+  if (e.key === '/' && !modalStack.length) {
+    const t = e.target;
+    if (t && /input|select|textarea/i.test(t.tagName)) return;
+    const map = { dash: '#q-dash', ren: ui.ren.seg === 'active' ? '#q-ren-a' : '#q-ren-h', eq: '#q-eq', cl: '#q-cl', pay: '#q-pay' };
+    const el = document.querySelector(map[ui.page]);
+    if (el) {
+      e.preventDefault();
+      el.focus();
+    }
+  }
+});
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  if (state.settings.theme === 'auto' || !state.settings.theme) {
+    updateThemeIcons();
+  }
+});
+
+document.getElementById('file-restore').addEventListener('change', onRestoreFile);
+
+mountApp();
+nav('dash');
+setInterval(tick, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,4221 @@
+<!DOCTYPE html>
+<html lang="mk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SKI Nadja - Систем за изнајмување ски опрема</title>
+  <link rel="icon" type="image/svg+xml" href="LOGO.svg">
+  <style>
+    /* =====================================================================
+       AURA DESIGN SYSTEM — TOKENS & CALM APPLE-INSPIRED THEME
+       ===================================================================== */
+    :root {
+      /* 1. Spatial Grid (4px base unit) */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-7: 32px;
+      --space-8: 40px;
+      --space-9: 48px;
+      --space-10: 64px;
+      --space-11: 80px;
+      --space-12: 96px;
+      --space-13: 128px;
+
+      /* 2. Neutral Hierarchy (Light Mode) */
+      --color-bg: #f5f5f7;
+      --color-surface: #ffffff;
+      --color-surface-secondary: #f2f2f7;
+      --color-surface-tertiary: #e5e5ea;
+
+      --color-text: #1d1d1f;
+      --color-text-secondary: #6e6e73;
+      --color-text-tertiary: #86868b;
+
+      --color-border: rgba(0, 0, 0, 0.08);
+      --color-border-hover: rgba(0, 0, 0, 0.15);
+
+      /* 3. Semantic Accents */
+      --color-blue: #007aff;
+      --color-blue-hover: #0062cc;
+      --color-green: #34c759;
+      --color-orange: #ff9500;
+      --color-red: #ff3b30;
+      --color-purple: #af52de;
+      --color-pink: #ff2d55;
+      --color-indigo: #5856d6;
+      --color-teal: #5ac8fa;
+      --color-yellow: #ffcc00;
+
+      /* 4. AURA Restrained Gradients */
+      --gradient-blue: linear-gradient(135deg, #007aff 0%, #47a3ff 100%);
+      --gradient-purple: linear-gradient(135deg, #af52de 0%, #c084fc 100%);
+      --gradient-pink: linear-gradient(135deg, #ff2d55 0%, #ff8fb3 100%);
+      --gradient-orange: linear-gradient(135deg, #ff9500 0%, #ffd080 100%);
+      --gradient-green: linear-gradient(135deg, #34c759 0%, #8be3a7 100%);
+      --gradient-cyan: linear-gradient(135deg, #5ac8fa 0%, #7de7e7 100%);
+
+      /* 5. Unified Radii (Cohesive rounded corners matching buttons) */
+      --radius-xs: 6px;
+      --radius-sm: 10px;
+      --radius: 12px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-2xl: 28px;
+      --radius-full: 9999px;
+
+      /* 6. Soft Elevations (Never harsh black) */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 12px 32px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06), 0 12px 32px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.10), 0 24px 64px rgba(0, 0, 0, 0.08);
+
+      /* 7. Motion & Physics */
+      --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+      --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+      --duration-fast: 150ms;
+      --duration-normal: 250ms;
+      --transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+
+      /* 8. Backward-Compatibility Aliases */
+      --primary: var(--color-blue);
+      --primary-hover: var(--color-blue-hover);
+      --primary-light: rgba(0, 122, 255, 0.10);
+      --accent: var(--color-teal);
+      --bg: var(--color-bg);
+      --surface: var(--color-surface);
+      --surface-border: var(--color-border);
+      --text: var(--color-text);
+      --text-muted: var(--color-text-secondary);
+      --success: var(--color-green);
+      --success-bg: rgba(52, 199, 89, 0.12);
+      --danger: var(--color-red);
+      --danger-bg: rgba(255, 59, 48, 0.10);
+      --warning: var(--color-orange);
+      --warning-bg: rgba(255, 149, 0, 0.12);
+      --purple: var(--color-purple);
+      --purple-bg: rgba(175, 82, 222, 0.12);
+
+      /* 9. Layout Insets */
+      --bottom-nav-height: 64px;
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-top: env(safe-area-inset-top, 0px);
+
+      /* 10. Apple Typography Stack */
+      --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, system-ui, -apple-system, sans-serif;
+    }
+
+    /* AURA Dark Theme */
+    [data-theme="dark"] {
+      --color-bg: #000000;
+      --color-surface: #1c1c1e;
+      --color-surface-secondary: #2c2c2e;
+      --color-surface-tertiary: #3a3a3c;
+
+      --color-text: #f5f5f7;
+      --color-text-secondary: #98989d;
+      --color-text-tertiary: #6e6e73;
+
+      --color-border: rgba(255, 255, 255, 0.12);
+      --color-border-hover: rgba(255, 255, 255, 0.22);
+
+      --primary: #2997ff;
+      --primary-hover: #58a6ff;
+      --primary-light: rgba(41, 151, 255, 0.18);
+      --accent: #5ac8fa;
+      --bg: var(--color-bg);
+      --surface: var(--color-surface);
+      --surface-border: var(--color-border);
+      --text: var(--color-text);
+      --text-muted: var(--color-text-secondary);
+      --success: #30d158;
+      --success-bg: rgba(48, 209, 88, 0.18);
+      --danger: #ff453a;
+      --danger-bg: rgba(255, 69, 58, 0.18);
+      --warning: #ffd60a;
+      --warning-bg: rgba(255, 214, 10, 0.18);
+      --purple: #bf5af2;
+      --purple-bg: rgba(191, 90, 242, 0.18);
+
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 12px 32px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.7), 0 12px 32px rgba(0, 0, 0, 0.5);
+      --shadow-lg: 0 12px 48px rgba(0, 0, 0, 0.85), 0 24px 64px rgba(0, 0, 0, 0.75);
+    }
+
+    /* Base Reset & Smooth Rendering */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-4));
+      transition: background-color var(--duration-normal) var(--ease-standard),
+        color var(--duration-normal) var(--ease-standard);
+    }
+
+    /* Subtle Native Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-surface-tertiary);
+      border-radius: var(--radius-pill);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-text-tertiary);
+    }
+
+    /* Top Sticky Navbar (Frosted Glass) */
+    header.navbar {
+      background-color: color-mix(in srgb, var(--color-surface) 82%, transparent);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      padding: var(--space-3) var(--space-5);
+      padding-top: calc(var(--space-3) + var(--safe-top));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      transition: border-color var(--duration-normal) var(--ease-standard);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--color-text);
+      text-decoration: none;
+      letter-spacing: -0.015em;
+      user-select: none;
+      transition: opacity var(--duration-fast) var(--ease-standard);
+    }
+
+    .brand:hover {
+      opacity: 0.88;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      /*
+      border-radius: var(--radius-sm);
+      background-color: #ffffff;
+      padding: 2px;
+      object-fit: contain;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      */
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .desktop-nav-links {
+      display: none;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    /* Desktop Navigation Overrides (>= 840px) */
+    @media (min-width: 840px) {
+      body {
+        padding-bottom: var(--space-8);
+      }
+
+      nav.bottom-nav {
+        display: none !important;
+      }
+
+      .fab-btn {
+        display: none !important;
+      }
+
+      .desktop-nav-links {
+        display: flex;
+        align-items: center;
+        gap: var(--space-1);
+        background: var(--color-surface-secondary);
+        padding: 4px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-border);
+      }
+
+      .desktop-nav-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border-radius: var(--radius-sm);
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: var(--color-text-secondary);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition);
+        white-space: nowrap;
+      }
+
+      .desktop-nav-btn:hover {
+        color: var(--color-text);
+        background-color: var(--color-surface);
+      }
+
+      .desktop-nav-btn.active {
+        color: var(--color-text);
+        background-color: var(--color-surface);
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .desktop-add-btn {
+        display: inline-flex !important;
+      }
+    }
+
+    .desktop-add-btn {
+      display: none;
+    }
+
+    /* Mobile Bottom Navigation Bar (iOS Frosted Tab Bar) */
+    nav.bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: calc(var(--bottom-nav-height) + var(--safe-bottom));
+      padding-bottom: var(--safe-bottom);
+      background-color: color-mix(in srgb, var(--color-surface) 86%, transparent);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 50;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    .bottom-nav-btn {
+      flex: 1;
+      height: 100%;
+      min-height: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 500;
+      gap: 3px;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .bottom-nav-btn .nav-icon {
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: transform var(--duration-fast) var(--ease-standard);
+    }
+
+    .bottom-nav-btn.active {
+      color: var(--color-blue);
+      font-weight: 600;
+    }
+
+    .bottom-nav-btn.active .nav-icon {
+      transform: scale(1.08);
+    }
+
+    /* Mobile Floating Action Button (FAB) */
+    .fab-btn {
+      position: fixed;
+      right: var(--space-4);
+      bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-4));
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--gradient-blue);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.85rem;
+      font-weight: 300;
+      line-height: 1;
+      border: none;
+      box-shadow: 0 8px 24px rgba(0, 122, 255, 0.38);
+      cursor: pointer;
+      z-index: 45;
+      transition: transform var(--duration-fast) var(--ease-standard),
+        box-shadow var(--duration-fast) var(--ease-standard);
+    }
+
+    .fab-btn:active {
+      transform: scale(0.92);
+      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+    }
+
+    /* AURA Button System */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0.6rem 1.15rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      min-height: 44px;
+      user-select: none;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-primary {
+      background: var(--gradient-blue);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(0, 122, 255, 0.25);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      box-shadow: 0 4px 14px rgba(0, 122, 255, 0.35);
+      filter: brightness(1.05);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-surface-secondary);
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background-color: color-mix(in srgb, var(--color-text) 5%, var(--color-surface-secondary));
+      border-color: var(--color-border-hover);
+    }
+
+    .btn-success {
+      background: var(--gradient-green);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(52, 199, 89, 0.25);
+    }
+
+    .btn-success:hover:not(:disabled) {
+      filter: brightness(1.05);
+      box-shadow: 0 4px 14px rgba(52, 199, 89, 0.35);
+    }
+
+    .btn-danger {
+      background-color: color-mix(in srgb, var(--color-text) 5%, var(--color-surface-secondary));
+      color: #ffffff;
+      border: 1px solid red;
+      box-shadow: 0 2px 8px rgba(255, 59, 48, 0.25);
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      filter: brightness(1.08);
+    }
+
+    .btn-sm {
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+      min-height: 36px;
+      border-radius: var(--radius-md);
+    }
+
+    .btn-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: var(--color-text-secondary);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      transition: var(--transition);
+    }
+
+    .btn-icon:hover {
+      background-color: var(--color-surface-secondary);
+      color: var(--color-text);
+      border-color: var(--color-border-hover);
+    }
+
+    .btn-icon:active {
+      transform: scale(0.92);
+    }
+
+    /* Main Container */
+    main.content {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: var(--space-4) var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      main.content {
+        padding: var(--space-6) var(--space-6);
+      }
+    }
+
+    /* AURA Metric Stat Cards Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
+    }
+
+    @media (min-width: 840px) {
+      .metrics-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--space-4);
+        margin-bottom: var(--space-6);
+      }
+    }
+
+    .metric-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: var(--space-2);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .metric-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-hover);
+      transform: translateY(-1px);
+    }
+
+    .metric-card .metric-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .metric-card .metric-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--color-text);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-top: var(--space-1);
+    }
+
+    .metric-card h4 {
+      font-size: 0.725rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    /* Dashboard Key Metrics (Single row: ICON NUMBER Title) */
+    #view-dashboard .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: var(--space-4);
+    }
+
+    @media (min-width: 640px) {
+      #view-dashboard .metrics-grid {
+        gap: var(--space-4);
+        margin-bottom: var(--space-6);
+      }
+    }
+
+    #view-dashboard .metric-card {
+      padding: 8px 10px;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      border-radius: var(--radius-md);
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    @media (min-width: 640px) {
+      #view-dashboard .metric-card {
+        padding: 14px 18px;
+        gap: 12px;
+        border-radius: var(--radius-lg);
+      }
+    }
+
+    #view-dashboard .metric-card .metric-icon {
+      width: 32px;
+      height: 32px;
+      font-size: 1.1rem;
+      border-radius: var(--radius-sm);
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      #view-dashboard .metric-card .metric-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1.3rem;
+      }
+    }
+
+    #view-dashboard .metric-card .metric-value {
+      font-size: 1.15rem;
+      margin-top: 0;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 640px) {
+      #view-dashboard .metric-card .metric-value {
+        font-size: 1.6rem;
+      }
+    }
+
+    #view-dashboard .metric-card h4 {
+      font-size: 0.72rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0;
+    }
+
+    @media (min-width: 640px) {
+      #view-dashboard .metric-card h4 {
+        font-size: 0.825rem;
+      }
+    }
+
+    /* Section Cards (.card) */
+    .card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      margin-bottom: var(--space-5);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    @media (min-width: 640px) {
+      .card {
+        padding: var(--space-6);
+      }
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    /* Search & Filter Toolbar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-4);
+    }
+
+    .search-input-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 100%;
+    }
+
+    @media (min-width: 640px) {
+      .search-input-wrap {
+        min-width: 260px;
+      }
+    }
+
+    .search-input-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-tertiary);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 14px 10px 42px;
+      font-size: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface-secondary);
+      color: var(--color-text);
+      outline: none;
+      min-height: 44px;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    .search-input:focus {
+      background-color: var(--color-surface);
+      border-color: var(--color-blue);
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+    }
+
+    .form-select,
+    .form-input {
+      padding: 10px 14px;
+      font-size: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      background-color: var(--color-surface-secondary);
+      color: var(--color-text);
+      outline: none;
+      min-height: 44px;
+      width: 100%;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+
+    select.form-select {
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 15px;
+      padding-right: 38px;
+    }
+
+    .form-select:focus,
+    .form-input:focus {
+      background-color: var(--color-surface);
+      border-color: var(--color-blue);
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+    }
+
+    @media (min-width: 640px) {
+      .form-select {
+        width: auto;
+      }
+    }
+
+    /* Category Filter Chips */
+    .chips-row {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      overflow-x: auto;
+      padding-bottom: var(--space-2);
+      margin-bottom: var(--space-3);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .chips-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 500;
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      min-height: 40px;
+      transition: var(--transition);
+      user-select: none;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chip:hover {
+      background-color: var(--color-surface-secondary);
+      color: var(--color-text);
+      border-color: var(--color-border-hover);
+    }
+
+    .chip.active {
+      background-color: var(--color-text);
+      color: var(--color-surface);
+      border-color: var(--color-text);
+      font-weight: 600;
+    }
+
+    /* Badges & Dots */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 9px;
+      border-radius: var(--radius-pill);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      line-height: 1.25;
+    }
+
+    .badge-success {
+      background-color: var(--success-bg);
+      color: var(--success);
+    }
+
+    .badge-danger {
+      background-color: var(--danger-bg);
+      color: var(--danger);
+    }
+
+    .badge-warning {
+      background-color: var(--warning-bg);
+      color: var(--warning);
+    }
+
+    .badge-primary {
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .badge-gray {
+      background-color: var(--color-surface-secondary);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border);
+    }
+
+    /* Live Active Rentals Grid */
+    .rentals-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 680px) {
+      .rentals-grid {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: var(--space-5);
+      }
+    }
+
+    .rental-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4) var(--space-5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .rental-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-hover);
+    }
+
+    .rental-card.overdue {
+      border: 1px solid rgba(255, 59, 48, 0.4);
+      background: color-mix(in srgb, var(--color-red) 3%, var(--color-surface));
+      box-shadow: 0 4px 16px rgba(255, 59, 48, 0.08);
+    }
+
+    .rental-card-top {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: var(--space-2);
+    }
+
+    .client-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.015em;
+    }
+
+    .client-sub {
+      font-size: 0.8rem;
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-top: 2px;
+    }
+
+    .rental-timer {
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--color-blue);
+      white-space: nowrap;
+      margin: var(--space-2) 0;
+    }
+
+    .rental-card.overdue .rental-timer {
+      color: var(--color-red);
+    }
+
+    .rental-items-list {
+      margin: var(--space-2) 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .rental-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.825rem;
+      background-color: var(--color-surface-secondary);
+      padding: 6px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
+
+    .rental-item-row.item-returned {
+      opacity: 0.45;
+      text-decoration: line-through;
+    }
+
+    .rental-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border);
+      margin-top: var(--space-2);
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+
+    .rental-amount {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Mobile Responsive Card-List vs Desktop Table */
+    .mobile-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .data-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      transition: var(--transition);
+    }
+
+    .data-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-hover);
+    }
+
+    .data-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+
+    .data-card-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--color-text);
+      padding: 2px 0;
+    }
+
+    .data-card-actions {
+      display: flex;
+      gap: var(--space-2);
+      justify-content: flex-end;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-border);
+      margin-top: var(--space-1);
+      flex-wrap: wrap;
+    }
+
+    .table-container {
+      display: none;
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-sm);
+    }
+
+    @media (min-width: 840px) {
+      .mobile-card-list {
+        display: none;
+      }
+
+      .table-container {
+        display: block;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.875rem;
+      }
+
+      th {
+        background-color: var(--color-surface-secondary);
+        padding: 12px 16px;
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--color-text-secondary);
+        border-bottom: 1px solid var(--color-border);
+        white-space: nowrap;
+      }
+
+      td {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--color-border);
+        color: var(--color-text);
+        vertical-align: middle;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      tr:hover td {
+        background-color: color-mix(in srgb, var(--color-blue) 4%, var(--color-surface));
+      }
+    }
+
+    /* Modal Dialogs (iOS Bottom Sheet on Mobile, Centered Dialog on Desktop) */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      border-radius: 24px 24px 0 0;
+      width: 100%;
+      max-height: 94vh;
+      max-height: calc(100dvh - 20px);
+      overflow-y: auto;
+      box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.28);
+      display: flex;
+      flex-direction: column;
+      animation: sheetUp 0.28s var(--ease-emphasized);
+      padding-bottom: var(--safe-bottom);
+      position: relative;
+    }
+
+    @keyframes sheetUp {
+      from {
+        transform: translateY(100%);
+      }
+
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 640px) {
+      .modal-backdrop {
+        align-items: center;
+        padding: var(--space-6);
+      }
+
+      .modal-box {
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-xl);
+        max-width: 680px;
+        box-shadow: var(--shadow-lg);
+        animation: modalFade 0.22s var(--ease-standard);
+        padding-bottom: 0;
+      }
+
+      @keyframes modalFade {
+        from {
+          opacity: 0;
+          transform: scale(0.97) translateY(8px);
+        }
+
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+    }
+
+    .modal-header {
+      padding: 18px var(--space-5) var(--space-3);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: var(--color-surface);
+      z-index: 10;
+    }
+
+    @media (max-width: 639px) {
+      .modal-header::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 38px;
+        height: 5px;
+        border-radius: var(--radius-pill);
+        background: var(--color-surface-tertiary);
+      }
+    }
+
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-text);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      letter-spacing: -0.01em;
+    }
+
+    .modal-body {
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .modal-divider {
+      width: 100%;
+      height: 2px;
+      background-color: #007aff;
+      border: none;
+      margin: var(--space-1) 0;
+      border-radius: var(--radius-pill);
+      flex-shrink: 0;
+    }
+
+    .modal-footer {
+      padding: var(--space-3) var(--space-5) calc(var(--space-3) + var(--safe-bottom));
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: var(--space-3);
+      background-color: var(--color-surface);
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    @media (min-width: 500px) {
+      .form-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .tab-nav {
+      display: inline-flex;
+      background-color: var(--color-surface-secondary);
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      gap: 4px;
+      margin-bottom: var(--space-4);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tab-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-link {
+      padding: 7px 16px;
+      border: none;
+      background: transparent;
+      color: var(--color-text-secondary);
+      font-weight: 500;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .tab-link:hover {
+      color: var(--color-text);
+    }
+
+    .tab-link.active {
+      color: var(--color-text);
+      background-color: var(--color-surface);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+
+
+    /* Unified Outer Boxes & Card Tiles (Unified with Buttons) */
+    #dash-category-stock>div {
+      border-radius: var(--radius-md) !important;
+      background-color: var(--color-surface-secondary) !important;
+      border: 1px solid var(--color-border) !important;
+      padding: var(--space-3) var(--space-4) !important;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    #dash-category-stock>div:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--color-border-hover) !important;
+      transform: translateY(-1px);
+    }
+
+    #nr-available-equip-list {
+      border-radius: var(--radius-md) !important;
+      border: 1px solid var(--color-border) !important;
+      background-color: var(--color-surface-secondary) !important;
+      padding: var(--space-2) !important;
+    }
+
+    #nr-available-equip-list>div {
+      border-radius: var(--radius-md) !important;
+      border: 1px solid var(--color-border) !important;
+      background-color: var(--color-surface) !important;
+      padding: 8px 12px !important;
+      transition: var(--transition);
+    }
+
+    #nr-available-equip-list>div:hover {
+      border-color: var(--color-blue) !important;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    #nr-selected-items-table {
+      border-radius: var(--radius-md) !important;
+      border: 1px solid var(--color-border) !important;
+      background-color: var(--color-surface) !important;
+      max-height: none !important;
+      overflow: visible !important;
+      height: auto !important;
+    }
+
+    #nr-selected-client-box {
+      border-radius: var(--radius-md) !important;
+      padding: 12px 14px !important;
+      background-color: color-mix(in srgb, var(--color-blue) 8%, var(--color-surface)) !important;
+      border: 1px solid color-mix(in srgb, var(--color-blue) 25%, transparent) !important;
+    }
+
+    #nr-inline-client-form {
+      border-radius: var(--radius-md) !important;
+      padding: 14px !important;
+      background-color: var(--color-surface-secondary) !important;
+      border: 1px solid color-mix(in srgb, var(--color-blue) 30%, transparent) !important;
+    }
+
+    #nr-client-dropdown {
+      border-radius: var(--radius-md) !important;
+      border: 1px solid var(--color-border) !important;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    #nr-client-dropdown>div {
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    #nr-client-dropdown>div:hover {
+      background-color: var(--color-surface-secondary);
+    }
+
+    .rental-item-row {
+      border-radius: var(--radius-md) !important;
+    }
+
+    .setting-cat-price {
+      border-radius: var(--radius-md) !important;
+      background-color: var(--color-surface-secondary);
+      border: 1px solid var(--color-border);
+      padding: 10px 12px;
+    }
+
+    /* Print Styles */
+    @media print {
+
+      header.navbar,
+      nav.bottom-nav,
+      .fab-btn,
+      .toolbar,
+      .nav-actions,
+      .modal-backdrop,
+      .btn {
+        display: none !important;
+      }
+
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+
+      .card {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+    }
+
+    /* Accessibility / Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      ::before,
+      ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body data-theme="light">
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <a href="#" class="brand" onclick="navigateTo('dashboard'); return false;">
+      <img src="LOGO.svg" alt="SKI Nadja" class="brand-icon">
+      <span>SKI Nadja</span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <nav class="desktop-nav-links">
+      <button class="desktop-nav-btn active" id="desk-nav-dashboard" onclick="navigateTo('dashboard')">
+        <span>🏠</span> Контролна табла
+      </button>
+      <button class="desktop-nav-btn" id="desk-nav-rentals" onclick="navigateTo('rentals')">
+        <span>⏱</span> Изнајмувања
+      </button>
+      <button class="desktop-nav-btn" id="desk-nav-equipment" onclick="navigateTo('equipment')">
+        <span>🎿</span> Опрема
+      </button>
+      <button class="desktop-nav-btn" id="desk-nav-clients" onclick="navigateTo('clients')">
+        <span>👤</span> Клиенти
+      </button>
+      <button class="desktop-nav-btn" id="desk-nav-payments" onclick="navigateTo('payments')">
+        <span>💳</span> Промет
+      </button>
+      <button class="desktop-nav-btn" id="desk-nav-settings" onclick="navigateTo('settings')">
+        <span>⚙</span> Поставки
+      </button>
+    </nav>
+
+    <div class="nav-actions">
+      <button class="btn btn-primary btn-sm desktop-add-btn" onclick="openNewRentalModal()">
+        <span>+</span> Ново изнајмување
+      </button>
+
+      <button class="btn-icon" onclick="toggleTheme()" title="Промени Светла/Темна тема">
+        <span id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Floating Action Button (FAB) -->
+  <button class="fab-btn" onclick="openNewRentalModal()" title="Ново изнајмување">
+    <span>+</span>
+  </button>
+
+  <!-- Bottom App Navigation Bar (Phone Optimized) -->
+  <nav class="bottom-nav">
+    <button class="bottom-nav-btn active" id="mob-nav-dashboard" onclick="navigateTo('dashboard')">
+      <span class="nav-icon">🏠</span>
+      <span>Табла</span>
+    </button>
+    <button class="bottom-nav-btn" id="mob-nav-rentals" onclick="navigateTo('rentals')">
+      <span class="nav-icon">⏱</span>
+      <span>Изнајмени</span>
+    </button>
+    <button class="bottom-nav-btn" id="mob-nav-equipment" onclick="navigateTo('equipment')">
+      <span class="nav-icon">🎿</span>
+      <span>Опрема</span>
+    </button>
+    <button class="bottom-nav-btn" id="mob-nav-clients" onclick="navigateTo('clients')">
+      <span class="nav-icon">👤</span>
+      <span>Клиенти</span>
+    </button>
+    <button class="bottom-nav-btn" id="mob-nav-payments" onclick="navigateTo('payments')">
+      <span class="nav-icon">💳</span>
+      <span>Промет</span>
+    </button>
+    <button class="bottom-nav-btn" id="mob-nav-settings" onclick="navigateTo('settings')">
+      <span class="nav-icon">⚙</span>
+      <span>Поставки</span>
+    </button>
+  </nav>
+
+  <!-- Main View Container -->
+  <main class="content">
+
+    <!-- VIEW: DASHBOARD -->
+    <div id="view-dashboard" class="page-view">
+      <!-- Quick Top Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon" style="background-color: var(--primary-light); color: var(--primary);">⏱</div>
+          <div class="metric-value" id="dash-active-count">0</div>
+          <h4>Активни</h4>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background-color: var(--purple-bg); color: var(--purple);">🎿</div>
+          <div class="metric-value" id="dash-items-out">0</div>
+          <h4>Парчиња</h4>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon" style="background-color: var(--danger-bg); color: var(--danger);">⚠️</div>
+          <div class="metric-value" id="dash-overdue-count" style="color: var(--danger);">0</div>
+          <h4>Доцнења</h4>
+        </div>
+      </div>
+
+      <!-- Live Active Rentals Section -->
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <span>🔴</span> Активни (Тајмер во живо)
+          </h2>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input type="text" class="search-input" id="dash-search" placeholder="Пребарај клиент, телефон, опрема..."
+              oninput="renderDashboard()">
+          </div>
+          <select class="form-select" id="dash-status-filter" onchange="renderDashboard()">
+            <option value="all">Сите активни</option>
+            <option value="overdue">Само со поминат рок (⚠️)</option>
+            <option value="unpaid">Само ненаплатени</option>
+          </select>
+        </div>
+
+        <div id="dash-rentals-container" class="rentals-grid">
+        </div>
+      </div>
+
+      <!-- Stock availability -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><span>📊</span> Магацинска достапност</h3>
+          <button class="btn btn-secondary btn-sm" onclick="navigateTo('equipment')">Опрема</button>
+        </div>
+        <div id="dash-category-stock"
+          style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem;">
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: RENTALS & HISTORY -->
+    <div id="view-rentals" class="page-view" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title"><span>⏱</span> Сите изнајмувања</h2>
+          <button class="btn btn-secondary btn-sm" onclick="exportRentalsCSV()">
+            <span>📥</span> CSV
+          </button>
+        </div>
+
+        <div class="tab-nav">
+          <button class="tab-link active" id="tab-rentals-active" onclick="switchRentalsTab('active')">Активни</button>
+          <button class="tab-link" id="tab-rentals-history" onclick="switchRentalsTab('history')">Историја</button>
+          <button class="tab-link" id="tab-rentals-all" onclick="switchRentalsTab('all')">Сите</button>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input type="text" class="search-input" id="rentals-search" placeholder="Пребарај..."
+              oninput="renderRentalsTable()">
+          </div>
+          <select class="form-select" id="rentals-pay-filter" onchange="renderRentalsTable()">
+            <option value="all">Сите плаќања</option>
+            <option value="paid">Платени</option>
+            <option value="unpaid">Ненаплатени</option>
+          </select>
+        </div>
+
+        <!-- Mobile Card List for Rentals -->
+        <div class="mobile-card-list" id="rentals-mobile-list">
+        </div>
+
+        <!-- Desktop Table for Rentals -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Р. бр.</th>
+                <th>Клиент & Телефон</th>
+                <th>Членска картичка</th>
+                <th>Изнајмена опрема</th>
+                <th>Почеток</th>
+                <th>Враќање / Рок</th>
+                <th>Време</th>
+                <th>Сума</th>
+                <th>Платено</th>
+                <th>Акции</th>
+              </tr>
+            </thead>
+            <tbody id="rentals-table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: EQUIPMENT / INVENTORY -->
+    <div id="view-equipment" class="page-view" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title"><span>🎿</span> Инвентар на опрема</h2>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button class="btn btn-primary btn-sm" onclick="openNewEquipmentModal()">
+              <span>+</span> ОПРЕМА
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="openBulkAddModal()">
+              <span>⚡</span> Групно
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="openBulkPriceModal()">
+              <span>💰</span> Цени
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="exportEquipmentCSV()">
+              <span>📥</span> CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="chips-row" id="equip-category-chips">
+        </div>
+
+        <div class="toolbar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input type="text" class="search-input" id="equip-search" placeholder="Пребарај код, модел, големина..."
+              oninput="renderEquipmentTable()">
+          </div>
+
+          <div style="display:flex; gap:0.5rem; width:100%;">
+            <select class="form-select" id="equip-status-filter" onchange="renderEquipmentTable()" style="flex:1;">
+              <option value="all">Сите статуси</option>
+              <option value="available">🟢 Достапни</option>
+              <option value="rented">🔴 Изнајмени</option>
+              <option value="disabled">⚪ Исклучени</option>
+            </select>
+
+            <select class="form-select" id="equip-size-filter" onchange="renderEquipmentTable()" style="flex:1;">
+              <option value="all">Сите големини</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Mobile Card List for Equipment -->
+        <div class="mobile-card-list" id="equip-mobile-list">
+        </div>
+
+        <!-- Desktop Table for Equipment -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Статус</th>
+                <th>Код / Број</th>
+                <th>Категорија</th>
+                <th>Модел / Назив</th>
+                <th>Големина</th>
+                <th>Цена / ден</th>
+                <th>Пати</th>
+                <th>Вклучено</th>
+                <th>Забелешка</th>
+                <th>Акции</th>
+              </tr>
+            </thead>
+            <tbody id="equip-table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: CLIENTS -->
+    <div id="view-clients" class="page-view" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title"><span>👤</span> Клиенти</h2>
+          <div style="display:flex; gap:0.4rem;">
+            <button class="btn btn-primary btn-sm" onclick="openNewClientModal()">
+              <span>+</span> Нов клиент
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="exportClientsCSV()">
+              <span>📥</span> CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <input type="text" class="search-input" id="clients-search" placeholder="Пребарај име, телефон, картичка..."
+              oninput="renderClientsTable()">
+          </div>
+        </div>
+
+        <!-- Mobile Card List for Clients -->
+        <div class="mobile-card-list" id="clients-mobile-list">
+        </div>
+
+        <!-- Desktop Table for Clients -->
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Име и Презиме</th>
+                <th>Телефон</th>
+                <th>Членска картичка</th>
+                <th>Вкупно</th>
+                <th>Тековно</th>
+                <th>Забелешка</th>
+                <th>Акции</th>
+              </tr>
+            </thead>
+            <tbody id="clients-table-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: PAYMENTS & REPORTS -->
+    <div id="view-payments" class="page-view" style="display: none;">
+      <div class="tab-nav">
+        <button class="tab-link active" id="tab-pay-list" onclick="switchPaymentsTab('list')">Евиденција</button>
+        <button class="tab-link" id="tab-pay-report" onclick="switchPaymentsTab('report')">Извештај (Report)</button>
+      </div>
+
+      <div id="pay-sub-list">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><span>💳</span> Наплати</h3>
+            <select class="form-select" id="pay-filter-status" onchange="renderPaymentsTable()"
+              style="max-width:180px;">
+              <option value="all">Сите</option>
+              <option value="unpaid">Само Ненаплатени</option>
+              <option value="paid">Само Платени</option>
+            </select>
+          </div>
+
+          <!-- Mobile Card List for Payments -->
+          <div class="mobile-card-list" id="payments-mobile-list">
+          </div>
+
+          <!-- Desktop Table for Payments -->
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Р. бр.</th>
+                  <th>Клиент</th>
+                  <th>Телефон</th>
+                  <th>Датум</th>
+                  <th>Износ</th>
+                  <th>Статус</th>
+                  <th>Начин</th>
+                  <th>Акции</th>
+                </tr>
+              </thead>
+              <tbody id="payments-table-body">
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div id="pay-sub-report" style="display: none;">
+        <div class="card no-print">
+          <div class="card-header">
+            <h3 class="card-title"><span>📈</span> Финансиски извештај</h3>
+            <div style="display:flex; gap:0.4rem;">
+              <button class="btn btn-secondary btn-sm" onclick="window.print()">
+                <span>🖨</span> Печати/PDF
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="exportReportCSV()">
+                <span>📥</span> CSV
+              </button>
+            </div>
+          </div>
+
+          <div class="toolbar">
+            <div class="form-group" style="width:100%;">
+              <label>Брз опсег:</label>
+              <select class="form-select" id="rep-preset" onchange="applyReportPreset()">
+                <option value="today">Денес</option>
+                <option value="this_week">Оваа недела</option>
+                <option value="this_month">Овој месец</option>
+                <option value="all">Цела сезона (Сите)</option>
+              </select>
+            </div>
+
+            <div style="display:flex; gap:0.5rem; width:100%;">
+              <div class="form-group" style="flex:1;">
+                <label>Од:</label>
+                <input type="date" class="form-input" id="rep-from" onchange="generateReport()">
+              </div>
+              <div class="form-group" style="flex:1;">
+                <label>До:</label>
+                <input type="date" class="form-input" id="rep-to" onchange="generateReport()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="report-view-container">
+          <div style="border-bottom: 2px solid var(--surface-border); padding-bottom: 0.75rem; margin-bottom: 1rem;">
+            <h2 style="font-size: 1.25rem; font-weight: 800;">Финансиски извештај</h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem;" id="rep-period-label">Период: Денес</p>
+          </div>
+
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-info">
+                <h4>Вкупен промет</h4>
+                <div class="metric-value" id="rep-total-rev">0 €</div>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-info">
+                <h4>Наплатено</h4>
+                <div class="metric-value" style="color: var(--success);" id="rep-paid-rev">0 €</div>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-info">
+                <h4>Ненаплатено</h4>
+                <div class="metric-value" style="color: var(--danger);" id="rep-unpaid-rev">0 €</div>
+              </div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-info">
+                <h4>Изнајмувања</h4>
+                <div class="metric-value" id="rep-rental-count">0</div>
+              </div>
+            </div>
+          </div>
+
+          <h3 style="margin: 1rem 0 0.5rem; font-size: 1rem;">По категории:</h3>
+          <div id="rep-categories-mobile" style="display:flex; flex-direction:column; gap:0.4rem;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: SETTINGS -->
+    <div id="view-settings" class="page-view" style="display: none;">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title"><span>⚙</span> Поставки на апликацијата</h2>
+        </div>
+
+        <div class="form-row" style="margin-bottom: 1.25rem;">
+          <div class="form-group">
+            <label>Стандардна валута</label>
+            <select class="form-select" id="setting-currency" onchange="saveGeneralSettings()">
+              <option value="EUR">EUR (€)</option>
+              <option value="MKD">МКД (ден.)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Очекувано враќање (Крај на ден)</label>
+            <input type="time" class="form-input" id="setting-closing-time" value="17:00"
+              onchange="saveGeneralSettings()">
+          </div>
+        </div>
+
+        <h3 style="margin: 1rem 0 0.5rem; font-size: 1rem;">Дневен ценовник</h3>
+        <div id="settings-price-grid"
+          style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.6rem; margin-bottom: 1.5rem;">
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--surface-border); margin: 1.5rem 0;">
+
+        <h3 class="card-title" style="margin-bottom: 0.5rem;"><span>📥</span> Увоз од Google Sheets (CSV)</h3>
+        <div style="display:flex; flex-direction:column; gap: 0.75rem; margin-bottom: 1.5rem;">
+          <input type="file" id="csv-file-input" accept=".csv" class="form-input">
+          <button class="btn btn-primary" onclick="importFromCSV()">Увези од CSV</button>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--surface-border); margin: 1.5rem 0;">
+
+        <h3 class="card-title" style="margin-bottom: 0.75rem;"><span>💾</span> Резервна копија (Backup)</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+          <button class="btn btn-secondary" onclick="exportFullBackupJSON()">
+            <span>⬇️</span> Преземи бекап (JSON)
+          </button>
+
+          <label class="btn btn-secondary" style="cursor: pointer;">
+            <span>⬆️</span> Врати од бекап (JSON)
+            <input type="file" id="restore-file-input" accept=".json" style="display:none;"
+              onchange="restoreFullBackupJSON(event)">
+          </label>
+
+          <button class="btn btn-secondary" onclick="loadDemoSampleData()">
+            <span>🧪</span> Вчитај демо податоци
+          </button>
+
+          <button class="btn btn-danger btn-sm" style="margin-top: 0.5rem;" onclick="resetAllData()">
+            <span>⚠️</span> Исчисти ги сите податоци
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== MODALS (Bottom Sheets on Phone) ==================== -->
+
+  <!-- MODAL: NEW RENTAL -->
+  <div class="modal-backdrop" id="modal-new-rental">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title"><span>➕</span> Ново изнајмување</h3>
+        <button class="btn-icon" onclick="closeModal('modal-new-rental')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label style="font-size: 1.05rem; font-weight: 700; color: var(--text);">1. Клиент</label>
+          <div style="display:flex; gap: 0.4rem;">
+            <div class="search-input-wrap" style="flex:1; min-width:auto;">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <input type="text" class="search-input" id="nr-client-search" placeholder="Барај клиент..."
+                oninput="searchRentalClients()">
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="toggleInlineNewClient()">+ Нов</button>
+          </div>
+
+          <div id="nr-client-dropdown"
+            style="display:none; max-height: 140px; overflow-y: auto; border: 1px solid var(--surface-border); border-radius: var(--radius-sm); margin-top: 0.35rem; background: var(--surface);">
+          </div>
+
+          <div id="nr-selected-client-box"
+            style="display:none; padding: 0.6rem; background-color: var(--primary-light); border-radius: var(--radius-sm); margin-top: 0.4rem; align-items:center; justify-content:space-between;">
+            <div>
+              <strong id="nr-sel-name" style="font-size: 1.05rem; color: var(--primary);"></strong>
+              <div id="nr-sel-details" style="font-size: 0.8rem; color: var(--text-muted);"></div>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="clearSelectedRentalClient()">Промени</button>
+          </div>
+
+          <div id="nr-inline-client-form"
+            style="display:none; border: 1px dashed var(--primary); border-radius: var(--radius-sm); padding: 0.75rem; margin-top: 0.4rem; background: var(--bg);">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Име *</label>
+                <input type="text" class="form-input" id="nr-new-fname" placeholder="Име">
+              </div>
+              <div class="form-group">
+                <label>Презиме</label>
+                <input type="text" class="form-input" id="nr-new-lname" placeholder="Презиме">
+              </div>
+            </div>
+            <div class="form-row" style="margin-top:0.4rem;">
+              <div class="form-group">
+                <label>Телефон *</label>
+                <input type="tel" inputmode="tel" class="form-input" id="nr-new-phone" placeholder="070 123 456">
+              </div>
+              <div class="form-group">
+                <label>Број на картичка</label>
+                <input type="text" class="form-input" id="nr-new-card" placeholder="VIP-101">
+              </div>
+            </div>
+            <button class="btn btn-primary btn-sm" style="margin-top: 0.5rem; width:100%;"
+              onclick="saveInlineNewClient()">Зачувај клиент</button>
+          </div>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <div class="form-group">
+          <label style="font-size: 1.05rem; font-weight: 700; color: var(--text);">2. Избор на опрема</label>
+          <div class="chips-row" id="nr-category-chips" style="margin-bottom: 0.4rem;">
+          </div>
+
+          <div style="display: flex; gap: 0.4rem; margin-bottom: 0.4rem;">
+            <div class="search-input-wrap" style="flex:1; min-width:auto;">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <input type="text" class="search-input" id="nr-equip-search" placeholder="Код (пр. SK-101)..."
+                oninput="filterRentalAvailableEquipment()" onkeydown="handleQuickAddEquipment(event)">
+            </div>
+          </div>
+
+          <div id="nr-available-equip-list"
+            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.4rem; max-height: 160px; overflow-y: auto; border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.4rem; background: var(--bg);">
+          </div>
+
+          <label style="margin-top: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">
+            Избрани парчиња (<span id="nr-selected-count">0</span>):
+          </label>
+          <div id="nr-selected-items-table"
+            style="border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface);">
+          </div>
+        </div>
+
+        <div class="modal-divider"></div>
+
+        <div class="form-group">
+          <label style="font-size: 1.05rem; font-weight: 700; color: var(--text);">3. Време и наплата</label>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Почеток</label>
+              <input type="datetime-local" class="form-input" id="nr-start-time">
+            </div>
+
+            <div class="form-group">
+              <label>Очекувано враќање</label>
+              <input type="datetime-local" class="form-input" id="nr-expected-time" onchange="calculateRentalPrice()">
+              <div style="display:flex; gap: 0.25rem; margin-top: 0.35rem; overflow-x:auto;">
+                <button type="button" class="btn btn-secondary btn-sm" style="flex:1;"
+                  onclick="setRentalExpectedPreset('today')">Денес</button>
+                <button type="button" class="btn btn-secondary btn-sm" style="flex:1;"
+                  onclick="setRentalExpectedPreset('+1')">+1д</button>
+                <button type="button" class="btn btn-secondary btn-sm" style="flex:1;"
+                  onclick="setRentalExpectedPreset('+2')">+2д</button>
+                <button type="button" class="btn btn-secondary btn-sm" style="flex:1;"
+                  onclick="setRentalExpectedPreset('+7')">+7д</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top: 0.4rem;">
+            <div class="form-group">
+              <label>Вкупен износ</label>
+              <div style="display:flex; align-items:center; gap: 0.4rem;">
+                <input type="number" step="0.5" inputmode="decimal" class="form-input" id="nr-total-amount"
+                  style="font-size: 1.2rem; font-weight: 800;">
+                <span id="nr-currency-label" style="font-weight:700;">€</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Плаќање</label>
+              <select class="form-select" id="nr-pay-status" onchange="togglePaymentMethodSelect()">
+                <option value="unpaid">Ненаплатено (подоцна)</option>
+                <option value="paid">Платено веднаш</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" id="nr-pay-method-group" style="display:none; margin-top:0.4rem;">
+            <label>Начин на плаќање</label>
+            <select class="form-select" id="nr-pay-method">
+              <option value="cash">Готовина (Кеш)</option>
+              <option value="card">Картичка</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-top: 0.4rem;">
+            <label>Забелешка</label>
+            <input type="text" class="form-input" id="nr-notes" placeholder="Опционална забелешка...">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-new-rental')">Откажи</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="confirmSaveNewRental()">
+          <span>✓</span> Потврди
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: RETURN RENTAL -->
+  <div class="modal-backdrop" id="modal-return-rental">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title"><span>📥</span> Враќање опрема</h3>
+        <button class="btn-icon" onclick="closeModal('modal-return-rental')">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="ret-rental-id">
+        <div
+          style="background-color: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.6rem;">
+          <h4 id="ret-client-name" style="font-size: 1rem; color: var(--text);"></h4>
+          <div id="ret-rental-info" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;"></div>
+        </div>
+
+        <div class="form-group">
+          <label style="font-weight: 700; color: var(--text);">
+            Опрема што се враќа сега:
+          </label>
+          <div id="ret-items-list" style="display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.4rem;">
+          </div>
+        </div>
+
+        <div class="form-row"
+          style="background-color: var(--bg); padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--surface-border); align-items:center;">
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted);">Износ за наплата:</div>
+            <div style="font-size: 1.3rem; font-weight: 800; color: var(--text);" id="ret-final-amount">0 €</div>
+          </div>
+
+          <div class="form-group">
+            <label>Наплата:</label>
+            <select class="form-select" id="ret-pay-status">
+              <option value="paid_cash">Платено во кеш</option>
+              <option value="paid_card">Платено со картичка</option>
+              <option value="unpaid">Ненаплатено</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-return-rental')">Откажи</button>
+        <button class="btn btn-success" style="flex:1;" onclick="confirmReturnRental()">
+          <span>✓</span> Потврди враќање
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NEW / EDIT EQUIPMENT -->
+  <div class="modal-backdrop" id="modal-equipment">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="equip-modal-title"><span>🎿</span> Нова опрема</h3>
+        <button class="btn-icon" onclick="closeModal('modal-equipment')">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="eq-edit-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Уникатен Код *</label>
+            <input type="text" class="form-input" id="eq-code" placeholder="пр. SK-101">
+          </div>
+          <div class="form-group">
+            <label>Категорија *</label>
+            <select class="form-select" id="eq-category">
+              <option value="skis">🎿 Скии</option>
+              <option value="board">🏂 Борд</option>
+              <option value="sled">🛷 Санка</option>
+              <option value="poles">🦯 Стапови</option>
+              <option value="boots">⛸️ Кондури</option>
+              <option value="helmet">🪖 Кацига</option>
+              <option value="goggles">🥽 Наочари</option>
+              <option value="gloves">🧤 Раквици</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Модел / Назив</label>
+            <input type="text" class="form-input" id="eq-name" placeholder="пр. Atomic Redster">
+          </div>
+          <div class="form-group">
+            <label>Големина *</label>
+            <input type="text" class="form-input" id="eq-size" placeholder="пр. 165 cm, 42">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Цена / ден</label>
+            <input type="number" step="0.5" inputmode="decimal" class="form-input" id="eq-price" value="1.0">
+          </div>
+          <div class="form-group">
+            <label>Статус на опрема</label>
+            <select class="form-select" id="eq-enabled">
+              <option value="true">Вклучена (Овозможена)</option>
+              <option value="false">Исклучена (Сервис)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Забелешка</label>
+          <input type="text" class="form-input" id="eq-notes" placeholder="Сервис, оштетувања...">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-equipment')">Откажи</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="saveEquipmentItem()">Зачувај</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: BULK ADD EQUIPMENT -->
+  <div class="modal-backdrop" id="modal-bulk-equip">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title"><span>⚡</span> Групно додавање</h3>
+        <button class="btn-icon" onclick="closeModal('modal-bulk-equip')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Категорија</label>
+            <select class="form-select" id="bulk-eq-category">
+              <option value="boots">⛸️ Кондури</option>
+              <option value="skis">🎿 Скии</option>
+              <option value="board">🏂 Борд</option>
+              <option value="sled">🛷 Санка</option>
+              <option value="poles">🦯 Стапови</option>
+              <option value="helmet">🪖 Кацига</option>
+              <option value="goggles">🥽 Наочари</option>
+              <option value="gloves">🧤 Раквици</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Префикс на код</label>
+            <input type="text" class="form-input" id="bulk-eq-prefix" placeholder="пр. K-42">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Почетен број</label>
+            <input type="number" inputmode="numeric" class="form-input" id="bulk-eq-start" value="1">
+          </div>
+          <div class="form-group">
+            <label>Количина</label>
+            <input type="number" inputmode="numeric" class="form-input" id="bulk-eq-count" value="5" min="1" max="50">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Модел</label>
+            <input type="text" class="form-input" id="bulk-eq-name" placeholder="пр. Salomon Rental">
+          </div>
+          <div class="form-group">
+            <label>Големина</label>
+            <input type="text" class="form-input" id="bulk-eq-size" placeholder="пр. 42">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Цена по ден</label>
+          <input type="number" step="0.5" inputmode="decimal" class="form-input" id="bulk-eq-price" value="1.0">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-bulk-equip')">Откажи</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="confirmBulkAddEquipment()">Генерирај</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: BULK PRICE CHANGE -->
+  <div class="modal-backdrop" id="modal-bulk-price">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title"><span>💰</span> Промена на цени</h3>
+        <button class="btn-icon" onclick="closeModal('modal-bulk-price')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Категорија:</label>
+          <select class="form-select" id="bp-category">
+            <option value="all">Сите категории</option>
+            <option value="skis">🎿 Скии</option>
+            <option value="board">🏂 Борд</option>
+            <option value="sled">🛷 Санка</option>
+            <option value="poles">🦯 Стапови</option>
+            <option value="boots">⛸️ Кондури</option>
+            <option value="helmet">🪖 Кацига</option>
+            <option value="goggles">🥽 Наочари</option>
+            <option value="gloves">🧤 Раквици</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Нова цена / ден:</label>
+          <input type="number" step="0.5" inputmode="decimal" class="form-input" id="bp-new-price" value="1.0">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-bulk-price')">Откажи</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="confirmBulkPriceUpdate()">Ажурирај</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: NEW / EDIT CLIENT -->
+  <div class="modal-backdrop" id="modal-client">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="client-modal-title"><span>👤</span> Клиент</h3>
+        <button class="btn-icon" onclick="closeModal('modal-client')">✕</button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="cl-edit-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Име *</label>
+            <input type="text" class="form-input" id="cl-fname" placeholder="Име">
+          </div>
+          <div class="form-group">
+            <label>Презиме</label>
+            <input type="text" class="form-input" id="cl-lname" placeholder="Презиме">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Телефон *</label>
+            <input type="tel" inputmode="tel" class="form-input" id="cl-phone" placeholder="070 123 456">
+          </div>
+          <div class="form-group">
+            <label>Членска картичка</label>
+            <input type="text" class="form-input" id="cl-card" placeholder="VIP-102">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Забелешка</label>
+          <input type="text" class="form-input" id="cl-notes" placeholder="Интерна забелешка...">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-client')">Откажи</button>
+        <button class="btn btn-primary" style="flex:1;" onclick="saveClientItem()">Зачувај</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CLIENT DETAILS & HISTORY -->
+  <div class="modal-backdrop" id="modal-client-details">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title"><span id="cd-modal-title"></span></h3>
+        <button class="btn-icon" onclick="closeModal('modal-client-details')">✕</button>
+      </div>
+      <div class="modal-body">
+        <h4 style="font-size: 1.05rem; color: var(--text); margin-bottom: 0.35rem;">
+          <span>🔴</span> Активна опрема кај клиентот
+        </h4>
+        <div id="cd-active-rentals" style="margin-bottom: 1rem;">
+        </div>
+
+        <h4 style="font-size: 1.05rem; color: var(--text); margin-bottom: 0.35rem;">
+          <span>📜</span> Претходна историја
+        </h4>
+        <div id="cd-history-mobile"
+          style="display:flex; flex-direction:column; gap:0.4rem; max-height:220px; overflow-y:auto;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" style="width:100%;"
+          onclick="closeModal('modal-client-details')">Затвори</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+  <script>
+    const CATEGORIES = {
+      skis: { name: 'Скии', icon: '⛷️', defaultSize: '160 cm' },
+      board: { name: 'Борд', icon: '🏂', defaultSize: '155 cm' },
+      sled: { name: 'Санка', icon: '🛷', defaultSize: 'Стандардна' },
+      poles: { name: 'Стапови', icon: '🦯', defaultSize: '120 cm' },
+      boots: { name: 'Кондури', icon: '⛸️', defaultSize: '42' },
+      helmet: { name: 'Кацига', icon: '🪖', defaultSize: 'M' },
+      goggles: { name: 'Наочари', icon: '🥽', defaultSize: 'Универзална' },
+      gloves: { name: 'Раквици', icon: '🧤', defaultSize: 'L' }
+    };
+
+    let db = {
+      clients: [],
+      equipment: [],
+      rentals: [],
+      settings: {
+        currency: 'EUR',
+        closingTime: '17:00',
+        prices: { skis: 1.0, board: 1.0, sled: 1.0, poles: 1.0, boots: 1.0, helmet: 1.0, goggles: 1.0, gloves: 1.0 }
+      }
+    };
+
+    let newRentalState = { clientId: null, selectedItems: [] };
+    let activeEquipCategoryFilter = 'all';
+    let currentRentalsTab = 'active';
+    let currentPaymentsTab = 'list';
+
+    const STORAGE_KEY = 'ski_rent_pro_db_v1';
+
+    function initApp() {
+      loadFromStorage();
+      if (db.equipment.length === 0 && db.clients.length === 0) {
+        seedInitialStock();
+      }
+      setupTheme();
+      setupCategoryChips();
+      setupSettingsPrices();
+      renderDashboard();
+      setInterval(updateLiveCounters, 1000);
+    }
+
+    function saveToStorage() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); } catch (e) { }
+    }
+
+    function loadFromStorage() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        if (data) db = { ...db, ...JSON.parse(data) };
+      } catch (e) { }
+    }
+
+    function getCurrencySymbol() {
+      return db.settings.currency === 'MKD' ? ' ден.' : ' €';
+    }
+
+    function navigateTo(viewName) {
+      document.querySelectorAll('.page-view').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.bottom-nav-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.desktop-nav-btn').forEach(btn => btn.classList.remove('active'));
+
+      const target = document.getElementById('view-' + viewName);
+      if (target) target.style.display = 'block';
+
+      const mobBtn = document.getElementById('mob-nav-' + viewName);
+      if (mobBtn) mobBtn.classList.add('active');
+
+      const deskBtn = document.getElementById('desk-nav-' + viewName);
+      if (deskBtn) deskBtn.classList.add('active');
+
+      if (viewName === 'dashboard') renderDashboard();
+      if (viewName === 'rentals') renderRentalsTable();
+      if (viewName === 'equipment') renderEquipmentTable();
+      if (viewName === 'clients') renderClientsTable();
+      if (viewName === 'payments') {
+        if (currentPaymentsTab === 'list') renderPaymentsTable();
+        else generateReport();
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setupTheme() {
+      const savedTheme = localStorage.getItem('ski_theme') || 'light';
+      document.body.setAttribute('data-theme', savedTheme);
+      document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    function toggleTheme() {
+      const current = document.body.getAttribute('data-theme') || 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', next);
+      localStorage.setItem('ski_theme', next);
+      document.getElementById('theme-icon').textContent = next === 'dark' ? '☀️' : '🌙';
+    }
+
+    function seedInitialStock() {
+      db.clients = [
+        { id: 'c1', firstName: 'Александар', lastName: 'Петров', phone: '070123456', cardNumber: 'VIP-101', notes: '', createdAt: Date.now() - 86400000 },
+        { id: 'c2', firstName: 'Марија', lastName: 'Иванова', phone: '071987654', cardNumber: 'CL-202', notes: '', createdAt: Date.now() - 43200000 }
+      ];
+
+      const sampleItems = [
+        { code: 'SK-155', category: 'skis', name: 'Atomic Redster', size: '155 cm', pricePerDay: 1.0 },
+        { code: 'SK-160', category: 'skis', name: 'Elan Formula', size: '160 cm', pricePerDay: 1.0 },
+        { code: 'SK-165', category: 'skis', name: 'Head Supershape', size: '165 cm', pricePerDay: 1.0 },
+        { code: 'BD-150', category: 'board', name: 'Burton Custom', size: '150 cm', pricePerDay: 1.0 },
+        { code: 'BD-158', category: 'board', name: 'Nitro Prime', size: '158 cm', pricePerDay: 1.0 },
+        { code: 'K-38', category: 'boots', name: 'Salomon X-Pro', size: '38', pricePerDay: 1.0 },
+        { code: 'K-41', category: 'boots', name: 'Nordica Speed', size: '41', pricePerDay: 1.0 },
+        { code: 'K-42', category: 'boots', name: 'Nordica Speed', size: '42', pricePerDay: 1.0 },
+        { code: 'K-43', category: 'boots', name: 'Salomon Quest', size: '43', pricePerDay: 1.0 },
+        { code: 'ST-115', category: 'poles', name: 'Leki Rider', size: '115 cm', pricePerDay: 1.0 },
+        { code: 'ST-125', category: 'poles', name: 'Leki Carbon', size: '125 cm', pricePerDay: 1.0 },
+        { code: 'SN-01', category: 'sled', name: 'Дрвена санка Pro', size: 'Стандардна', pricePerDay: 1.0 },
+        { code: 'KC-M1', category: 'helmet', name: 'Uvex Alpine', size: 'M', pricePerDay: 1.0 },
+        { code: 'KC-L1', category: 'helmet', name: 'Smith Holt', size: 'L', pricePerDay: 1.0 },
+        { code: 'OC-01', category: 'goggles', name: 'Oakley Flight', size: 'Универзална', pricePerDay: 1.0 },
+        { code: 'RK-L1', category: 'gloves', name: 'Reusch Winter', size: 'L', pricePerDay: 1.0 }
+      ];
+
+      sampleItems.forEach((it, idx) => {
+        db.equipment.push({
+          id: 'eq_' + (idx + 1),
+          code: it.code,
+          category: it.category,
+          name: it.name,
+          size: it.size,
+          pricePerDay: it.pricePerDay,
+          status: 'available',
+          enabled: true,
+          timesRentedCount: 0,
+          notes: ''
+        });
+      });
+
+      const startTime = Date.now() - 7200000;
+      const expectedTime = new Date();
+      expectedTime.setHours(17, 0, 0, 0);
+
+      db.rentals = [
+        {
+          id: 'r_1001',
+          rentalNumber: 1001,
+          clientId: 'c1',
+          clientSnapshot: { firstName: 'Александар', lastName: 'Петров', phone: '070123456', cardNumber: 'VIP-101' },
+          startTime: startTime,
+          expectedReturnTime: expectedTime.getTime(),
+          actualReturnTime: null,
+          status: 'active',
+          totalAmount: 3.0,
+          isPaid: true,
+          paidAt: startTime,
+          paymentMethod: 'cash',
+          notes: 'Ски комплет',
+          items: [
+            { equipmentId: 'eq_2', code: 'SK-160', category: 'skis', name: 'Elan Formula', size: '160 cm', dailyRate: 1.0, returned: false, returnedAt: null },
+            { equipmentId: 'eq_9', code: 'K-43', category: 'boots', name: 'Salomon Quest', size: '43', dailyRate: 1.0, returned: false, returnedAt: null },
+            { equipmentId: 'eq_11', code: 'ST-125', category: 'poles', name: 'Leki Carbon', size: '125 cm', dailyRate: 1.0, returned: false, returnedAt: null }
+          ]
+        }
+      ];
+
+      db.equipment.find(e => e.id === 'eq_2').status = 'rented';
+      db.equipment.find(e => e.id === 'eq_9').status = 'rented';
+      db.equipment.find(e => e.id === 'eq_11').status = 'rented';
+
+      saveToStorage();
+    }
+
+    function formatDuration(ms) {
+      if (ms < 0) ms = 0;
+      const totalMinutes = Math.floor(ms / (1000 * 60));
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = totalMinutes % 60;
+      const seconds = Math.floor((ms / 1000) % 60);
+
+      if (hours >= 24) {
+        const days = Math.floor(hours / 24);
+        const remHours = hours % 24;
+        return `${days}д ${remHours}ч`;
+      }
+      return `${hours}ч ${minutes < 10 ? '0' : ''}${minutes}м ${seconds < 10 ? '0' : ''}${seconds}с`;
+    }
+
+    function calculateDaysBetween(startDate, endDate) {
+      const d1 = new Date(startDate);
+      const d2 = new Date(endDate);
+      d1.setHours(0, 0, 0, 0);
+      d2.setHours(0, 0, 0, 0);
+      const diffTime = d2 - d1;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return Math.max(1, diffDays + 1);
+    }
+
+    function updateLiveCounters() {
+      const now = Date.now();
+      document.querySelectorAll('.rental-timer[data-start]').forEach(el => {
+        const start = parseInt(el.getAttribute('data-start'));
+        const span = el.querySelector('.timer-text');
+        if (span) span.textContent = formatDuration(now - start);
+      });
+    }
+
+    function setupCategoryChips() {
+      const row = document.getElementById('equip-category-chips');
+      if (!row) return;
+
+      let html = `<button class="chip ${activeEquipCategoryFilter === 'all' ? 'active' : ''}" onclick="filterEquipByCategory('all')">Сите</button>`;
+      for (const [key, cat] of Object.entries(CATEGORIES)) {
+        html += `<button class="chip ${activeEquipCategoryFilter === key ? 'active' : ''}" onclick="filterEquipByCategory('${key}')">${cat.icon} ${cat.name}</button>`;
+      }
+      row.innerHTML = html;
+    }
+
+    function filterEquipByCategory(catKey) {
+      activeEquipCategoryFilter = catKey;
+      setupCategoryChips();
+      renderEquipmentTable();
+    }
+
+    // DASHBOARD RENDERING
+    function renderDashboard() {
+      const query = (document.getElementById('dash-search')?.value || '').toLowerCase().trim();
+      const statusFilter = document.getElementById('dash-status-filter')?.value || 'all';
+      const now = Date.now();
+
+      const activeRentals = (db.rentals || []).filter(r => r.status === 'active' || r.status === 'partially_returned');
+
+      let itemsOutCount = 0;
+      let overdueCount = 0;
+      activeRentals.forEach(r => {
+        const activeItems = (r.items || []).filter(i => !i.returned).length;
+        itemsOutCount += activeItems;
+        if (now > r.expectedReturnTime) overdueCount++;
+      });
+
+      const todayStart = new Date();
+      todayStart.setHours(0, 0, 0, 0);
+      const todayRevenue = (db.rentals || [])
+        .filter(r => r.isPaid && r.paidAt && r.paidAt >= todayStart.getTime())
+        .reduce((sum, r) => sum + (r.totalAmount || 0), 0);
+
+      document.getElementById('dash-active-count').textContent = activeRentals.length;
+      document.getElementById('dash-items-out').textContent = itemsOutCount;
+      document.getElementById('dash-overdue-count').textContent = overdueCount;
+      const revEl = document.getElementById('dash-today-rev');
+      if (revEl) revEl.textContent = todayRevenue.toFixed(1) + getCurrencySymbol();
+
+      let filtered = activeRentals.filter(r => {
+        const isOverdue = now > r.expectedReturnTime;
+        if (statusFilter === 'overdue' && !isOverdue) return false;
+        if (statusFilter === 'unpaid' && r.isPaid) return false;
+
+        if (query) {
+          const matchClient = (r.clientSnapshot.firstName + ' ' + r.clientSnapshot.lastName + ' ' + r.clientSnapshot.phone + ' ' + (r.clientSnapshot.cardNumber || '')).toLowerCase().includes(query);
+          const matchItems = (r.items || []).some(i => (i.code + ' ' + i.name + ' ' + i.size).toLowerCase().includes(query));
+          return matchClient || matchItems;
+        }
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        const aOver = now > a.expectedReturnTime;
+        const bOver = now > b.expectedReturnTime;
+        if (aOver && !bOver) return -1;
+        if (!aOver && bOver) return 1;
+        return a.startTime - b.startTime;
+      });
+
+      const container = document.getElementById('dash-rentals-container');
+      if (!container) return;
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 2rem 1rem; color: var(--text-muted);">
+            <div style="font-size: 2.2rem; margin-bottom: 0.35rem;">⛷️</div>
+            <p style="font-weight: 600;">Нема активни изнајмувања.</p>
+            <p style="font-size: 0.8rem; margin-top: 0.2rem;">Притиснете на копчето ➕ за ново изнајмување.</p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = filtered.map(r => {
+          const isOverdue = now > r.expectedReturnTime;
+          const expDate = new Date(r.expectedReturnTime);
+          const expFormatted = `${expDate.getHours().toString().padStart(2, '0')}:${expDate.getMinutes().toString().padStart(2, '0')}`;
+
+          return `
+            <div class="rental-card ${isOverdue ? 'overdue' : ''}">
+              <div>
+                <div class="rental-card-top">
+                  <div>
+                    <div class="client-title">${r.clientSnapshot.firstName} ${r.clientSnapshot.lastName}</div>
+                    <div class="client-sub">
+                      <!-- <span>📞 ${r.clientSnapshot.phone}</span> -->
+                      ${r.clientSnapshot.cardNumber ? `<span class="badge badge-gray">💳 ${r.clientSnapshot.cardNumber}</span>` : ''}
+                    </div>
+                  </div>
+
+                  <div class="rental-timer" data-start="${r.startTime}">
+                    <span>⏱</span>
+                    <span class="timer-text">${formatDuration(now - r.startTime)}</span>
+                  </div>
+                </div>
+
+                <div style="font-size: 0.8rem; color: ${isOverdue ? 'var(--danger)' : 'var(--text-muted)'}; margin-bottom: 0.4rem; font-weight: ${isOverdue ? '700' : '500'};">
+                  ${isOverdue ? '⚠️ РОКОТ Е ПОМИНАТ: ' : '📅 Рок: '} ${expFormatted}
+                </div>
+
+                <div class="rental-items-list">
+                  ${(r.items || []).map(item => `
+                    <div class="rental-item-row ${item.returned ? 'item-returned' : ''}">
+                      <span>${CATEGORIES[item.category]?.icon || '🎿'} <strong>${item.code}</strong> (${item.size})</span>
+                      ${item.returned ? '<span class="badge badge-success">Вратено</span>' : '<span class="badge badge-danger">Изнајмено</span>'}
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <div class="rental-card-footer">
+                <div>
+                  <div class="payment-status">
+                    ДОЛГ: ${!r.isPaid ? r.totalAmount.toFixed(1) : 0}${getCurrencySymbol()}
+                  </div>
+                </div>
+
+                <div style="display:flex; gap: 0.35rem;">
+                  <button class="btn btn-success btn-sm" onclick="openReturnModal('${r.id}')">
+                    <span>📥</span> Врати
+                  </button>
+                  <button class="btn btn-secondary btn-sm" onclick="openClientDetailsModal('${r.clientId}')">
+                    👤
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const stockContainer = document.getElementById('dash-category-stock');
+      if (stockContainer) {
+        let stockHtml = '';
+        for (const [key, cat] of Object.entries(CATEGORIES)) {
+          const totalInCat = (db.equipment || []).filter(e => e.category === key && e.enabled).length;
+          const availableInCat = (db.equipment || []).filter(e => e.category === key && e.enabled && e.status === 'available').length;
+          const pct = totalInCat > 0 ? Math.round((availableInCat / totalInCat) * 100) : 0;
+
+          stockHtml += `
+            <div style="background-color: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.6rem;">
+              <div style="display:flex; justify-content:space-between; font-weight:600; font-size: 0.85rem;">
+                <span>${cat.icon} ${cat.name}</span>
+                <span style="color: ${availableInCat === 0 ? 'var(--danger)' : 'var(--success)'};">${availableInCat}/${totalInCat}</span>
+              </div>
+              <div style="width:100%; height: 5px; background-color: var(--surface-border); border-radius: 3px; margin-top: 0.35rem; overflow: hidden;">
+                <div style="width: ${pct}%; height: 100%; background-color: ${availableInCat === 0 ? 'var(--danger)' : 'var(--primary)'};"></div>
+              </div>
+            </div>
+          `;
+        }
+        stockContainer.innerHTML = stockHtml;
+      }
+    }
+
+    // ==========================================
+    // RENTALS & HISTORY VIEW (Cards on Phone)
+    // ==========================================
+    function switchRentalsTab(tab) {
+      currentRentalsTab = tab;
+      document.getElementById('tab-rentals-active').classList.toggle('active', tab === 'active');
+      document.getElementById('tab-rentals-history').classList.toggle('active', tab === 'history');
+      document.getElementById('tab-rentals-all').classList.toggle('active', tab === 'all');
+      renderRentalsTable();
+    }
+
+    function renderRentalsTable() {
+      const query = (document.getElementById('rentals-search')?.value || '').toLowerCase().trim();
+      const payFilter = document.getElementById('rentals-pay-filter')?.value || 'all';
+
+      let list = (db.rentals || []).filter(r => {
+        if (currentRentalsTab === 'active' && r.status === 'completed') return false;
+        if (currentRentalsTab === 'history' && (r.status === 'active' || r.status === 'partially_returned')) return false;
+        if (payFilter === 'paid' && !r.isPaid) return false;
+        if (payFilter === 'unpaid' && r.isPaid) return false;
+
+        if (query) {
+          const matchClient = (r.clientSnapshot.firstName + ' ' + r.clientSnapshot.lastName + ' ' + r.clientSnapshot.phone + ' ' + (r.clientSnapshot.cardNumber || '')).toLowerCase().includes(query);
+          const matchNumber = ('#' + r.rentalNumber).includes(query);
+          const matchItems = (r.items || []).some(i => (i.code + ' ' + i.name + ' ' + i.size).toLowerCase().includes(query));
+          return matchClient || matchNumber || matchItems;
+        }
+        return true;
+      });
+
+      list.sort((a, b) => b.startTime - a.startTime);
+
+      const mobContainer = document.getElementById('rentals-mobile-list');
+      const deskTbody = document.getElementById('rentals-table-body');
+
+      if (list.length === 0) {
+        if (mobContainer) mobContainer.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Нема изнајмувања.</div>`;
+        if (deskTbody) deskTbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:2rem; color:var(--text-muted);">Нема изнајмувања.</td></tr>`;
+        return;
+      }
+
+      if (mobContainer) {
+        mobContainer.innerHTML = list.map(r => {
+          const start = new Date(r.startTime);
+          const startStr = `${start.toLocaleDateString('mk-MK')} ${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')}`;
+          const itemsBadgeStr = (r.items || []).map(i => `
+            <span class="badge ${i.returned ? 'badge-gray' : 'badge-primary'}" style="margin:2px;">
+              ${CATEGORIES[i.category]?.icon || '🎿'} ${i.code} (${i.size})
+            </span>
+          `).join('');
+
+          return `
+            <div class="data-card">
+              <div class="data-card-header">
+                <div>
+                  <strong style="font-size:1rem;">${r.clientSnapshot.firstName} ${r.clientSnapshot.lastName}</strong>
+                  <div style="font-size:0.8rem; color:var(--text-muted);">📞 ${r.clientSnapshot.phone} ${r.clientSnapshot.cardNumber ? '| 💳 ' + r.clientSnapshot.cardNumber : ''}</div>
+                </div>
+                <span class="badge badge-gray">#${r.rentalNumber}</span>
+              </div>
+
+              <div>${itemsBadgeStr}</div>
+
+              <div class="data-card-row">
+                <span style="color:var(--text-muted);">Почеток:</span>
+                <span>${startStr}</span>
+              </div>
+
+              <div class="data-card-row" style="align-items:center;">
+                <span style="font-size:1.1rem; font-weight:800;">${r.totalAmount.toFixed(1)}${getCurrencySymbol()}</span>
+                <span class="badge ${r.isPaid ? 'badge-success' : 'badge-warning'}">${r.isPaid ? 'Платено' : 'Ненаплатено'}</span>
+              </div>
+
+              <div class="data-card-actions">
+                ${(r.status === 'active' || r.status === 'partially_returned') ? `
+                  <button class="btn btn-success btn-sm" onclick="openReturnModal('${r.id}')">Врати опрема</button>
+                ` : ''}
+                ${!r.isPaid ? `
+                  <button class="btn btn-primary btn-sm" onclick="quickMarkPaid('${r.id}')">Наплати</button>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      if (deskTbody) {
+        deskTbody.innerHTML = list.map(r => {
+          const start = new Date(r.startTime);
+          const startStr = `${start.toLocaleDateString('mk-MK')} ${start.getHours().toString().padStart(2, '0')}:${start.getMinutes().toString().padStart(2, '0')}`;
+          const exp = new Date(r.expectedReturnTime);
+          const endStr = r.actualReturnTime ? new Date(r.actualReturnTime).toLocaleDateString('mk-MK') : `Рок: ${exp.getHours().toString().padStart(2, '0')}:${exp.getMinutes().toString().padStart(2, '0')}`;
+          const durationStr = r.actualReturnTime ? formatDuration(r.actualReturnTime - r.startTime) : formatDuration(Date.now() - r.startTime);
+
+          const itemsBadgeStr = (r.items || []).map(i => `
+            <span class="badge ${i.returned ? 'badge-gray' : 'badge-primary'}" style="margin:2px;">
+              ${CATEGORIES[i.category]?.icon || '🎿'} ${i.code} (${i.size})
+            </span>
+          `).join('');
+
+          return `
+            <tr>
+              <td><strong>#${r.rentalNumber}</strong></td>
+              <td><strong>${r.clientSnapshot.firstName} ${r.clientSnapshot.lastName}</strong><br><span style="color:var(--text-muted); font-size:0.8rem;">${r.clientSnapshot.phone}</span></td>
+              <td>${r.clientSnapshot.cardNumber || '-'}</td>
+              <td>${itemsBadgeStr}</td>
+              <td>${startStr}</td>
+              <td>${endStr}</td>
+              <td>${durationStr}</td>
+              <td><strong>${r.totalAmount.toFixed(1)}${getCurrencySymbol()}</strong></td>
+              <td><span class="badge ${r.isPaid ? 'badge-success' : 'badge-warning'}">${r.isPaid ? 'Платено' : 'Ненаплатено'}</span></td>
+              <td>
+                <div style="display:flex; gap:0.3rem;">
+                  ${(r.status === 'active' || r.status === 'partially_returned') ? `<button class="btn btn-success btn-sm" onclick="openReturnModal('${r.id}')">Врати</button>` : ''}
+                  ${!r.isPaid ? `<button class="btn btn-primary btn-sm" onclick="quickMarkPaid('${r.id}')">Наплати</button>` : ''}
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    // ==========================================
+    // EQUIPMENT VIEW (Cards on Phone)
+    // ==========================================
+    function renderEquipmentTable() {
+      const query = (document.getElementById('equip-search')?.value || '').toLowerCase().trim();
+      const statusFilter = document.getElementById('equip-status-filter')?.value || 'all';
+      const sizeFilter = document.getElementById('equip-size-filter')?.value || 'all';
+
+      const sizes = Array.from(new Set((db.equipment || []).map(e => e.size))).filter(Boolean).sort();
+      const sizeSelect = document.getElementById('equip-size-filter');
+      if (sizeSelect && sizeSelect.options.length <= 1) {
+        sizes.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          sizeSelect.appendChild(opt);
+        });
+      }
+
+      let list = (db.equipment || []).filter(e => {
+        if (activeEquipCategoryFilter !== 'all' && e.category !== activeEquipCategoryFilter) return false;
+        if (statusFilter === 'available' && (e.status !== 'available' || !e.enabled)) return false;
+        if (statusFilter === 'rented' && e.status !== 'rented') return false;
+        if (statusFilter === 'disabled' && e.enabled) return false;
+        if (sizeFilter !== 'all' && e.size !== sizeFilter) return false;
+
+        if (query) {
+          return (e.code + ' ' + e.name + ' ' + e.size + ' ' + (e.notes || '')).toLowerCase().includes(query);
+        }
+        return true;
+      });
+
+      list.sort((a, b) => a.code.localeCompare(b.code, undefined, { numeric: true }));
+
+      const mobContainer = document.getElementById('equip-mobile-list');
+      const deskTbody = document.getElementById('equip-table-body');
+
+      if (list.length === 0) {
+        if (mobContainer) mobContainer.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Нема опрема.</div>`;
+        if (deskTbody) deskTbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:2rem; color:var(--text-muted);">Нема опрема.</td></tr>`;
+        return;
+      }
+
+      if (mobContainer) {
+        mobContainer.innerHTML = list.map(e => {
+          let badge = '<span class="badge badge-success">🟢 Достапно</span>';
+          if (!e.enabled) badge = '<span class="badge badge-gray">⚪ Исклучено</span>';
+          else if (e.status === 'rented') badge = '<span class="badge badge-danger">🔴 Изнајмено</span>';
+
+          return `
+            <div class="data-card">
+              <div class="data-card-header">
+                <div>
+                  <strong style="font-size:1.05rem;">${CATEGORIES[e.category]?.icon || '🎿'} ${e.code}</strong>
+                  <span style="font-size:0.85rem; color:var(--text-muted); margin-left:0.3rem;">(${e.size})</span>
+                  <div style="font-size:0.85rem; color:var(--text); margin-top:0.15rem;">${e.name || CATEGORIES[e.category]?.name}</div>
+                </div>
+                ${badge}
+              </div>
+
+              <div class="data-card-row">
+                <span style="color:var(--text-muted);">Цена по ден:</span>
+                <strong>${e.pricePerDay.toFixed(1)}${getCurrencySymbol()}</strong>
+              </div>
+
+              <div class="data-card-actions">
+                <label style="display:flex; align-items:center; gap:0.35rem; font-size:0.8rem; margin-right:auto;">
+                  <input type="checkbox" ${e.enabled ? 'checked' : ''} onchange="toggleEquipmentEnabled('${e.id}', this.checked)"> Активно
+                </label>
+                <button class="btn btn-secondary btn-sm" onclick="editEquipmentItem('${e.id}')">✏️ Уреди</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteEquipmentItem('${e.id}')">❌</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      if (deskTbody) {
+        deskTbody.innerHTML = list.map(e => {
+          let statusBadge = e.enabled ? (e.status === 'rented' ? '<span class="badge badge-danger">🔴 Изнајмено</span>' : '<span class="badge badge-success">🟢 Достапно</span>') : '<span class="badge badge-gray">⚪ Исклучено</span>';
+          return `
+            <tr>
+              <td>${statusBadge}</td>
+              <td><strong>${e.code}</strong></td>
+              <td>${CATEGORIES[e.category]?.icon || '🎿'} ${CATEGORIES[e.category]?.name || e.category}</td>
+              <td>${e.name || '-'}</td>
+              <td><strong>${e.size || '-'}</strong></td>
+              <td>${e.pricePerDay.toFixed(1)}${getCurrencySymbol()}</td>
+              <td>${e.timesRentedCount || 0}</td>
+              <td><input type="checkbox" ${e.enabled ? 'checked' : ''} onchange="toggleEquipmentEnabled('${e.id}', this.checked)"></td>
+              <td><span style="font-size:0.8rem; color:var(--text-muted);">${e.notes || '-'}</span></td>
+              <td>
+                <div style="display:flex; gap:0.3rem;">
+                  <button class="btn btn-secondary btn-sm" onclick="editEquipmentItem('${e.id}')">✏️</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteEquipmentItem('${e.id}')">❌</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    function toggleEquipmentEnabled(id, enabled) {
+      const item = db.equipment.find(e => e.id === id);
+      if (item) {
+        item.enabled = enabled;
+        saveToStorage();
+        renderEquipmentTable();
+        renderDashboard();
+      }
+    }
+
+    function deleteEquipmentItem(id) {
+      const item = db.equipment.find(e => e.id === id);
+      if (!item) return;
+
+      if (item.status === 'rented') {
+        alert('Не може да се избрише опрема која во моментов е ИЗНАЈМЕНА!');
+        return;
+      }
+
+      if (confirm(`Дали сакате ја го избришете опремата ${item.code}?`)) {
+        db.equipment = db.equipment.filter(e => e.id !== id);
+        saveToStorage();
+        renderEquipmentTable();
+        renderDashboard();
+      }
+    }
+
+    function openNewEquipmentModal() {
+      document.getElementById('equip-modal-title').innerHTML = '<span>🎿</span> Нова опрема';
+      document.getElementById('eq-edit-id').value = '';
+      document.getElementById('eq-code').value = '';
+      document.getElementById('eq-name').value = '';
+      document.getElementById('eq-size').value = '';
+      document.getElementById('eq-price').value = db.settings.prices.skis || 1.0;
+      document.getElementById('eq-notes').value = '';
+      document.getElementById('eq-enabled').value = 'true';
+      openModal('modal-equipment');
+    }
+
+    function editEquipmentItem(id) {
+      const item = db.equipment.find(e => e.id === id);
+      if (!item) return;
+
+      document.getElementById('equip-modal-title').innerHTML = '<span>✏️</span> Уреди опрема';
+      document.getElementById('eq-edit-id').value = item.id;
+      document.getElementById('eq-code').value = item.code;
+      document.getElementById('eq-category').value = item.category;
+      document.getElementById('eq-name').value = item.name || '';
+      document.getElementById('eq-size').value = item.size || '';
+      document.getElementById('eq-price').value = item.pricePerDay;
+      document.getElementById('eq-notes').value = item.notes || '';
+      document.getElementById('eq-enabled').value = item.enabled ? 'true' : 'false';
+      openModal('modal-equipment');
+    }
+
+    function saveEquipmentItem() {
+      const editId = document.getElementById('eq-edit-id').value;
+      const code = document.getElementById('eq-code').value.trim().toUpperCase();
+      const category = document.getElementById('eq-category').value;
+      const name = document.getElementById('eq-name').value.trim();
+      const size = document.getElementById('eq-size').value.trim();
+      const price = parseFloat(document.getElementById('eq-price').value) || 1.0;
+      const notes = document.getElementById('eq-notes').value.trim();
+      const enabled = document.getElementById('eq-enabled').value === 'true';
+
+      if (!code) {
+        alert('Внесете уникатен код за опремата!');
+        return;
+      }
+
+      const existing = db.equipment.find(e => e.code.toUpperCase() === code && e.id !== editId);
+      if (existing) {
+        alert(`Веќе постои опрема со кодот "${code}"!`);
+        return;
+      }
+
+      const payload = { code, category, name, size, pricePerDay: price, notes, enabled, status: 'available' };
+
+      if (editId) {
+        const item = db.equipment.find(e => e.id === editId);
+        Object.assign(item, payload);
+      } else {
+        payload.id = 'eq_' + Date.now();
+        payload.timesRentedCount = 0;
+        db.equipment.push(payload);
+      }
+
+      saveToStorage();
+      closeModal('modal-equipment');
+      renderEquipmentTable();
+      renderDashboard();
+    }
+
+    function openBulkAddModal() {
+      document.getElementById('bulk-eq-prefix').value = '';
+      document.getElementById('bulk-eq-start').value = 1;
+      document.getElementById('bulk-eq-count').value = 5;
+      document.getElementById('bulk-eq-name').value = '';
+      document.getElementById('bulk-eq-size').value = '';
+      document.getElementById('bulk-eq-price').value = 1.0;
+      openModal('modal-bulk-equip');
+    }
+
+    function confirmBulkAddEquipment() {
+      const category = document.getElementById('bulk-eq-category').value;
+      let prefix = document.getElementById('bulk-eq-prefix').value.trim().toUpperCase();
+      const startNum = parseInt(document.getElementById('bulk-eq-start').value) || 1;
+      const count = parseInt(document.getElementById('bulk-eq-count').value) || 1;
+      const name = document.getElementById('bulk-eq-name').value.trim();
+      const size = document.getElementById('bulk-eq-size').value.trim();
+      const price = parseFloat(document.getElementById('bulk-eq-price').value) || 1.0;
+
+      if (!prefix) prefix = category.substring(0, 2).toUpperCase();
+
+      for (let i = 0; i < count; i++) {
+        const num = startNum + i;
+        const code = `${prefix}-${num < 10 ? '0' : ''}${num}`;
+        if (!db.equipment.some(e => e.code === code)) {
+          db.equipment.push({
+            id: 'eq_' + Date.now() + '_' + i,
+            code: code,
+            category: category,
+            name: name,
+            size: size,
+            pricePerDay: price,
+            status: 'available',
+            enabled: true,
+            timesRentedCount: 0,
+            notes: ''
+          });
+        }
+      }
+
+      saveToStorage();
+      closeModal('modal-bulk-equip');
+      renderEquipmentTable();
+      renderDashboard();
+    }
+
+    function openBulkPriceModal() {
+      openModal('modal-bulk-price');
+    }
+
+    function confirmBulkPriceUpdate() {
+      const cat = document.getElementById('bp-category').value;
+      const newPrice = parseFloat(document.getElementById('bp-new-price').value);
+
+      if (isNaN(newPrice) || newPrice < 0) return;
+
+      db.equipment.forEach(e => {
+        if (cat === 'all' || e.category === cat) e.pricePerDay = newPrice;
+      });
+
+      saveToStorage();
+      closeModal('modal-bulk-price');
+      renderEquipmentTable();
+    }
+
+    // ==========================================
+    // CLIENTS VIEW (Cards on Phone)
+    // ==========================================
+    function renderClientsTable() {
+      const query = (document.getElementById('clients-search')?.value || '').toLowerCase().trim();
+
+      let list = (db.clients || []).filter(c => {
+        if (query) {
+          return (c.firstName + ' ' + c.lastName + ' ' + c.phone + ' ' + (c.cardNumber || '') + ' ' + (c.notes || '')).toLowerCase().includes(query);
+        }
+        return true;
+      });
+
+      list.sort((a, b) => (a.firstName + a.lastName).localeCompare(b.firstName + b.lastName, 'mk-MK'));
+
+      const mobContainer = document.getElementById('clients-mobile-list');
+      const deskTbody = document.getElementById('clients-table-body');
+
+      if (list.length === 0) {
+        if (mobContainer) mobContainer.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Нема клиенти.</div>`;
+        if (deskTbody) deskTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--text-muted);">Нема клиенти.</td></tr>`;
+        return;
+      }
+
+      if (mobContainer) {
+        mobContainer.innerHTML = list.map(c => {
+          const clientRentals = (db.rentals || []).filter(r => r.clientId === c.id);
+          const activeRental = clientRentals.find(r => r.status === 'active' || r.status === 'partially_returned');
+
+          return `
+            <div class="data-card">
+              <div class="data-card-header">
+                <div>
+                  <strong style="font-size:1.05rem; color:var(--primary); cursor:pointer;" onclick="openClientDetailsModal('${c.id}')">
+                    ${c.firstName} ${c.lastName}
+                  </strong>
+                  <div style="font-size:0.85rem; color:var(--text); margin-top:0.15rem;">📞 ${c.phone}</div>
+                </div>
+                ${c.cardNumber ? `<span class="badge badge-primary">💳 ${c.cardNumber}</span>` : ''}
+              </div>
+
+              <div class="data-card-row">
+                <span style="color:var(--text-muted);">Вкупно изнајмувања:</span>
+                <span class="badge badge-gray">${clientRentals.length}</span>
+              </div>
+
+              ${activeRental ? `
+                <div class="data-card-row" style="background:var(--primary-light); padding:0.4rem; border-radius:var(--radius-sm);">
+                  <span style="font-size:0.8rem; color:var(--primary); font-weight:700;">🔴 Има активна опрема</span>
+                  <button class="btn btn-success btn-sm" style="min-height:30px; padding:0.2rem 0.5rem;" onclick="openReturnModal('${activeRental.id}')">Врати</button>
+                </div>
+              ` : ''}
+
+              <div class="data-card-actions">
+                <button class="btn btn-secondary btn-sm" onclick="openClientDetailsModal('${c.id}')">📜 Историја</button>
+                <button class="btn btn-secondary btn-sm" onclick="editClientItem('${c.id}')">✏️</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteClientItem('${c.id}')">❌</button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      if (deskTbody) {
+        deskTbody.innerHTML = list.map(c => {
+          const clientRentals = (db.rentals || []).filter(r => r.clientId === c.id);
+          const activeRental = clientRentals.find(r => r.status === 'active' || r.status === 'partially_returned');
+          let activeHtml = activeRental ? `<span class="badge badge-danger" style="cursor:pointer;" onclick="openReturnModal('${activeRental.id}')">🔴 Врати</span>` : '<span style="color:var(--text-muted);">-</span>';
+
+          return `
+            <tr>
+              <td><strong style="cursor:pointer; color:var(--primary);" onclick="openClientDetailsModal('${c.id}')">${c.firstName} ${c.lastName}</strong></td>
+              <td><strong>${c.phone}</strong></td>
+              <td>${c.cardNumber || '-'}</td>
+              <td><span class="badge badge-gray">${clientRentals.length}</span></td>
+              <td>${activeHtml}</td>
+              <td><span style="font-size:0.8rem; color:var(--text-muted);">${c.notes || '-'}</span></td>
+              <td>
+                <div style="display:flex; gap:0.3rem;">
+                  <button class="btn btn-secondary btn-sm" onclick="openClientDetailsModal('${c.id}')">📜</button>
+                  <button class="btn btn-secondary btn-sm" onclick="editClientItem('${c.id}')">✏️</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteClientItem('${c.id}')">❌</button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+    }
+
+    function openNewClientModal() {
+      document.getElementById('client-modal-title').innerHTML = '<span>👤</span> Нов клиент';
+      document.getElementById('cl-edit-id').value = '';
+      document.getElementById('cl-fname').value = '';
+      document.getElementById('cl-lname').value = '';
+      document.getElementById('cl-phone').value = '';
+      document.getElementById('cl-card').value = '';
+      document.getElementById('cl-notes').value = '';
+      openModal('modal-client');
+    }
+
+    function editClientItem(id) {
+      const client = db.clients.find(c => c.id === id);
+      if (!client) return;
+
+      document.getElementById('client-modal-title').innerHTML = '<span>✏️</span> Уреди клиент';
+      document.getElementById('cl-edit-id').value = client.id;
+      document.getElementById('cl-fname').value = client.firstName;
+      document.getElementById('cl-lname').value = client.lastName;
+      document.getElementById('cl-phone').value = client.phone;
+      document.getElementById('cl-card').value = client.cardNumber || '';
+      document.getElementById('cl-notes').value = client.notes || '';
+      openModal('modal-client');
+    }
+
+    function saveClientItem() {
+      const editId = document.getElementById('cl-edit-id').value;
+      const firstName = document.getElementById('cl-fname').value.trim();
+      const lastName = document.getElementById('cl-lname').value.trim();
+      const phone = document.getElementById('cl-phone').value.trim();
+      const cardNumber = document.getElementById('cl-card').value.trim();
+      const notes = document.getElementById('cl-notes').value.trim();
+
+      if (!firstName || !phone) {
+        alert('Внесете Име и Телефон!');
+        return;
+      }
+
+      const payload = { firstName, lastName, phone, cardNumber, notes };
+
+      if (editId) {
+        const client = db.clients.find(c => c.id === editId);
+        Object.assign(client, payload);
+      } else {
+        payload.id = 'c_' + Date.now();
+        payload.createdAt = Date.now();
+        db.clients.push(payload);
+      }
+
+      saveToStorage();
+      closeModal('modal-client');
+      renderClientsTable();
+    }
+
+    function deleteClientItem(id) {
+      const client = db.clients.find(c => c.id === id);
+      if (!client) return;
+
+      const hasActive = (db.rentals || []).some(r => r.clientId === id && (r.status === 'active' || r.status === 'partially_returned'));
+      if (hasActive) {
+        alert('Клиентот има активно изнајмена опрема!');
+        return;
+      }
+
+      if (confirm(`Дали сакате да го избришете клиентот ${client.firstName}?`)) {
+        db.clients = db.clients.filter(c => c.id !== id);
+        saveToStorage();
+        renderClientsTable();
+      }
+    }
+
+    function openClientDetailsModal(clientId) {
+      const client = db.clients.find(c => c.id === clientId);
+      if (!client) return;
+
+      document.getElementById('cd-modal-title').textContent = `${client.firstName} ${client.lastName}`;
+
+      const activeRental = (db.rentals || []).find(r => r.clientId === clientId && (r.status === 'active' || r.status === 'partially_returned'));
+      const activeContainer = document.getElementById('cd-active-rentals');
+
+      if (!activeRental) {
+        activeContainer.innerHTML = '<p style="color:var(--text-muted); font-size:0.8rem;">Нема активна опрема.</p>';
+      } else {
+        const activeItems = (activeRental.items || []).filter(i => !i.returned);
+        activeContainer.innerHTML = `
+          <div style="background-color: var(--primary-light); padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--primary); display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-size:0.85rem;">
+              <strong>#${activeRental.rentalNumber}:</strong> ${activeItems.map(i => `${i.code}`).join(', ')}
+            </div>
+            <button class="btn btn-success btn-sm" onclick="closeModal('modal-client-details'); openReturnModal('${activeRental.id}');">
+              Врати
+            </button>
+          </div>
+        `;
+      }
+
+      const historyList = (db.rentals || []).filter(r => r.clientId === clientId);
+      historyList.sort((a, b) => b.startTime - a.startTime);
+      const mobHistory = document.getElementById('cd-history-mobile');
+
+      if (historyList.length === 0) {
+        mobHistory.innerHTML = '<p style="color:var(--text-muted); font-size:0.8rem;">Нема претходни изнајмувања.</p>';
+      } else {
+        mobHistory.innerHTML = historyList.map(r => `
+          <div style="background:var(--bg); padding:0.5rem; border-radius:var(--radius-sm); font-size:0.8rem; display:flex; justify-content:space-between;">
+            <div>
+              <strong>${new Date(r.startTime).toLocaleDateString('mk-MK')}</strong>
+              <div style="color:var(--text-muted);">${(r.items || []).map(i => i.code).join(', ')}</div>
+            </div>
+            <div style="text-align:right;">
+              <strong>${r.totalAmount.toFixed(1)}${getCurrencySymbol()}</strong>
+              <div><span class="badge ${r.isPaid ? 'badge-success' : 'badge-warning'}">${r.isPaid ? 'Платено' : 'Долг'}</span></div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      openModal('modal-client-details');
+    }
+
+    // ==========================================
+    // NEW RENTAL MODAL FLOW
+    // ==========================================
+    function openNewRentalModal() {
+      newRentalState = { clientId: null, selectedItems: [] };
+
+      document.getElementById('nr-client-search').value = '';
+      document.getElementById('nr-client-dropdown').style.display = 'none';
+      document.getElementById('nr-selected-client-box').style.display = 'none';
+      document.getElementById('nr-inline-client-form').style.display = 'none';
+
+      const now = new Date();
+      document.getElementById('nr-start-time').value = toDatetimeLocal(now);
+
+      const closing = new Date();
+      const [ch, cm] = (db.settings.closingTime || '17:00').split(':');
+      closing.setHours(parseInt(ch), parseInt(cm), 0, 0);
+      if (closing < now) closing.setDate(closing.getDate() + 1);
+      document.getElementById('nr-expected-time').value = toDatetimeLocal(closing);
+
+      setupRentalCategoryChips();
+      filterRentalAvailableEquipment();
+      renderSelectedRentalItems();
+
+      document.getElementById('nr-pay-status').value = 'unpaid';
+      document.getElementById('nr-pay-method-group').style.display = 'none';
+      document.getElementById('nr-notes').value = '';
+      document.getElementById('nr-currency-label').textContent = getCurrencySymbol();
+
+      openModal('modal-new-rental');
+    }
+
+    function setupRentalCategoryChips() {
+      const container = document.getElementById('nr-category-chips');
+      let html = `<button type="button" class="chip active" onclick="filterRentalCatChip('all', this)">Сите</button>`;
+      for (const [key, cat] of Object.entries(CATEGORIES)) {
+        html += `<button type="button" class="chip" onclick="filterRentalCatChip('${key}', this)">${cat.icon} ${cat.name}</button>`;
+      }
+      container.innerHTML = html;
+    }
+
+    let currentRentalCatFilter = 'all';
+    function filterRentalCatChip(cat, el) {
+      currentRentalCatFilter = cat;
+      document.querySelectorAll('#nr-category-chips .chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      filterRentalAvailableEquipment();
+    }
+
+    function searchRentalClients() {
+      const query = document.getElementById('nr-client-search').value.toLowerCase().trim();
+      const dropdown = document.getElementById('nr-client-dropdown');
+
+      if (!query) {
+        dropdown.style.display = 'none';
+        return;
+      }
+
+      const matches = (db.clients || []).filter(c =>
+        (c.firstName + ' ' + c.lastName + ' ' + c.phone + ' ' + (c.cardNumber || '')).toLowerCase().includes(query)
+      );
+
+      if (matches.length === 0) {
+        dropdown.innerHTML = `
+          <div style="padding: 0.5rem; font-size: 0.8rem; color: var(--text-muted); display:flex; justify-content:space-between; align-items:center;">
+            <span>Нема клиент.</span>
+            <button type="button" class="btn btn-primary btn-sm" onclick="toggleInlineNewClient(true)">+ Нов</button>
+          </div>
+        `;
+      } else {
+        dropdown.innerHTML = matches.map(c => `
+          <div style="padding: 0.5rem; cursor:pointer; border-bottom: 1px solid var(--surface-border); display:flex; justify-content:space-between; align-items:center;"
+               onclick="selectRentalClient('${c.id}')">
+            <div>
+              <strong>${c.firstName} ${c.lastName}</strong> <span style="font-size:0.8rem;">(${c.phone})</span>
+            </div>
+            ${c.cardNumber ? `<span class="badge badge-primary">💳 ${c.cardNumber}</span>` : ''}
+          </div>
+        `).join('');
+      }
+      dropdown.style.display = 'block';
+    }
+
+    function selectRentalClient(clientId) {
+      const client = db.clients.find(c => c.id === clientId);
+      if (!client) return;
+
+      newRentalState.clientId = client.id;
+      document.getElementById('nr-client-dropdown').style.display = 'none';
+      document.getElementById('nr-client-search').value = '';
+
+      document.getElementById('nr-sel-name').textContent = `${client.firstName} ${client.lastName}`;
+      document.getElementById('nr-sel-details').textContent = `📞 ${client.phone} ${client.cardNumber ? '| 💳 ' + client.cardNumber : ''}`;
+      document.getElementById('nr-selected-client-box').style.display = 'flex';
+    }
+
+    function clearSelectedRentalClient() {
+      newRentalState.clientId = null;
+      document.getElementById('nr-selected-client-box').style.display = 'none';
+    }
+
+    function toggleInlineNewClient(forceOpen = false) {
+      const form = document.getElementById('nr-inline-client-form');
+      form.style.display = (forceOpen || form.style.display !== 'block') ? 'block' : 'none';
+    }
+
+    function saveInlineNewClient() {
+      const fname = document.getElementById('nr-new-fname').value.trim();
+      const lname = document.getElementById('nr-new-lname').value.trim();
+      const phone = document.getElementById('nr-new-phone').value.trim();
+      const card = document.getElementById('nr-new-card').value.trim();
+
+      if (!fname || !phone) {
+        alert('Внесете Име и Телефон!');
+        return;
+      }
+
+      const newClient = {
+        id: 'c_' + Date.now(),
+        firstName: fname,
+        lastName: lname,
+        phone: phone,
+        cardNumber: card,
+        notes: '',
+        createdAt: Date.now()
+      };
+
+      db.clients.push(newClient);
+      saveToStorage();
+      document.getElementById('nr-inline-client-form').style.display = 'none';
+      selectRentalClient(newClient.id);
+    }
+
+    function filterRentalAvailableEquipment() {
+      const query = (document.getElementById('nr-equip-search')?.value || '').toLowerCase().trim();
+      const listContainer = document.getElementById('nr-available-equip-list');
+
+      const available = (db.equipment || []).filter(e => {
+        if (e.status !== 'available' || !e.enabled) return false;
+        if (newRentalState.selectedItems.some(si => si.id === e.id)) return false;
+        if (currentRentalCatFilter !== 'all' && e.category !== currentRentalCatFilter) return false;
+        if (query) return (e.code + ' ' + e.name + ' ' + e.size).toLowerCase().includes(query);
+        return true;
+      });
+
+      if (available.length === 0) {
+        listContainer.innerHTML = '<div style="grid-column: 1/-1; color: var(--text-muted); font-size: 0.8rem; padding: 0.4rem;">Нема опрема.</div>';
+        return;
+      }
+
+      listContainer.innerHTML = available.map(e => `
+        <div style="background: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.4rem 0.5rem; display:flex; justify-content:space-between; align-items:center; cursor:pointer;"
+             onclick="addEquipmentToRental('${e.id}')">
+          <div>
+            <strong>${e.code}</strong> (${e.size})
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" style="min-height:30px; padding:0.15rem 0.5rem;">+</button>
+        </div>
+      `).join('');
+    }
+
+    function handleQuickAddEquipment(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const code = event.target.value.trim().toUpperCase();
+        if (!code) return;
+
+        const found = db.equipment.find(e => e.code.toUpperCase() === code && e.status === 'available' && e.enabled);
+        if (found) {
+          addEquipmentToRental(found.id);
+          event.target.value = '';
+          filterRentalAvailableEquipment();
+        }
+      }
+    }
+
+    function addEquipmentToRental(id) {
+      const item = db.equipment.find(e => e.id === id);
+      if (!item) return;
+
+      newRentalState.selectedItems.push({
+        id: item.id,
+        code: item.code,
+        category: item.category,
+        name: item.name,
+        size: item.size,
+        pricePerDay: item.pricePerDay
+      });
+
+      filterRentalAvailableEquipment();
+      renderSelectedRentalItems();
+      calculateRentalPrice();
+    }
+
+    function removeEquipmentFromRental(id) {
+      newRentalState.selectedItems = newRentalState.selectedItems.filter(i => i.id !== id);
+      filterRentalAvailableEquipment();
+      renderSelectedRentalItems();
+      calculateRentalPrice();
+    }
+
+    function renderSelectedRentalItems() {
+      const container = document.getElementById('nr-selected-items-table');
+      document.getElementById('nr-selected-count').textContent = newRentalState.selectedItems.length;
+
+      if (newRentalState.selectedItems.length === 0) {
+        container.innerHTML = '<div style="padding: 0.5rem; font-size: 0.8rem; color: var(--text-muted); text-align:center;">Нема избрано опрема.</div>';
+        return;
+      }
+
+      container.innerHTML = `
+        <div style="display:flex; flex-direction:column; gap:0.35rem; padding:0.35rem;">
+          ${newRentalState.selectedItems.map(item => `
+            <div style="display:flex; justify-content:space-between; align-items:center; background:var(--color-surface-secondary); padding:8px 12px; border-radius:var(--radius-md); font-size:0.85rem; border:1px solid var(--color-border);">
+              <span style="display:flex; align-items:center; gap:6px;">${CATEGORIES[item.category]?.icon || '🎿'} <strong>${item.code}</strong> <span style="color:var(--color-text-secondary);">${item.name ? item.name + ' · ' : ''}(${item.size})</span></span>
+              <button type="button" class="btn btn-danger btn-sm" onclick="removeEquipmentFromRental('${item.id}')" style="min-height:28px; width:28px; padding:0; border-radius:var(--radius-sm); font-size:12px; line-height:1;">✕</button>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function setRentalExpectedPreset(preset) {
+      const now = new Date();
+      const target = new Date();
+      const [ch, cm] = (db.settings.closingTime || '17:00').split(':');
+
+      if (preset === 'today') {
+        target.setHours(parseInt(ch), parseInt(cm), 0, 0);
+        if (target < now) target.setDate(target.getDate() + 1);
+      } else if (preset === '+1') {
+        target.setDate(now.getDate() + 1);
+        target.setHours(parseInt(ch), parseInt(cm), 0, 0);
+      } else if (preset === '+2') {
+        target.setDate(now.getDate() + 2);
+        target.setHours(parseInt(ch), parseInt(cm), 0, 0);
+      } else if (preset === '+7') {
+        target.setDate(now.getDate() + 7);
+        target.setHours(parseInt(ch), parseInt(cm), 0, 0);
+      }
+
+      document.getElementById('nr-expected-time').value = toDatetimeLocal(target);
+      calculateRentalPrice();
+    }
+
+    function calculateRentalPrice() {
+      const startVal = document.getElementById('nr-start-time').value;
+      const expVal = document.getElementById('nr-expected-time').value;
+
+      if (!startVal || !expVal) return;
+
+      const days = calculateDaysBetween(startVal, expVal);
+      let sum = 0;
+      newRentalState.selectedItems.forEach(i => {
+        sum += (i.pricePerDay || 1.0) * days;
+      });
+
+      document.getElementById('nr-total-amount').value = sum.toFixed(1);
+    }
+
+    function togglePaymentMethodSelect() {
+      const status = document.getElementById('nr-pay-status').value;
+      document.getElementById('nr-pay-method-group').style.display = status === 'paid' ? 'block' : 'none';
+    }
+
+    function confirmSaveNewRental() {
+      if (!newRentalState.clientId) {
+        alert('Изберете клиент!');
+        return;
+      }
+      if (newRentalState.selectedItems.length === 0) {
+        alert('Изберете опрема!');
+        return;
+      }
+
+      const client = db.clients.find(c => c.id === newRentalState.clientId);
+      const startTime = new Date(document.getElementById('nr-start-time').value).getTime();
+      const expectedTime = new Date(document.getElementById('nr-expected-time').value).getTime();
+      const totalAmount = parseFloat(document.getElementById('nr-total-amount').value) || 0;
+      const isPaid = document.getElementById('nr-pay-status').value === 'paid';
+      const paymentMethod = isPaid ? document.getElementById('nr-pay-method').value : null;
+      const notes = document.getElementById('nr-notes').value.trim();
+
+      const rentalNum = (db.rentals.length > 0 ? Math.max(...db.rentals.map(r => r.rentalNumber || 1000)) + 1 : 1001);
+      const rentalId = 'r_' + Date.now();
+
+      const newRental = {
+        id: rentalId,
+        rentalNumber: rentalNum,
+        clientId: client.id,
+        clientSnapshot: {
+          firstName: client.firstName,
+          lastName: client.lastName,
+          phone: client.phone,
+          cardNumber: client.cardNumber
+        },
+        startTime: startTime,
+        expectedReturnTime: expectedTime,
+        actualReturnTime: null,
+        status: 'active',
+        totalAmount: totalAmount,
+        isPaid: isPaid,
+        paidAt: isPaid ? Date.now() : null,
+        paymentMethod: paymentMethod,
+        notes: notes,
+        items: newRentalState.selectedItems.map(si => ({
+          equipmentId: si.id,
+          code: si.code,
+          category: si.category,
+          name: si.name,
+          size: si.size,
+          dailyRate: si.pricePerDay,
+          returned: false,
+          returnedAt: null
+        }))
+      };
+
+      newRental.items.forEach(i => {
+        const eq = db.equipment.find(e => e.id === i.equipmentId);
+        if (eq) {
+          eq.status = 'rented';
+          eq.timesRentedCount = (eq.timesRentedCount || 0) + 1;
+        }
+      });
+
+      db.rentals.unshift(newRental);
+      saveToStorage();
+      closeModal('modal-new-rental');
+      renderDashboard();
+      renderRentalsTable();
+      renderEquipmentTable();
+    }
+
+    // ==========================================
+    // RETURN RENTAL FLOW
+    // ==========================================
+    function openReturnModal(rentalId) {
+      const rental = db.rentals.find(r => r.id === rentalId);
+      if (!rental) return;
+
+      document.getElementById('ret-rental-id').value = rental.id;
+      document.getElementById('ret-client-name').textContent = `${rental.clientSnapshot.firstName} ${rental.clientSnapshot.lastName} (#${rental.rentalNumber})`;
+      document.getElementById('ret-rental-info').textContent = `Време: ${formatDuration(Date.now() - rental.startTime)}`;
+
+      const itemsContainer = document.getElementById('ret-items-list');
+      itemsContainer.innerHTML = (rental.items || []).map((item, idx) => {
+        if (item.returned) {
+          return `
+            <div style="background-color: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.4rem; opacity: 0.6; display:flex; justify-content:space-between; font-size:0.8rem;">
+              <span><s>${item.code} (${item.size})</s></span>
+              <span class="badge badge-success">Вратено</span>
+            </div>
+          `;
+        }
+
+        return `
+          <label style="background-color: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.5rem; display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <div style="display:flex; align-items:center; gap: 0.4rem; font-size:0.85rem;">
+              <input type="checkbox" class="ret-item-check" data-idx="${idx}" checked>
+              <span><strong>${item.code}</strong> (${item.size})</span>
+            </div>
+            <span class="badge badge-danger">Се враќа</span>
+          </label>
+        `;
+      }).join('');
+
+      document.getElementById('ret-final-amount').textContent = rental.totalAmount.toFixed(1) + getCurrencySymbol();
+      document.getElementById('ret-pay-status').value = rental.isPaid ? 'paid_cash' : 'unpaid';
+
+      openModal('modal-return-rental');
+    }
+
+    function confirmReturnRental() {
+      const rentalId = document.getElementById('ret-rental-id').value;
+      const rental = db.rentals.find(r => r.id === rentalId);
+      if (!rental) return;
+
+      const checkboxes = document.querySelectorAll('.ret-item-check');
+      let anyChecked = false;
+      const now = Date.now();
+
+      checkboxes.forEach(cb => {
+        if (cb.checked) {
+          anyChecked = true;
+          const idx = parseInt(cb.getAttribute('data-idx'));
+          const item = rental.items[idx];
+          item.returned = true;
+          item.returnedAt = now;
+
+          const eq = db.equipment.find(e => e.id === item.equipmentId);
+          if (eq) eq.status = 'available';
+        }
+      });
+
+      if (!anyChecked) {
+        alert('Штиклирајте опрема!');
+        return;
+      }
+
+      const allReturned = rental.items.every(i => i.returned);
+      rental.status = allReturned ? 'completed' : 'partially_returned';
+      if (allReturned) rental.actualReturnTime = now;
+
+      const payStatus = document.getElementById('ret-pay-status').value;
+      if (payStatus === 'paid_cash') {
+        rental.isPaid = true;
+        rental.paidAt = now;
+        rental.paymentMethod = 'cash';
+      } else if (payStatus === 'paid_card') {
+        rental.isPaid = true;
+        rental.paidAt = now;
+        rental.paymentMethod = 'card';
+      } else {
+        rental.isPaid = false;
+      }
+
+      saveToStorage();
+      closeModal('modal-return-rental');
+      renderDashboard();
+      renderRentalsTable();
+      renderEquipmentTable();
+    }
+
+    function quickMarkPaid(rentalId) {
+      const rental = db.rentals.find(r => r.id === rentalId);
+      if (!rental) return;
+
+      const method = confirm('Платено во ГОТОВИНА (Кеш)?\n[OK = Готовина, Cancel = Картичка]') ? 'cash' : 'card';
+      rental.isPaid = true;
+      rental.paidAt = Date.now();
+      rental.paymentMethod = method;
+
+      saveToStorage();
+      renderRentalsTable();
+      renderPaymentsTable();
+      renderDashboard();
+    }
+
+    // ==========================================
+    // PAYMENTS & REPORTS (Cards on Phone)
+    // ==========================================
+    function switchPaymentsTab(tab) {
+      currentPaymentsTab = tab;
+      document.getElementById('tab-pay-list').classList.toggle('active', tab === 'list');
+      document.getElementById('tab-pay-report').classList.toggle('active', tab === 'report');
+      document.getElementById('pay-sub-list').style.display = tab === 'list' ? 'block' : 'none';
+      document.getElementById('pay-sub-report').style.display = tab === 'report' ? 'block' : 'none';
+
+      if (tab === 'list') renderPaymentsTable();
+      else applyReportPreset();
+    }
+
+    function renderPaymentsTable() {
+      const filter = document.getElementById('pay-filter-status')?.value || 'all';
+
+      let list = (db.rentals || []).filter(r => {
+        if (filter === 'paid' && !r.isPaid) return false;
+        if (filter === 'unpaid' && r.isPaid) return false;
+        return true;
+      });
+
+      list.sort((a, b) => b.startTime - a.startTime);
+
+      const mobContainer = document.getElementById('payments-mobile-list');
+      const deskTbody = document.getElementById('payments-table-body');
+
+      if (list.length === 0) {
+        if (mobContainer) mobContainer.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Нема плаќања.</div>`;
+        if (deskTbody) deskTbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:2rem; color:var(--text-muted);">Нема плаќања.</td></tr>`;
+        return;
+      }
+
+      if (mobContainer) {
+        mobContainer.innerHTML = list.map(r => `
+          <div class="data-card">
+            <div class="data-card-header">
+              <div>
+                <strong>${r.clientSnapshot.firstName} ${r.clientSnapshot.lastName}</strong>
+                <div style="font-size:0.8rem; color:var(--text-muted);">📞 ${r.clientSnapshot.phone}</div>
+              </div>
+              <span class="badge ${r.isPaid ? 'badge-success' : 'badge-warning'}">${r.isPaid ? 'Платено' : 'Долг'}</span>
+            </div>
+
+            <div class="data-card-row">
+              <span style="color:var(--text-muted);">Износ:</span>
+              <span style="font-size:1.15rem; font-weight:800;">${r.totalAmount.toFixed(1)}${getCurrencySymbol()}</span>
+            </div>
+
+            <div class="data-card-actions">
+              ${!r.isPaid ? `<button class="btn btn-primary btn-sm" onclick="quickMarkPaid('${r.id}')">Наплати</button>` : `<span style="font-size:0.8rem; color:var(--success);">✓ Завршено</span>`}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      if (deskTbody) {
+        deskTbody.innerHTML = list.map(r => `
+          <tr>
+            <td><strong>#${r.rentalNumber}</strong></td>
+            <td><strong>${r.clientSnapshot.firstName} ${r.clientSnapshot.lastName}</strong></td>
+            <td>${r.clientSnapshot.phone}</td>
+            <td>${new Date(r.startTime).toLocaleDateString('mk-MK')}</td>
+            <td><strong>${r.totalAmount.toFixed(1)}${getCurrencySymbol()}</strong></td>
+            <td><span class="badge ${r.isPaid ? 'badge-success' : 'badge-warning'}">${r.isPaid ? 'Платено' : 'Ненаплатено'}</span></td>
+            <td>${r.paymentMethod ? (r.paymentMethod === 'card' ? '💳 Картичка' : '💵 Кеш') : '-'}</td>
+            <td>${!r.isPaid ? `<button class="btn btn-primary btn-sm" onclick="quickMarkPaid('${r.id}')">Наплати</button>` : `<span class="badge badge-success">✓</span>`}</td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function applyReportPreset() {
+      const preset = document.getElementById('rep-preset').value;
+      const fromInput = document.getElementById('rep-from');
+      const toInput = document.getElementById('rep-to');
+      const now = new Date();
+
+      let fromDate = new Date();
+      let toDate = new Date();
+
+      if (preset === 'today') {
+        fromDate.setHours(0, 0, 0, 0);
+        toDate.setHours(23, 59, 59, 999);
+      } else if (preset === 'this_week') {
+        const day = now.getDay() || 7;
+        fromDate.setDate(now.getDate() - day + 1);
+        fromDate.setHours(0, 0, 0, 0);
+        toDate.setHours(23, 59, 59, 999);
+      } else if (preset === 'this_month') {
+        fromDate.setDate(1);
+        fromDate.setHours(0, 0, 0, 0);
+        toDate.setHours(23, 59, 59, 999);
+      } else if (preset === 'all') {
+        fromDate = new Date(2020, 0, 1);
+        toDate = new Date(2030, 11, 31);
+      }
+
+      fromInput.value = fromDate.toISOString().split('T')[0];
+      toInput.value = toDate.toISOString().split('T')[0];
+      generateReport();
+    }
+
+    function generateReport() {
+      const fromStr = document.getElementById('rep-from').value;
+      const toStr = document.getElementById('rep-to').value;
+
+      if (!fromStr || !toStr) return;
+
+      const fromTime = new Date(fromStr + 'T00:00:00').getTime();
+      const toTime = new Date(toStr + 'T23:59:59').getTime();
+
+      const matchedRentals = (db.rentals || []).filter(r => r.startTime >= fromTime && r.startTime <= toTime);
+
+      let totalRev = 0;
+      let paidRev = 0;
+      let unpaidRev = 0;
+
+      const catStats = {};
+      for (const key of Object.keys(CATEGORIES)) catStats[key] = { count: 0, revenue: 0 };
+
+      matchedRentals.forEach(r => {
+        totalRev += r.totalAmount || 0;
+        if (r.isPaid) paidRev += r.totalAmount || 0;
+        else unpaidRev += r.totalAmount || 0;
+
+        (r.items || []).forEach(i => {
+          if (catStats[i.category]) {
+            catStats[i.category].count++;
+            catStats[i.category].revenue += (i.dailyRate || 1.0);
+          }
+        });
+      });
+
+      document.getElementById('rep-period-label').textContent = `Период: ${fromStr} до ${toStr}`;
+      document.getElementById('rep-total-rev').textContent = totalRev.toFixed(1) + getCurrencySymbol();
+      document.getElementById('rep-paid-rev').textContent = paidRev.toFixed(1) + getCurrencySymbol();
+      document.getElementById('rep-unpaid-rev').textContent = unpaidRev.toFixed(1) + getCurrencySymbol();
+      document.getElementById('rep-rental-count').textContent = matchedRentals.length;
+
+      const mobCats = document.getElementById('rep-categories-mobile');
+      if (mobCats) {
+        mobCats.innerHTML = Object.entries(CATEGORIES).map(([key, cat]) => {
+          const stats = catStats[key] || { count: 0, revenue: 0 };
+          return `
+            <div style="background:var(--bg); border:1px solid var(--surface-border); border-radius:var(--radius-sm); padding:0.5rem; display:flex; justify-content:space-between; align-items:center; font-size:0.85rem;">
+              <span>${cat.icon} <strong>${cat.name}</strong> (${stats.count} пати)</span>
+              <strong>${stats.revenue.toFixed(1)}${getCurrencySymbol()}</strong>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+
+    // ==========================================
+    // SETTINGS, CSV IMPORT & EXPORT
+    // ==========================================
+    function setupSettingsPrices() {
+      const container = document.getElementById('settings-price-grid');
+      if (!container) return;
+
+      document.getElementById('setting-currency').value = db.settings.currency || 'EUR';
+      document.getElementById('setting-closing-time').value = db.settings.closingTime || '17:00';
+
+      container.innerHTML = Object.entries(CATEGORIES).map(([key, cat]) => {
+        const price = db.settings.prices[key] ?? 1.0;
+        return `
+          <div class="form-group" style="background: var(--bg); padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--surface-border);">
+            <label>${cat.icon} ${cat.name}</label>
+            <div style="display:flex; align-items:center; gap:0.3rem;">
+              <input type="number" step="0.5" inputmode="decimal" class="form-input setting-cat-price" data-cat="${key}" value="${price}" onchange="saveGeneralSettings()">
+              <span style="font-weight:600;">${getCurrencySymbol()}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function saveGeneralSettings() {
+      db.settings.currency = document.getElementById('setting-currency').value;
+      db.settings.closingTime = document.getElementById('setting-closing-time').value;
+
+      document.querySelectorAll('.setting-cat-price').forEach(inp => {
+        const cat = inp.getAttribute('data-cat');
+        db.settings.prices[cat] = parseFloat(inp.value) || 1.0;
+      });
+
+      saveToStorage();
+      setupSettingsPrices();
+      renderDashboard();
+    }
+
+    function importFromCSV() {
+      const fileInput = document.getElementById('csv-file-input');
+      if (!fileInput.files || fileInput.files.length === 0) {
+        alert('Изберете .csv фајл!');
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function (e) { processCSVImport(e.target.result); };
+      reader.readAsText(file);
+    }
+
+    function processCSVImport(csvText) {
+      const lines = csvText.split(/\r\n|\n/).map(l => l.trim()).filter(Boolean);
+      if (lines.length < 2) return;
+
+      const delimiter = lines[0].includes(';') ? ';' : ',';
+      const headers = lines[0].split(delimiter).map(h => h.trim().toUpperCase());
+
+      const colMap = {
+        firstName: headers.findIndex(h => h.includes('ИМЕ') && !h.includes('ПРЕЗИМЕ')),
+        lastName: headers.findIndex(h => h.includes('ПРЕЗИМЕ')),
+        phone: headers.findIndex(h => h.includes('ТЕЛЕФОН') || h.includes('TEL')),
+        cardNumber: headers.findIndex(h => h.includes('КАРТИЧКА') || h.includes('КАРТА') || h.includes('CARD')),
+        skis: headers.findIndex(h => h.includes('СКИИ') || h.includes('SKI')),
+        board: headers.findIndex(h => h.includes('БОРД') || h.includes('BOARD')),
+        sled: headers.findIndex(h => h.includes('САНКА') || h.includes('SLED')),
+        poles: headers.findIndex(h => h.includes('СТАПОВИ') || h.includes('POLES')),
+        boots: headers.findIndex(h => h.includes('КОНДУРИ') || h.includes('КОНД') || h.includes('BOOTS')),
+        helmet: headers.findIndex(h => h.includes('КАЦИГА') || h.includes('HELMET')),
+        goggles: headers.findIndex(h => h.includes('НАОЧАРИ') || h.includes('GOGGLES')),
+        gloves: headers.findIndex(h => h.includes('РАКВИЦИ') || h.includes('GLOVES'))
+      };
+
+      let importedClients = 0;
+      let importedRentals = 0;
+
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(delimiter).map(c => c.trim().replace(/^"|"$/g, ''));
+        const firstName = colMap.firstName !== -1 ? cols[colMap.firstName] : '';
+        const lastName = colMap.lastName !== -1 ? cols[colMap.lastName] : '';
+        const phone = colMap.phone !== -1 ? cols[colMap.phone] : '';
+        const cardNumber = colMap.cardNumber !== -1 ? cols[colMap.cardNumber] : '';
+
+        if (!firstName && !phone) continue;
+
+        let client = db.clients.find(c => c.phone === phone && phone !== '');
+        if (!client) {
+          client = {
+            id: 'c_csv_' + Date.now() + '_' + i,
+            firstName: firstName || 'Клиент',
+            lastName: lastName || '',
+            phone: phone || ('070' + Math.floor(100000 + Math.random() * 900000)),
+            cardNumber: cardNumber,
+            notes: 'CSV увоз',
+            createdAt: Date.now()
+          };
+          db.clients.push(client);
+          importedClients++;
+        }
+
+        const items = [];
+        const checkCategory = (catKey, colIdx) => {
+          if (colIdx !== -1 && cols[colIdx] && cols[colIdx] !== '-' && cols[colIdx] !== '0') {
+            items.push({
+              equipmentId: 'eq_csv_' + catKey + '_' + i,
+              code: catKey.substring(0, 2).toUpperCase() + '-' + i,
+              category: catKey,
+              name: cols[colIdx],
+              size: cols[colIdx],
+              dailyRate: 1.0,
+              returned: true,
+              returnedAt: Date.now()
+            });
+          }
+        };
+
+        checkCategory('skis', colMap.skis);
+        checkCategory('board', colMap.board);
+        checkCategory('sled', colMap.sled);
+        checkCategory('poles', colMap.poles);
+        checkCategory('boots', colMap.boots);
+        checkCategory('helmet', colMap.helmet);
+        checkCategory('goggles', colMap.goggles);
+        checkCategory('gloves', colMap.gloves);
+
+        if (items.length > 0) {
+          db.rentals.push({
+            id: 'r_csv_' + Date.now() + '_' + i,
+            rentalNumber: 2000 + i,
+            clientId: client.id,
+            clientSnapshot: {
+              firstName: client.firstName,
+              lastName: client.lastName,
+              phone: client.phone,
+              cardNumber: client.cardNumber
+            },
+            startTime: Date.now() - 86400000,
+            expectedReturnTime: Date.now() - 43200000,
+            actualReturnTime: Date.now(),
+            status: 'completed',
+            totalAmount: items.length * 1.0,
+            isPaid: true,
+            paidAt: Date.now(),
+            paymentMethod: 'cash',
+            notes: 'CSV увоз',
+            items: items
+          });
+          importedRentals++;
+        }
+      }
+
+      saveToStorage();
+      renderDashboard();
+      renderRentalsTable();
+      renderClientsTable();
+      alert(`Успешен увоз!\nКреирани ${importedClients} клиенти и ${importedRentals} изнајмувања.`);
+    }
+
+    function exportToCSV(filename, rows) {
+      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + rows.map(e => e.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function exportEquipmentCSV() {
+      const rows = [['Код', 'Категорија', 'Модел', 'Големина', 'Цена_по_ден', 'Статус', 'Вклучено']];
+      (db.equipment || []).forEach(e => {
+        rows.push([e.code, e.category, e.name, e.size, e.pricePerDay, e.status, e.enabled ? 'ДА' : 'НЕ']);
+      });
+      exportToCSV('skirent_oprema.csv', rows);
+    }
+
+    function exportClientsCSV() {
+      const rows = [['Име', 'Презиме', 'Телефон', 'Број_картичка']];
+      (db.clients || []).forEach(c => rows.push([c.firstName, c.lastName, c.phone, c.cardNumber || '']));
+      exportToCSV('skirent_klienti.csv', rows);
+    }
+
+    function exportRentalsCSV() {
+      const rows = [['Р_бр', 'Име', 'Телефон', 'Почеток', 'Враќање', 'Износ', 'Платено']];
+      (db.rentals || []).forEach(r => {
+        rows.push([r.rentalNumber, `${r.clientSnapshot.firstName} ${r.clientSnapshot.lastName}`, r.clientSnapshot.phone, new Date(r.startTime).toISOString(), r.actualReturnTime ? new Date(r.actualReturnTime).toISOString() : 'Активно', r.totalAmount, r.isPaid ? 'ДА' : 'НЕ']);
+      });
+      exportToCSV('skirent_iznajmuvanja.csv', rows);
+    }
+
+    function exportReportCSV() {
+      const fromStr = document.getElementById('rep-from').value;
+      const toStr = document.getElementById('rep-to').value;
+      const fromTime = new Date(fromStr + 'T00:00:00').getTime();
+      const toTime = new Date(toStr + 'T23:59:59').getTime();
+      const matched = (db.rentals || []).filter(r => r.startTime >= fromTime && r.startTime <= toTime);
+
+      const rows = [['Р_бр', 'Клиент', 'Телефон', 'Износ', 'Платено']];
+      matched.forEach(r => {
+        rows.push([r.rentalNumber, `${r.clientSnapshot.firstName} ${r.clientSnapshot.lastName}`, r.clientSnapshot.phone, r.totalAmount, r.isPaid ? 'Платено' : 'Ненаплатено']);
+      });
+      exportToCSV(`izvestaj_${fromStr}_${toStr}.csv`, rows);
+    }
+
+    function exportFullBackupJSON() {
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(db, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute('href', dataStr);
+      downloadAnchor.setAttribute('download', `skirent_backup_${new Date().toISOString().split('T')[0]}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function restoreFullBackupJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed && parsed.equipment && parsed.clients && parsed.rentals) {
+            db = parsed;
+            saveToStorage();
+            initApp();
+            alert('Бекапот е вчитан!');
+          }
+        } catch (err) { alert('Грешка: ' + err.message); }
+      };
+      reader.readAsText(file);
+    }
+
+    function loadDemoSampleData() {
+      if (confirm('Вчитај демо податоци?')) {
+        seedInitialStock();
+        initApp();
+      }
+    }
+
+    function resetAllData() {
+      if (confirm('ВНИМАНИЕ! Дали сакате да ги избришете СИТЕ податоци?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        db = {
+          clients: [], equipment: [], rentals: [],
+          settings: { currency: 'EUR', closingTime: '17:00', prices: { skis: 1.0, board: 1.0, sled: 1.0, poles: 1.0, boots: 1.0, helmet: 1.0, goggles: 1.0, gloves: 1.0 } }
+        };
+        saveToStorage();
+        initApp();
+      }
+    }
+
+    function openModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.add('open');
+    }
+
+    function closeModal(id) {
+      const el = document.getElementById(id);
+      if (el) el.classList.remove('open');
+    }
+
+    function toDatetimeLocal(date) {
+      const d = new Date(date);
+      const pad = n => n.toString().padStart(2, '0');
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    }
+
+    window.addEventListener('DOMContentLoaded', initApp);
+  </script>
+</body>
+
+</html>
