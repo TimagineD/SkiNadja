@@ -3806,23 +3806,54 @@
 
       document.getElementById('cd-modal-title').textContent = `${client.firstName} ${client.lastName}`;
 
-      const activeRental = (db.rentals || []).find(r => r.clientId === clientId && (r.status === 'active' || r.status === 'partially_returned'));
+      const activeRentals = (db.rentals || []).filter(r => r.clientId === clientId && (r.status === 'active' || r.status === 'partially_returned'));
       const activeContainer = document.getElementById('cd-active-rentals');
 
-      if (!activeRental) {
-        activeContainer.innerHTML = '<p style="color:var(--text-muted); font-size:0.8rem;">Нема активна опрема.</p>';
+      if (activeRentals.length === 0) {
+        activeContainer.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem; padding:0.25rem 0;">Нема активна опрема.</p>';
       } else {
-        const activeItems = (activeRental.items || []).filter(i => !i.returned);
-        activeContainer.innerHTML = `
-          <div style="background-color: var(--primary-light); padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--primary); display:flex; justify-content:space-between; align-items:center;">
-            <div style="font-size:0.85rem;">
-              <strong>#${activeRental.rentalNumber}:</strong> ${activeItems.map(i => `${i.code}`).join(', ')}
+        activeContainer.innerHTML = activeRentals.map(rental => {
+          const items = rental.items || [];
+          return `
+            <div style="background-color: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-md); padding: 0.75rem; margin-bottom: 0.75rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--surface-border); flex-wrap:wrap; gap:0.4rem;">
+                <div>
+                  <strong style="color:var(--primary); font-size:0.92rem;">Изнајмување #${rental.rentalNumber}</strong>
+                  <span style="font-size:0.8rem; color:var(--text-muted); margin-left:0.4rem;">(${formatDuration(Date.now() - rental.startTime)})</span>
+                </div>
+                <button class="btn btn-success btn-sm" onclick="closeModal('modal-client-details'); openReturnModal('${rental.id}');">
+                  Врати опрема
+                </button>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                ${items.map((item, idx) => {
+                  const sizeStr = item.size ? ` (${item.size})` : '';
+                  const nameStr = item.name ? ` <span style="color:var(--text-muted); font-size:0.8rem; margin-left:0.25rem;">${item.name}</span>` : '';
+                  if (item.returned) {
+                    return `
+                      <div style="background-color: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.5rem 0.65rem; opacity: 0.6; display:flex; justify-content:space-between; align-items:center; font-size:0.85rem;">
+                        <div style="display:flex; align-items:center; gap: 0.5rem;">
+                          <span style="font-weight:700; color:var(--text-muted); min-width:1.3rem;">${idx + 1}.</span>
+                          <span><s>${item.code}${sizeStr}</s>${nameStr}</span>
+                        </div>
+                        <span class="badge badge-success">Вратено</span>
+                      </div>
+                    `;
+                  }
+                  return `
+                    <div style="background-color: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.5rem 0.65rem; display:flex; align-items:center; justify-content:space-between; font-size:0.85rem;">
+                      <div style="display:flex; align-items:center; gap: 0.5rem;">
+                        <span style="font-weight:700; color:var(--text-muted); min-width:1.3rem;">${idx + 1}.</span>
+                        <span><strong>${item.code}</strong>${sizeStr}${nameStr}</span>
+                      </div>
+                      <span class="badge badge-danger">Активно</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
             </div>
-            <button class="btn btn-success btn-sm" onclick="closeModal('modal-client-details'); openReturnModal('${activeRental.id}');">
-              Врати
-            </button>
-          </div>
-        `;
+          `;
+        }).join('');
       }
 
       const historyList = (db.rentals || []).filter(r => r.clientId === clientId);
