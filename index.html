@@ -2611,6 +2611,7 @@
     };
 
     let db = {
+      isInitialized: false,
       clients: [],
       equipment: [],
       rentals: [],
@@ -2725,8 +2726,10 @@
 
     async function initApp() {
       await loadFromStorage();
-      if (db.equipment.length === 0 && db.clients.length === 0) {
+      if (!db.isInitialized && db.equipment.length === 0 && db.clients.length === 0 && (!db.rentals || db.rentals.length === 0)) {
         seedInitialStock();
+        db.isInitialized = true;
+        await saveToStorage();
       }
       await setupTheme();
       setupCategoryChips();
@@ -2839,10 +2842,12 @@
     }
 
     function seedInitialStock() {
+      db.isInitialized = true;
       db.clients = [
         { id: 'c1', firstName: 'Александар', lastName: 'Петров', phone: '070123456', cardNumber: 'VIP-101', notes: '', createdAt: Date.now() - 86400000 },
         { id: 'c2', firstName: 'Марија', lastName: 'Иванова', phone: '071987654', cardNumber: 'CL-202', notes: '', createdAt: Date.now() - 43200000 }
       ];
+      db.equipment = [];
 
       const sampleItems = [
         { code: 'SK-155', category: 'skis', name: 'Atomic Redster', size: '155 cm', pricePerDay: 1.0 },
@@ -4558,9 +4563,17 @@
         try {
           const parsed = JSON.parse(e.target.result);
           if (parsed && parsed.equipment && parsed.clients && parsed.rentals) {
+            parsed.isInitialized = true;
             db = parsed;
             await saveToStorage();
-            await initApp();
+            setupCategoryChips();
+            setupSettingsPrices();
+            renderDashboard();
+            renderRentalsTable();
+            renderEquipmentTable();
+            renderClientsTable();
+            if (currentPaymentsTab === 'list') renderPaymentsTable();
+            else if (typeof generateReport === 'function') generateReport();
             showToast('Резервната копија е успешно вчитана!', 'success');
           } else {
             showToast('Невалиден формат на бекап датотеката!', 'error');
@@ -4580,7 +4593,15 @@
       if (confirm('Вчитај демо податоци?')) {
         try {
           seedInitialStock();
-          await initApp();
+          await saveToStorage();
+          setupCategoryChips();
+          setupSettingsPrices();
+          renderDashboard();
+          renderRentalsTable();
+          renderEquipmentTable();
+          renderClientsTable();
+          if (currentPaymentsTab === 'list') renderPaymentsTable();
+          else if (typeof generateReport === 'function') generateReport();
           showToast('Демо податоците се успешно вчитани!', 'success');
         } catch (err) {
           console.error('Demo data error:', err);
@@ -4590,17 +4611,35 @@
     }
 
     async function resetAllData() {
-      if (confirm('ВНИМАНИЕ! Дали сакате да ги избришете СИТЕ податоци?')) {
+      if (confirm('ВНИМАНИЕ! Дали сакате да ги избришете СИТЕ податоци од апликацијата (клиенти, опрема, изнајмувања)?')) {
         try {
-          await idbDelete(STORAGE_KEY);
-          try { localStorage.removeItem(STORAGE_KEY); } catch (_) { }
           db = {
-            clients: [], equipment: [], rentals: [],
-            settings: { currency: 'EUR', closingTime: '17:00', prices: { skis: 1.0, board: 1.0, sled: 1.0, poles: 1.0, boots: 1.0, helmet: 1.0, goggles: 1.0, gloves: 1.0 } }
+            isInitialized: true,
+            clients: [],
+            equipment: [],
+            rentals: [],
+            settings: {
+              currency: 'EUR',
+              closingTime: '17:00',
+              prices: { skis: 1.0, board: 1.0, sled: 1.0, poles: 1.0, boots: 1.0, helmet: 1.0, goggles: 1.0, gloves: 1.0 }
+            }
           };
+          newRentalState = { clientId: null, selectedItems: [] };
+
           await saveToStorage();
-          await initApp();
-          showToast('Сите податоци се успешно избришани!', 'success');
+          try { localStorage.removeItem(STORAGE_KEY); } catch (_) { }
+
+          setupCategoryChips();
+          setupSettingsPrices();
+          renderDashboard();
+          renderRentalsTable();
+          renderEquipmentTable();
+          renderClientsTable();
+          if (currentPaymentsTab === 'list') renderPaymentsTable();
+          else if (typeof generateReport === 'function') generateReport();
+
+          navigateTo('dashboard');
+          showToast('Сите податоци се целосно избришани од апликацијата!', 'success');
         } catch (err) {
           console.error('Reset data error:', err);
           showToast('Грешка при бришење на податоците: ' + err.message, 'error');
