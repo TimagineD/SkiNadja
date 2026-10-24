@@ -1764,9 +1764,14 @@
       <div class="card">
         <div class="card-header">
           <h2 class="card-title"><span>⏱</span> Сите изнајмувања</h2>
-          <button class="btn btn-secondary btn-sm" onclick="exportRentalsCSV()">
-            <span>📥</span> CSV
-          </button>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-sm" onclick="exportRentalsCSV()">
+              <span>📥</span> CSV
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="clearRentalsData()">
+              <span>🗑️</span> Исчисти изнајмувања
+            </button>
+          </div>
         </div>
 
         <div class="tab-nav">
@@ -1837,6 +1842,9 @@
             <button class="btn btn-secondary btn-sm" onclick="exportEquipmentCSV()">
               <span>📥</span> CSV
             </button>
+            <button class="btn btn-danger btn-sm" onclick="clearEquipmentData()">
+              <span>🗑️</span> Исчисти опрема
+            </button>
           </div>
         </div>
 
@@ -1900,12 +1908,15 @@
       <div class="card">
         <div class="card-header">
           <h2 class="card-title"><span>👤</span> Клиенти</h2>
-          <div style="display:flex; gap:0.4rem;">
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
             <button class="btn btn-primary btn-sm" onclick="openNewClientModal()">
               <span>+</span> Нов клиент
             </button>
             <button class="btn btn-secondary btn-sm" onclick="exportClientsCSV()">
               <span>📥</span> CSV
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="clearClientsData()">
+              <span>🗑️</span> Исчисти клиенти
             </button>
           </div>
         </div>
@@ -4763,6 +4774,70 @@
           console.error('Reset data error:', err);
           showToast('Грешка при бришење на податоците: ' + err.message, 'error');
         }
+      }
+    }
+
+    async function clearRentalsData() {
+      const count = (db.rentals || []).length;
+      if (!confirm(`ВНИМАНИЕ! Дали сте сигурни дека сакате да ги избришете СИТЕ изнајмувања (${count})? Оваа акција не може да се врати.`)) {
+        return;
+      }
+      try {
+        db.rentals = [];
+        newRentalState = { clientId: null, selectedItems: [] };
+        // Release rented equipment back to available
+        (db.equipment || []).forEach(eq => {
+          if (eq.status === 'rented') eq.status = 'available';
+        });
+        await saveToStorage();
+        renderDashboard();
+        renderRentalsTable();
+        renderEquipmentTable();
+        if (typeof renderPaymentsTable === 'function') renderPaymentsTable();
+        if (typeof generateReport === 'function') generateReport();
+        showToast('Сите изнајмувања се успешно избришани!', 'success');
+      } catch (err) {
+        console.error('Clear rentals error:', err);
+        showToast('Грешка при бришење на изнајмувањата: ' + err.message, 'error');
+      }
+    }
+
+    async function clearEquipmentData() {
+      const count = (db.equipment || []).length;
+      if (!confirm(`ВНИМАНИЕ! Дали сте сигурни дека сакате да ја избришете ЦЕЛАТА опрема (${count} парчиња) од инвентарот? Оваа акција не може да се врати.`)) {
+        return;
+      }
+      try {
+        db.equipment = [];
+        db.isInitialized = true; // Prevent initApp from auto-reseeding demo equipment
+        if (newRentalState) newRentalState.selectedItems = [];
+        await saveToStorage();
+        setupCategoryChips();
+        renderEquipmentTable();
+        renderDashboard();
+        showToast('Целата опрема е успешно избришана!', 'success');
+      } catch (err) {
+        console.error('Clear equipment error:', err);
+        showToast('Грешка при бришење на опремата: ' + err.message, 'error');
+      }
+    }
+
+    async function clearClientsData() {
+      const count = (db.clients || []).length;
+      if (!confirm(`ВНИМАНИЕ! Дали сте сигурни дека сакате да ги избришете СИТЕ клиенти (${count})? Оваа акција не може да се врати.`)) {
+        return;
+      }
+      try {
+        db.clients = [];
+        currentClientsPage = 1;
+        if (newRentalState) newRentalState.clientId = null;
+        await saveToStorage();
+        renderClientsTable();
+        renderDashboard();
+        showToast('Сите клиенти се успешно избришани!', 'success');
+      } catch (err) {
+        console.error('Clear clients error:', err);
+        showToast('Грешка при бришење на клиентите: ' + err.message, 'error');
       }
     }
 
