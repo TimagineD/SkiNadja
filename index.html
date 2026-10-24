@@ -1558,6 +1558,65 @@
     .toast-close:hover {
       opacity: 1;
     }
+
+    /* =====================================================================
+       PAGINATION BAR & CONTROLS
+       ===================================================================== */
+    .pagination-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.85rem 0.25rem 0.25rem;
+      border-top: 1px solid var(--surface-border);
+      font-size: 0.88rem;
+    }
+
+    .pagination-info {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .pagination-btn {
+      min-height: 32px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm, 10px);
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition, all 0.2s ease);
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: var(--color-surface-secondary);
+      border-color: var(--color-border-hover);
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .pagination-current {
+      padding: 0.25rem 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
   </style>
 </head>
 
@@ -1884,6 +1943,9 @@
             </tbody>
           </table>
         </div>
+
+        <!-- Pagination for Clients -->
+        <div id="clients-pagination" class="pagination-bar" style="display: none;"></div>
       </div>
     </div>
 
@@ -3507,10 +3569,29 @@
     }
 
     // ==========================================
-    // CLIENTS VIEW (Cards on Phone)
+    // CLIENTS VIEW (Cards on Phone & Desktop Table with Pagination)
     // ==========================================
+    let currentClientsPage = 1;
+    const CLIENTS_PER_PAGE = 100;
+    let lastClientsSearchQuery = '';
+
+    function goToClientsPage(page) {
+      currentClientsPage = page;
+      renderClientsTable();
+      const card = document.querySelector('#view-clients .card');
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
     function renderClientsTable() {
       const query = (document.getElementById('clients-search')?.value || '').toLowerCase().trim();
+
+      // Reset to page 1 if search query changed
+      if (query !== lastClientsSearchQuery) {
+        currentClientsPage = 1;
+        lastClientsSearchQuery = query;
+      }
 
       let list = (db.clients || []).filter(c => {
         if (query) {
@@ -3523,15 +3604,28 @@
 
       const mobContainer = document.getElementById('clients-mobile-list');
       const deskTbody = document.getElementById('clients-table-body');
+      const paginationEl = document.getElementById('clients-pagination');
 
       if (list.length === 0) {
         if (mobContainer) mobContainer.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Нема клиенти.</div>`;
         if (deskTbody) deskTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--text-muted);">Нема клиенти.</td></tr>`;
+        if (paginationEl) {
+          paginationEl.style.display = 'none';
+          paginationEl.innerHTML = '';
+        }
         return;
       }
 
+      const totalPages = Math.max(1, Math.ceil(list.length / CLIENTS_PER_PAGE));
+      if (currentClientsPage > totalPages) currentClientsPage = totalPages;
+      if (currentClientsPage < 1) currentClientsPage = 1;
+
+      const startIndex = (currentClientsPage - 1) * CLIENTS_PER_PAGE;
+      const endIndex = Math.min(startIndex + CLIENTS_PER_PAGE, list.length);
+      const pagedList = list.slice(startIndex, endIndex);
+
       if (mobContainer) {
-        mobContainer.innerHTML = list.map(c => {
+        mobContainer.innerHTML = pagedList.map(c => {
           const clientRentals = (db.rentals || []).filter(r => r.clientId === c.id);
           const activeRental = clientRentals.find(r => r.status === 'active' || r.status === 'partially_returned');
 
@@ -3570,7 +3664,7 @@
       }
 
       if (deskTbody) {
-        deskTbody.innerHTML = list.map(c => {
+        deskTbody.innerHTML = pagedList.map(c => {
           const clientRentals = (db.rentals || []).filter(r => r.clientId === c.id);
           const activeRental = clientRentals.find(r => r.status === 'active' || r.status === 'partially_returned');
           let activeHtml = activeRental ? `<span class="badge badge-danger" style="cursor:pointer;" onclick="openReturnModal('${activeRental.id}')">🔴 Врати</span>` : '<span style="color:var(--text-muted);">-</span>';
@@ -3593,6 +3687,31 @@
             </tr>
           `;
         }).join('');
+      }
+
+      // Render Pagination Bar
+      if (paginationEl) {
+        paginationEl.style.display = 'flex';
+        const showingFrom = startIndex + 1;
+        const showingTo = endIndex;
+
+        if (totalPages <= 1) {
+          paginationEl.innerHTML = `
+            <div class="pagination-info">Прикажани <strong>${list.length}</strong> клиенти</div>
+            <div></div>
+          `;
+        } else {
+          paginationEl.innerHTML = `
+            <div class="pagination-info">Прикажани <strong>${showingFrom}–${showingTo}</strong> од <strong>${list.length}</strong> клиенти (100 по страна)</div>
+            <div class="pagination-controls">
+              <button class="pagination-btn" onclick="goToClientsPage(1)" ${currentClientsPage === 1 ? 'disabled' : ''} title="Прва страна">«</button>
+              <button class="pagination-btn" onclick="goToClientsPage(${currentClientsPage - 1})" ${currentClientsPage === 1 ? 'disabled' : ''} title="Претходна страна">‹ Претходна</button>
+              <span class="pagination-current">Страна ${currentClientsPage} од ${totalPages}</span>
+              <button class="pagination-btn" onclick="goToClientsPage(${currentClientsPage + 1})" ${currentClientsPage === totalPages ? 'disabled' : ''} title="Следна страна">Следна ›</button>
+              <button class="pagination-btn" onclick="goToClientsPage(${totalPages})" ${currentClientsPage === totalPages ? 'disabled' : ''} title="Последна страна">»</button>
+            </div>
+          `;
+        }
       }
     }
 
