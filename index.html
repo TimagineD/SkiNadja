@@ -2323,6 +2323,11 @@
           <div id="ret-rental-info" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;"></div>
         </div>
 
+        <div id="ret-unpaid-warning"
+          style="display: none; background: rgba(220, 38, 38, 0.1); border: 1.5px solid #dc2626; color: #dc2626; font-weight: 800; font-size: 0.95rem; text-align: center; padding: 0.65rem; border-radius: var(--radius-sm); letter-spacing: 0.04em;">
+          ⚠️ ИЗНАЈМУВАЊЕТО НЕ Е НАПЛАТЕНО
+        </div>
+
         <div class="form-group">
           <label style="font-weight: 700; color: var(--text);">
             Опрема што се враќа сега:
@@ -2340,7 +2345,7 @@
 
           <div class="form-group">
             <label>Наплата:</label>
-            <select class="form-select" id="ret-pay-status">
+            <select class="form-select" id="ret-pay-status" onchange="onReturnPayStatusChange()">
               <option value="paid_cash">Платено во кеш</option>
               <option value="paid_card">Платено со картичка</option>
               <option value="unpaid">Ненаплатено</option>
@@ -4251,7 +4256,20 @@
       document.getElementById('ret-final-amount').textContent = rental.totalAmount.toFixed(1) + getCurrencySymbol();
       document.getElementById('ret-pay-status').value = rental.isPaid ? 'paid_cash' : 'unpaid';
 
+      const unpaidWarning = document.getElementById('ret-unpaid-warning');
+      if (unpaidWarning) {
+        unpaidWarning.style.display = rental.isPaid ? 'none' : 'block';
+      }
+
       openModal('modal-return-rental');
+    }
+
+    function onReturnPayStatusChange() {
+      const status = document.getElementById('ret-pay-status').value;
+      const unpaidWarning = document.getElementById('ret-unpaid-warning');
+      if (unpaidWarning) {
+        unpaidWarning.style.display = (status === 'unpaid') ? 'block' : 'none';
+      }
     }
 
     function confirmReturnRental() {
