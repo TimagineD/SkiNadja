@@ -2421,29 +2421,126 @@
     let currentRentalsTab = 'active';
     let currentPaymentsTab = 'list';
 
+    const DB_NAME = 'SkiRentDB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'app_data';
     const STORAGE_KEY = 'ski_rent_pro_db_v1';
 
-    function initApp() {
-      loadFromStorage();
+    let _idbPromise = null;
+    function getIDB() {
+      if (!_idbPromise) {
+        _idbPromise = new Promise((resolve, reject) => {
+          if (!window.indexedDB) {
+            return reject(new Error('IndexedDB is not supported'));
+          }
+          const request = indexedDB.open(DB_NAME, DB_VERSION);
+          request.onupgradeneeded = (e) => {
+            const dbInstance = e.target.result;
+            if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+              dbInstance.createObjectStore(STORE_NAME);
+            }
+          };
+          request.onsuccess = (e) => resolve(e.target.result);
+          request.onerror = (e) => reject(e.target.error || new Error('Failed to open IndexedDB'));
+        });
+      }
+      return _idbPromise;
+    }
+
+    async function idbGet(key) {
+      try {
+        const idb = await getIDB();
+        return new Promise((resolve, reject) => {
+          const tx = idb.transaction(STORE_NAME, 'readonly');
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.get(key);
+          req.onsuccess = () => resolve(req.result !== undefined ? req.result : null);
+          req.onerror = () => reject(req.error);
+        });
+      } catch (e) {
+        console.error('IndexedDB get error:', e);
+        return null;
+      }
+    }
+
+    async function idbSet(key, value) {
+      try {
+        const idb = await getIDB();
+        return new Promise((resolve, reject) => {
+          const tx = idb.transaction(STORE_NAME, 'readwrite');
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.put(value, key);
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => reject(req.error);
+        });
+      } catch (e) {
+        console.error('IndexedDB set error:', e);
+        return false;
+      }
+    }
+
+    async function idbDelete(key) {
+      try {
+        const idb = await getIDB();
+        return new Promise((resolve, reject) => {
+          const tx = idb.transaction(STORE_NAME, 'readwrite');
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.delete(key);
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => reject(req.error);
+        });
+      } catch (e) {
+        console.error('IndexedDB delete error:', e);
+        return false;
+      }
+    }
+
+    let liveCounterInterval = null;
+
+    async function initApp() {
+      await loadFromStorage();
       if (db.equipment.length === 0 && db.clients.length === 0) {
         seedInitialStock();
       }
-      setupTheme();
+      await setupTheme();
       setupCategoryChips();
       setupSettingsPrices();
       renderDashboard();
-      setInterval(updateLiveCounters, 1000);
+      if (!liveCounterInterval) {
+        liveCounterInterval = setInterval(updateLiveCounters, 1000);
+      }
     }
 
-    function saveToStorage() {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); } catch (e) { }
-    }
-
-    function loadFromStorage() {
+    async function saveToStorage() {
       try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        if (data) db = { ...db, ...JSON.parse(data) };
-      } catch (e) { }
+        const data = JSON.parse(JSON.stringify(db));
+        await idbSet(STORAGE_KEY, data);
+      } catch (e) {
+        console.error('Error saving to IndexedDB:', e);
+      }
+    }
+
+    async function loadFromStorage() {
+      try {
+        let data = await idbGet(STORAGE_KEY);
+        if (!data) {
+          try {
+            const ls = localStorage.getItem(STORAGE_KEY);
+            if (ls) {
+              data = JSON.parse(ls);
+              if (data) {
+                await idbSet(STORAGE_KEY, data);
+                localStorage.removeItem(STORAGE_KEY);
+              }
+            }
+          } catch (_) { }
+        }
+        if (data) {
+          db = { ...db, ...data };
+        }
+      } catch (e) {
+        console.error('Error loading from IndexedDB:', e);
+      }
     }
 
     function getCurrencySymbol() {
@@ -2476,18 +2573,31 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function setupTheme() {
-      const savedTheme = localStorage.getItem('ski_theme') || 'light';
+    async function setupTheme() {
+      let savedTheme = 'light';
+      try {
+        const idbTheme = await idbGet('ski_theme');
+        if (idbTheme) {
+          savedTheme = idbTheme;
+        } else {
+          savedTheme = localStorage.getItem('ski_theme') || 'light';
+        }
+      } catch (_) {
+        savedTheme = localStorage.getItem('ski_theme') || 'light';
+      }
       document.body.setAttribute('data-theme', savedTheme);
-      document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     }
 
-    function toggleTheme() {
+    async function toggleTheme() {
       const current = document.body.getAttribute('data-theme') || 'light';
       const next = current === 'dark' ? 'light' : 'dark';
       document.body.setAttribute('data-theme', next);
-      localStorage.setItem('ski_theme', next);
-      document.getElementById('theme-icon').textContent = next === 'dark' ? '☀️' : '🌙';
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+      await idbSet('ski_theme', next);
+      try { localStorage.setItem('ski_theme', next); } catch (_) { }
     }
 
     function seedInitialStock() {
@@ -4165,13 +4275,13 @@
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = async function (e) {
         try {
           const parsed = JSON.parse(e.target.result);
           if (parsed && parsed.equipment && parsed.clients && parsed.rentals) {
             db = parsed;
-            saveToStorage();
-            initApp();
+            await saveToStorage();
+            await initApp();
             alert('Бекапот е вчитан!');
           }
         } catch (err) { alert('Грешка: ' + err.message); }
@@ -4179,22 +4289,23 @@
       reader.readAsText(file);
     }
 
-    function loadDemoSampleData() {
+    async function loadDemoSampleData() {
       if (confirm('Вчитај демо податоци?')) {
         seedInitialStock();
-        initApp();
+        await initApp();
       }
     }
 
-    function resetAllData() {
+    async function resetAllData() {
       if (confirm('ВНИМАНИЕ! Дали сакате да ги избришете СИТЕ податоци?')) {
-        localStorage.removeItem(STORAGE_KEY);
+        await idbDelete(STORAGE_KEY);
+        try { localStorage.removeItem(STORAGE_KEY); } catch (_) { }
         db = {
           clients: [], equipment: [], rentals: [],
           settings: { currency: 'EUR', closingTime: '17:00', prices: { skis: 1.0, board: 1.0, sled: 1.0, poles: 1.0, boots: 1.0, helmet: 1.0, goggles: 1.0, gloves: 1.0 } }
         };
-        saveToStorage();
-        initApp();
+        await saveToStorage();
+        await initApp();
       }
     }
 
