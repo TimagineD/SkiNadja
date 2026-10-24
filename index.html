@@ -1433,6 +1433,190 @@
         scroll-behavior: auto !important;
       }
     }
+
+    /* =====================================================================
+       AURA TOAST NOTIFICATIONS (Success Green / Error Red)
+       ===================================================================== */
+    .toast-container {
+      position: fixed;
+      top: max(16px, env(safe-area-inset-top, 16px));
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      width: calc(100% - 32px);
+      max-width: 440px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius-lg, 16px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.06);
+      font-family: var(--font-sans);
+      font-size: 0.92rem;
+      font-weight: 500;
+      line-height: 1.35;
+      width: 100%;
+      pointer-events: auto;
+      cursor: pointer;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      animation: auraToastIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      word-break: break-word;
+    }
+
+    @keyframes auraToastIn {
+      from {
+        opacity: 0;
+        transform: translateY(-22px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .toast.toast-hiding {
+      opacity: 0;
+      transform: translateY(-16px) scale(0.95);
+      pointer-events: none;
+    }
+
+    /* Green Toast: Successful Operations */
+    .toast.toast-success {
+      background: rgba(52, 199, 89, 0.15);
+      border: 1px solid rgba(52, 199, 89, 0.45);
+      color: #176530;
+    }
+    [data-theme="dark"] .toast.toast-success {
+      background: rgba(46, 160, 67, 0.24);
+      border: 1px solid rgba(52, 199, 89, 0.55);
+      color: #3fb950;
+    }
+
+    /* Red Toast: Failed Operations & Errors */
+    .toast.toast-error {
+      background: rgba(255, 59, 48, 0.15);
+      border: 1px solid rgba(255, 59, 48, 0.45);
+      color: #b91c1c;
+    }
+    [data-theme="dark"] .toast.toast-error {
+      background: rgba(248, 81, 73, 0.24);
+      border: 1px solid rgba(255, 59, 48, 0.55);
+      color: #ff7b72;
+    }
+
+    .toast-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+
+    .toast-success .toast-icon {
+      background: var(--color-green, #34c759);
+    }
+
+    .toast-error .toast-icon {
+      background: var(--color-red, #ff3b30);
+    }
+
+    .toast-message {
+      flex: 1;
+      font-size: 0.9rem;
+    }
+
+    .toast-close {
+      flex-shrink: 0;
+      background: transparent;
+      border: none;
+      font-size: 1.3rem;
+      line-height: 1;
+      color: inherit;
+      opacity: 0.55;
+      cursor: pointer;
+      padding: 0 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.15s ease;
+    }
+
+    .toast-close:hover {
+      opacity: 1;
+    }
+
+    /* =====================================================================
+       PAGINATION BAR & CONTROLS
+       ===================================================================== */
+    .pagination-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.85rem 0.25rem 0.25rem;
+      border-top: 1px solid var(--surface-border);
+      font-size: 0.88rem;
+    }
+
+    .pagination-info {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .pagination-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .pagination-btn {
+      min-height: 32px;
+      padding: 0.25rem 0.65rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm, 10px);
+      border: 1px solid var(--surface-border);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition, all 0.2s ease);
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: var(--color-surface-secondary);
+      border-color: var(--color-border-hover);
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .pagination-current {
+      padding: 0.25rem 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.85rem;
+    }
   </style>
 </head>
 
@@ -1580,9 +1764,14 @@
       <div class="card">
         <div class="card-header">
           <h2 class="card-title"><span>⏱</span> Сите изнајмувања</h2>
-          <button class="btn btn-secondary btn-sm" onclick="exportRentalsCSV()">
-            <span>📥</span> CSV
-          </button>
+          <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-sm" onclick="exportRentalsCSV()">
+              <span>📥</span> CSV
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="clearRentalsData()">
+              <span>🗑️</span> Исчисти изнајмувања
+            </button>
+          </div>
         </div>
 
         <div class="tab-nav">
@@ -1653,6 +1842,9 @@
             <button class="btn btn-secondary btn-sm" onclick="exportEquipmentCSV()">
               <span>📥</span> CSV
             </button>
+            <button class="btn btn-danger btn-sm" onclick="clearEquipmentData()">
+              <span>🗑️</span> Исчисти опрема
+            </button>
           </div>
         </div>
 
@@ -1716,12 +1908,15 @@
       <div class="card">
         <div class="card-header">
           <h2 class="card-title"><span>👤</span> Клиенти</h2>
-          <div style="display:flex; gap:0.4rem;">
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
             <button class="btn btn-primary btn-sm" onclick="openNewClientModal()">
               <span>+</span> Нов клиент
             </button>
             <button class="btn btn-secondary btn-sm" onclick="exportClientsCSV()">
               <span>📥</span> CSV
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="clearClientsData()">
+              <span>🗑️</span> Исчисти клиенти
             </button>
           </div>
         </div>
@@ -1759,6 +1954,9 @@
             </tbody>
           </table>
         </div>
+
+        <!-- Pagination for Clients -->
+        <div id="clients-pagination" class="pagination-bar" style="display: none;"></div>
       </div>
     </div>
 
@@ -2125,6 +2323,11 @@
           <div id="ret-rental-info" style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.2rem;"></div>
         </div>
 
+        <div id="ret-unpaid-warning"
+          style="display: none; background: rgba(220, 38, 38, 0.1); border: 1.5px solid #dc2626; color: #dc2626; font-weight: 800; font-size: 0.95rem; text-align: center; padding: 0.65rem; border-radius: var(--radius-sm); letter-spacing: 0.04em;">
+          ⚠️ ИЗНАЈМУВАЊЕТО НЕ Е НАПЛАТЕНО
+        </div>
+
         <div class="form-group">
           <label style="font-weight: 700; color: var(--text);">
             Опрема што се враќа сега:
@@ -2142,7 +2345,7 @@
 
           <div class="form-group">
             <label>Наплата:</label>
-            <select class="form-select" id="ret-pay-status">
+            <select class="form-select" id="ret-pay-status" onchange="onReturnPayStatusChange()">
               <option value="paid_cash">Платено во кеш</option>
               <option value="paid_card">Платено со картичка</option>
               <option value="unpaid">Ненаплатено</option>
@@ -2392,8 +2595,88 @@
     </div>
   </div>
 
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
   <!-- ==================== JAVASCRIPT LOGIC ==================== -->
   <script>
+    /* =====================================================================
+       AURA TOAST NOTIFICATIONS (Success Green / Error Red)
+       ===================================================================== */
+    function showToast(message, type = 'success', duration = 3500) {
+      try {
+        let container = document.getElementById('toast-container');
+        if (!container) {
+          container = document.createElement('div');
+          container.id = 'toast-container';
+          container.className = 'toast-container';
+          container.setAttribute('aria-live', 'polite');
+          container.setAttribute('aria-atomic', 'true');
+          document.body.appendChild(container);
+        }
+
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type === 'error' ? 'error' : 'success'}`;
+
+        const iconSvg = type === 'error'
+          ? `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
+          : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+        toast.innerHTML = `
+          <div class="toast-icon">${iconSvg}</div>
+          <div class="toast-message">${escapeHtml(message)}</div>
+          <button type="button" class="toast-close" aria-label="Затвори">&times;</button>
+        `;
+
+        const dismiss = () => {
+          if (toast.classList.contains('toast-hiding')) return;
+          toast.classList.add('toast-hiding');
+          setTimeout(() => {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 260);
+        };
+
+        const closeBtn = toast.querySelector('.toast-close');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            dismiss();
+          });
+        }
+        toast.addEventListener('click', dismiss);
+
+        container.appendChild(toast);
+
+        if (duration > 0) {
+          setTimeout(dismiss, duration);
+        }
+      } catch (err) {
+        console.error('showToast error:', err);
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    // Global Error Listeners to show red toast for any application error
+    window.addEventListener('error', (event) => {
+      const msg = event.message || 'Неочекувана грешка во апликацијата';
+      showToast('Грешка: ' + msg, 'error');
+    });
+
+    window.addEventListener('unhandledrejection', (event) => {
+      const reason = event.reason;
+      const msg = reason ? (reason.message || String(reason)) : 'Необработена грешка';
+      showToast('Грешка: ' + msg, 'error');
+    });
+
     const CATEGORIES = {
       skis: { name: 'Скии', icon: '⛷️', defaultSize: '160 cm' },
       board: { name: 'Борд', icon: '🏂', defaultSize: '155 cm' },
@@ -2406,6 +2689,7 @@
     };
 
     let db = {
+      isInitialized: false,
       clients: [],
       equipment: [],
       rentals: [],
@@ -2421,29 +2705,160 @@
     let currentRentalsTab = 'active';
     let currentPaymentsTab = 'list';
 
+    const DB_NAME = 'SkiRentDB';
+    const DB_VERSION = 1;
+    const STORE_NAME = 'app_data';
     const STORAGE_KEY = 'ski_rent_pro_db_v1';
 
-    function initApp() {
-      loadFromStorage();
-      if (db.equipment.length === 0 && db.clients.length === 0) {
-        seedInitialStock();
+    let _idbPromise = null;
+    function getIDB() {
+      if (!_idbPromise) {
+        _idbPromise = new Promise((resolve, reject) => {
+          if (!window.indexedDB) {
+            const err = new Error('IndexedDB не е поддржан во овој прелистувач');
+            showToast('Грешка: IndexedDB не е поддржан!', 'error');
+            return reject(err);
+          }
+          const request = indexedDB.open(DB_NAME, DB_VERSION);
+          request.onupgradeneeded = (e) => {
+            const dbInstance = e.target.result;
+            if (!dbInstance.objectStoreNames.contains(STORE_NAME)) {
+              dbInstance.createObjectStore(STORE_NAME);
+            }
+          };
+          request.onsuccess = (e) => resolve(e.target.result);
+          request.onerror = (e) => {
+            const err = e.target.error || new Error('Неуспешно отворање на IndexedDB');
+            showToast('Грешка при отворање на IndexedDB базата!', 'error');
+            reject(err);
+          };
+        });
       }
-      setupTheme();
+      return _idbPromise;
+    }
+
+    async function idbGet(key) {
+      try {
+        const idb = await getIDB();
+        return new Promise((resolve, reject) => {
+          const tx = idb.transaction(STORE_NAME, 'readonly');
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.get(key);
+          req.onsuccess = () => resolve(req.result !== undefined ? req.result : null);
+          req.onerror = () => {
+            const err = req.error || new Error('Неуспешно читање од IndexedDB');
+            showToast('Грешка при читање од базата: ' + err.message, 'error');
+            reject(err);
+          };
+        });
+      } catch (e) {
+        console.error('IndexedDB get error:', e);
+        showToast('Грешка во базата на податоци: ' + (e.message || e), 'error');
+        return null;
+      }
+    }
+
+    async function idbSet(key, value) {
+      try {
+        const idb = await getIDB();
+        return new Promise((resolve, reject) => {
+          const tx = idb.transaction(STORE_NAME, 'readwrite');
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.put(value, key);
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => {
+            const err = req.error || new Error('Неуспешен запис во IndexedDB');
+            showToast('Грешка при запис во базата: ' + err.message, 'error');
+            reject(err);
+          };
+        });
+      } catch (e) {
+        console.error('IndexedDB set error:', e);
+        showToast('Грешка при запис во базата (IndexedDB): ' + (e.message || e), 'error');
+        return false;
+      }
+    }
+
+    async function idbDelete(key) {
+      try {
+        const idb = await getIDB();
+        return new Promise((resolve, reject) => {
+          const tx = idb.transaction(STORE_NAME, 'readwrite');
+          const store = tx.objectStore(STORE_NAME);
+          const req = store.delete(key);
+          req.onsuccess = () => resolve(true);
+          req.onerror = () => {
+            const err = req.error || new Error('Неуспешно бришење од IndexedDB');
+            showToast('Грешка при бришење од базата: ' + err.message, 'error');
+            reject(err);
+          };
+        });
+      } catch (e) {
+        console.error('IndexedDB delete error:', e);
+        showToast('Грешка при бришење од базата (IndexedDB): ' + (e.message || e), 'error');
+        return false;
+      }
+    }
+
+    let liveCounterInterval = null;
+
+    async function initApp() {
+      await loadFromStorage();
+      if (!db.isInitialized && db.equipment.length === 0 && db.clients.length === 0 && (!db.rentals || db.rentals.length === 0)) {
+        seedInitialStock();
+        db.isInitialized = true;
+        await saveToStorage();
+      }
+      await setupTheme();
       setupCategoryChips();
       setupSettingsPrices();
       renderDashboard();
-      setInterval(updateLiveCounters, 1000);
+      if (!liveCounterInterval) {
+        liveCounterInterval = setInterval(updateLiveCounters, 1000);
+      }
     }
 
-    function saveToStorage() {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(db)); } catch (e) { }
-    }
-
-    function loadFromStorage() {
+    async function saveToStorage(notifySuccess = false, successMsg = '') {
       try {
-        const data = localStorage.getItem(STORAGE_KEY);
-        if (data) db = { ...db, ...JSON.parse(data) };
-      } catch (e) { }
+        const data = JSON.parse(JSON.stringify(db));
+        const ok = await idbSet(STORAGE_KEY, data);
+        if (ok === false) {
+          showToast('Грешка: Неуспешно зачувување на податоците во базата (IndexedDB)!', 'error');
+          return false;
+        }
+        if (notifySuccess && successMsg) {
+          showToast(successMsg, 'success');
+        }
+        return true;
+      } catch (e) {
+        console.error('Error saving to IndexedDB:', e);
+        showToast('Грешка при зачувување на податоците: ' + (e.message || e), 'error');
+        return false;
+      }
+    }
+
+    async function loadFromStorage() {
+      try {
+        let data = await idbGet(STORAGE_KEY);
+        if (!data) {
+          try {
+            const ls = localStorage.getItem(STORAGE_KEY);
+            if (ls) {
+              data = JSON.parse(ls);
+              if (data) {
+                await idbSet(STORAGE_KEY, data);
+                localStorage.removeItem(STORAGE_KEY);
+              }
+            }
+          } catch (_) { }
+        }
+        if (data) {
+          db = { ...db, ...data };
+        }
+      } catch (e) {
+        console.error('Error loading from IndexedDB:', e);
+        showToast('Грешка при вчитување на податоците од базата: ' + (e.message || e), 'error');
+      }
     }
 
     function getCurrencySymbol() {
@@ -2476,25 +2891,41 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function setupTheme() {
-      const savedTheme = localStorage.getItem('ski_theme') || 'light';
+    async function setupTheme() {
+      let savedTheme = 'light';
+      try {
+        const idbTheme = await idbGet('ski_theme');
+        if (idbTheme) {
+          savedTheme = idbTheme;
+        } else {
+          savedTheme = localStorage.getItem('ski_theme') || 'light';
+        }
+      } catch (_) {
+        savedTheme = localStorage.getItem('ski_theme') || 'light';
+      }
       document.body.setAttribute('data-theme', savedTheme);
-      document.getElementById('theme-icon').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
     }
 
-    function toggleTheme() {
+    async function toggleTheme() {
       const current = document.body.getAttribute('data-theme') || 'light';
       const next = current === 'dark' ? 'light' : 'dark';
       document.body.setAttribute('data-theme', next);
-      localStorage.setItem('ski_theme', next);
-      document.getElementById('theme-icon').textContent = next === 'dark' ? '☀️' : '🌙';
+      const icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = next === 'dark' ? '☀️' : '🌙';
+      await idbSet('ski_theme', next);
+      try { localStorage.setItem('ski_theme', next); } catch (_) { }
+      showToast(`Темата е променета: ${next === 'dark' ? 'Темна 🌙' : 'Светла ☀️'}`, 'success', 2000);
     }
 
     function seedInitialStock() {
+      db.isInitialized = true;
       db.clients = [
         { id: 'c1', firstName: 'Александар', lastName: 'Петров', phone: '070123456', cardNumber: 'VIP-101', notes: '', createdAt: Date.now() - 86400000 },
         { id: 'c2', firstName: 'Марија', lastName: 'Иванова', phone: '071987654', cardNumber: 'CL-202', notes: '', createdAt: Date.now() - 43200000 }
       ];
+      db.equipment = [];
 
       const sampleItems = [
         { code: 'SK-155', category: 'skis', name: 'Atomic Redster', size: '155 cm', pricePerDay: 1.0 },
@@ -2991,6 +3422,7 @@
         saveToStorage();
         renderEquipmentTable();
         renderDashboard();
+        showToast(`Опремата ${item.code} е ${enabled ? 'овозможена' : 'оневозможена'}!`, 'success');
       }
     }
 
@@ -2999,15 +3431,16 @@
       if (!item) return;
 
       if (item.status === 'rented') {
-        alert('Не може да се избрише опрема која во моментов е ИЗНАЈМЕНА!');
+        showToast('Не може да се избрише опрема која во моментов е ИЗНАЈМЕНА!', 'error');
         return;
       }
 
-      if (confirm(`Дали сакате ја го избришете опремата ${item.code}?`)) {
+      if (confirm(`Дали сакате да ја избришете опремата ${item.code}?`)) {
         db.equipment = db.equipment.filter(e => e.id !== id);
         saveToStorage();
         renderEquipmentTable();
         renderDashboard();
+        showToast(`Опремата ${item.code} е успешно избришана!`, 'success');
       }
     }
 
@@ -3050,13 +3483,13 @@
       const enabled = document.getElementById('eq-enabled').value === 'true';
 
       if (!code) {
-        alert('Внесете уникатен код за опремата!');
+        showToast('Внесете уникатен код за опремата!', 'error');
         return;
       }
 
       const existing = db.equipment.find(e => e.code.toUpperCase() === code && e.id !== editId);
       if (existing) {
-        alert(`Веќе постои опрема со кодот "${code}"!`);
+        showToast(`Веќе постои опрема со кодот "${code}"!`, 'error');
         return;
       }
 
@@ -3065,10 +3498,12 @@
       if (editId) {
         const item = db.equipment.find(e => e.id === editId);
         Object.assign(item, payload);
+        showToast(`Опремата ${code} е успешно ажурирана!`, 'success');
       } else {
         payload.id = 'eq_' + Date.now();
         payload.timesRentedCount = 0;
         db.equipment.push(payload);
+        showToast(`Опремата ${code} е успешно додадена!`, 'success');
       }
 
       saveToStorage();
@@ -3098,6 +3533,7 @@
 
       if (!prefix) prefix = category.substring(0, 2).toUpperCase();
 
+      let addedCount = 0;
       for (let i = 0; i < count; i++) {
         const num = startNum + i;
         const code = `${prefix}-${num < 10 ? '0' : ''}${num}`;
@@ -3114,6 +3550,7 @@
             timesRentedCount: 0,
             notes: ''
           });
+          addedCount++;
         }
       }
 
@@ -3121,6 +3558,7 @@
       closeModal('modal-bulk-equip');
       renderEquipmentTable();
       renderDashboard();
+      showToast(`Успешно додадени ${addedCount} парчиња опрема!`, 'success');
     }
 
     function openBulkPriceModal() {
@@ -3131,7 +3569,10 @@
       const cat = document.getElementById('bp-category').value;
       const newPrice = parseFloat(document.getElementById('bp-new-price').value);
 
-      if (isNaN(newPrice) || newPrice < 0) return;
+      if (isNaN(newPrice) || newPrice < 0) {
+        showToast('Внесете валидна цена!', 'error');
+        return;
+      }
 
       db.equipment.forEach(e => {
         if (cat === 'all' || e.category === cat) e.pricePerDay = newPrice;
@@ -3140,13 +3581,33 @@
       saveToStorage();
       closeModal('modal-bulk-price');
       renderEquipmentTable();
+      showToast('Цените на опремата се успешно ажурирани!', 'success');
     }
 
     // ==========================================
-    // CLIENTS VIEW (Cards on Phone)
+    // CLIENTS VIEW (Cards on Phone & Desktop Table with Pagination)
     // ==========================================
+    let currentClientsPage = 1;
+    const CLIENTS_PER_PAGE = 100;
+    let lastClientsSearchQuery = '';
+
+    function goToClientsPage(page) {
+      currentClientsPage = page;
+      renderClientsTable();
+      const card = document.querySelector('#view-clients .card');
+      if (card) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
     function renderClientsTable() {
       const query = (document.getElementById('clients-search')?.value || '').toLowerCase().trim();
+
+      // Reset to page 1 if search query changed
+      if (query !== lastClientsSearchQuery) {
+        currentClientsPage = 1;
+        lastClientsSearchQuery = query;
+      }
 
       let list = (db.clients || []).filter(c => {
         if (query) {
@@ -3159,15 +3620,28 @@
 
       const mobContainer = document.getElementById('clients-mobile-list');
       const deskTbody = document.getElementById('clients-table-body');
+      const paginationEl = document.getElementById('clients-pagination');
 
       if (list.length === 0) {
         if (mobContainer) mobContainer.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted);">Нема клиенти.</div>`;
         if (deskTbody) deskTbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:2rem; color:var(--text-muted);">Нема клиенти.</td></tr>`;
+        if (paginationEl) {
+          paginationEl.style.display = 'none';
+          paginationEl.innerHTML = '';
+        }
         return;
       }
 
+      const totalPages = Math.max(1, Math.ceil(list.length / CLIENTS_PER_PAGE));
+      if (currentClientsPage > totalPages) currentClientsPage = totalPages;
+      if (currentClientsPage < 1) currentClientsPage = 1;
+
+      const startIndex = (currentClientsPage - 1) * CLIENTS_PER_PAGE;
+      const endIndex = Math.min(startIndex + CLIENTS_PER_PAGE, list.length);
+      const pagedList = list.slice(startIndex, endIndex);
+
       if (mobContainer) {
-        mobContainer.innerHTML = list.map(c => {
+        mobContainer.innerHTML = pagedList.map(c => {
           const clientRentals = (db.rentals || []).filter(r => r.clientId === c.id);
           const activeRental = clientRentals.find(r => r.status === 'active' || r.status === 'partially_returned');
 
@@ -3206,7 +3680,7 @@
       }
 
       if (deskTbody) {
-        deskTbody.innerHTML = list.map(c => {
+        deskTbody.innerHTML = pagedList.map(c => {
           const clientRentals = (db.rentals || []).filter(r => r.clientId === c.id);
           const activeRental = clientRentals.find(r => r.status === 'active' || r.status === 'partially_returned');
           let activeHtml = activeRental ? `<span class="badge badge-danger" style="cursor:pointer;" onclick="openReturnModal('${activeRental.id}')">🔴 Врати</span>` : '<span style="color:var(--text-muted);">-</span>';
@@ -3229,6 +3703,31 @@
             </tr>
           `;
         }).join('');
+      }
+
+      // Render Pagination Bar
+      if (paginationEl) {
+        paginationEl.style.display = 'flex';
+        const showingFrom = startIndex + 1;
+        const showingTo = endIndex;
+
+        if (totalPages <= 1) {
+          paginationEl.innerHTML = `
+            <div class="pagination-info">Прикажани <strong>${list.length}</strong> клиенти</div>
+            <div></div>
+          `;
+        } else {
+          paginationEl.innerHTML = `
+            <div class="pagination-info">Прикажани <strong>${showingFrom}–${showingTo}</strong> од <strong>${list.length}</strong> клиенти (100 по страна)</div>
+            <div class="pagination-controls">
+              <button class="pagination-btn" onclick="goToClientsPage(1)" ${currentClientsPage === 1 ? 'disabled' : ''} title="Прва страна">«</button>
+              <button class="pagination-btn" onclick="goToClientsPage(${currentClientsPage - 1})" ${currentClientsPage === 1 ? 'disabled' : ''} title="Претходна страна">‹ Претходна</button>
+              <span class="pagination-current">Страна ${currentClientsPage} од ${totalPages}</span>
+              <button class="pagination-btn" onclick="goToClientsPage(${currentClientsPage + 1})" ${currentClientsPage === totalPages ? 'disabled' : ''} title="Следна страна">Следна ›</button>
+              <button class="pagination-btn" onclick="goToClientsPage(${totalPages})" ${currentClientsPage === totalPages ? 'disabled' : ''} title="Последна страна">»</button>
+            </div>
+          `;
+        }
       }
     }
 
@@ -3266,7 +3765,7 @@
       const notes = document.getElementById('cl-notes').value.trim();
 
       if (!firstName || !phone) {
-        alert('Внесете Име и Телефон!');
+        showToast('Внесете Име и Телефон за клиентот!', 'error');
         return;
       }
 
@@ -3275,10 +3774,12 @@
       if (editId) {
         const client = db.clients.find(c => c.id === editId);
         Object.assign(client, payload);
+        showToast(`Податоците за ${firstName} ${lastName} се успешно ажурирани!`, 'success');
       } else {
         payload.id = 'c_' + Date.now();
         payload.createdAt = Date.now();
         db.clients.push(payload);
+        showToast(`Клиентот ${firstName} ${lastName} е успешно додаден!`, 'success');
       }
 
       saveToStorage();
@@ -3292,7 +3793,7 @@
 
       const hasActive = (db.rentals || []).some(r => r.clientId === id && (r.status === 'active' || r.status === 'partially_returned'));
       if (hasActive) {
-        alert('Клиентот има активно изнајмена опрема!');
+        showToast('Клиентот има активно изнајмена опрема и не може да се избрише!', 'error');
         return;
       }
 
@@ -3300,6 +3801,7 @@
         db.clients = db.clients.filter(c => c.id !== id);
         saveToStorage();
         renderClientsTable();
+        showToast(`Клиентот ${client.firstName} е успешно избришан!`, 'success');
       }
     }
 
@@ -3309,23 +3811,54 @@
 
       document.getElementById('cd-modal-title').textContent = `${client.firstName} ${client.lastName}`;
 
-      const activeRental = (db.rentals || []).find(r => r.clientId === clientId && (r.status === 'active' || r.status === 'partially_returned'));
+      const activeRentals = (db.rentals || []).filter(r => r.clientId === clientId && (r.status === 'active' || r.status === 'partially_returned'));
       const activeContainer = document.getElementById('cd-active-rentals');
 
-      if (!activeRental) {
-        activeContainer.innerHTML = '<p style="color:var(--text-muted); font-size:0.8rem;">Нема активна опрема.</p>';
+      if (activeRentals.length === 0) {
+        activeContainer.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem; padding:0.25rem 0;">Нема активна опрема.</p>';
       } else {
-        const activeItems = (activeRental.items || []).filter(i => !i.returned);
-        activeContainer.innerHTML = `
-          <div style="background-color: var(--primary-light); padding: 0.6rem; border-radius: var(--radius-sm); border: 1px solid var(--primary); display:flex; justify-content:space-between; align-items:center;">
-            <div style="font-size:0.85rem;">
-              <strong>#${activeRental.rentalNumber}:</strong> ${activeItems.map(i => `${i.code}`).join(', ')}
+        activeContainer.innerHTML = activeRentals.map(rental => {
+          const items = rental.items || [];
+          return `
+            <div style="background-color: var(--bg); border: 1px solid var(--surface-border); border-radius: var(--radius-md); padding: 0.75rem; margin-bottom: 0.75rem;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--surface-border); flex-wrap:wrap; gap:0.4rem;">
+                <div>
+                  <strong style="color:var(--primary); font-size:0.92rem;">Изнајмување #${rental.rentalNumber}</strong>
+                  <span style="font-size:0.8rem; color:var(--text-muted); margin-left:0.4rem;">(${formatDuration(Date.now() - rental.startTime)})</span>
+                </div>
+                <button class="btn btn-success btn-sm" onclick="closeModal('modal-client-details'); openReturnModal('${rental.id}');">
+                  Врати опрема
+                </button>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+                ${items.map((item, idx) => {
+                  const sizeStr = item.size ? ` (${item.size})` : '';
+                  const nameStr = item.name ? ` <span style="color:var(--text-muted); font-size:0.8rem; margin-left:0.25rem;">${item.name}</span>` : '';
+                  if (item.returned) {
+                    return `
+                      <div style="background-color: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.5rem 0.65rem; opacity: 0.6; display:flex; justify-content:space-between; align-items:center; font-size:0.85rem;">
+                        <div style="display:flex; align-items:center; gap: 0.5rem;">
+                          <span style="font-weight:700; color:var(--text-muted); min-width:1.3rem;">${idx + 1}.</span>
+                          <span><s>${item.code}${sizeStr}</s>${nameStr}</span>
+                        </div>
+                        <span class="badge badge-success">Вратено</span>
+                      </div>
+                    `;
+                  }
+                  return `
+                    <div style="background-color: var(--surface); border: 1px solid var(--surface-border); border-radius: var(--radius-sm); padding: 0.5rem 0.65rem; display:flex; align-items:center; justify-content:space-between; font-size:0.85rem;">
+                      <div style="display:flex; align-items:center; gap: 0.5rem;">
+                        <span style="font-weight:700; color:var(--text-muted); min-width:1.3rem;">${idx + 1}.</span>
+                        <span><strong>${item.code}</strong>${sizeStr}${nameStr}</span>
+                      </div>
+                      <span class="badge badge-danger">Активно</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
             </div>
-            <button class="btn btn-success btn-sm" onclick="closeModal('modal-client-details'); openReturnModal('${activeRental.id}');">
-              Врати
-            </button>
-          </div>
-        `;
+          `;
+        }).join('');
       }
 
       const historyList = (db.rentals || []).filter(r => r.clientId === clientId);
@@ -3465,7 +3998,7 @@
       const card = document.getElementById('nr-new-card').value.trim();
 
       if (!fname || !phone) {
-        alert('Внесете Име и Телефон!');
+        showToast('Внесете Име и Телефон за клиентот!', 'error');
         return;
       }
 
@@ -3483,6 +4016,7 @@
       saveToStorage();
       document.getElementById('nr-inline-client-form').style.display = 'none';
       selectRentalClient(newClient.id);
+      showToast(`Новиот клиент ${fname} ${lname} е успешно додаден!`, 'success');
     }
 
     function filterRentalAvailableEquipment() {
@@ -3619,11 +4153,11 @@
 
     function confirmSaveNewRental() {
       if (!newRentalState.clientId) {
-        alert('Изберете клиент!');
+        showToast('Изберете клиент за изнајмувањето!', 'error');
         return;
       }
       if (newRentalState.selectedItems.length === 0) {
-        alert('Изберете опрема!');
+        showToast('Изберете барем едно парче опрема!', 'error');
         return;
       }
 
@@ -3683,6 +4217,7 @@
       renderDashboard();
       renderRentalsTable();
       renderEquipmentTable();
+      showToast(`Изнајмувањето #${rentalNum} е успешно креирано!`, 'success');
     }
 
     // ==========================================
@@ -3721,7 +4256,20 @@
       document.getElementById('ret-final-amount').textContent = rental.totalAmount.toFixed(1) + getCurrencySymbol();
       document.getElementById('ret-pay-status').value = rental.isPaid ? 'paid_cash' : 'unpaid';
 
+      const unpaidWarning = document.getElementById('ret-unpaid-warning');
+      if (unpaidWarning) {
+        unpaidWarning.style.display = rental.isPaid ? 'none' : 'block';
+      }
+
       openModal('modal-return-rental');
+    }
+
+    function onReturnPayStatusChange() {
+      const status = document.getElementById('ret-pay-status').value;
+      const unpaidWarning = document.getElementById('ret-unpaid-warning');
+      if (unpaidWarning) {
+        unpaidWarning.style.display = (status === 'unpaid') ? 'block' : 'none';
+      }
     }
 
     function confirmReturnRental() {
@@ -3747,7 +4295,7 @@
       });
 
       if (!anyChecked) {
-        alert('Штиклирајте опрема!');
+        showToast('Штиклирајте барем едно парче опрема за враќање!', 'error');
         return;
       }
 
@@ -3773,6 +4321,7 @@
       renderDashboard();
       renderRentalsTable();
       renderEquipmentTable();
+      showToast(`Успешно евидентирано враќање за договор #${rental.rentalNumber}!`, 'success');
     }
 
     function quickMarkPaid(rentalId) {
@@ -3788,6 +4337,7 @@
       renderRentalsTable();
       renderPaymentsTable();
       renderDashboard();
+      showToast(`Плаќањето за договор #${rental.rentalNumber} е евидентирано (${method === 'cash' ? 'Кеш' : 'Картичка'})!`, 'success');
     }
 
     // ==========================================
@@ -3981,137 +4531,153 @@
       saveToStorage();
       setupSettingsPrices();
       renderDashboard();
+      showToast('Поставките се успешно зачувани!', 'success');
     }
 
     function importFromCSV() {
       const fileInput = document.getElementById('csv-file-input');
       if (!fileInput.files || fileInput.files.length === 0) {
-        alert('Изберете .csv фајл!');
+        showToast('Изберете .csv фајл!', 'error');
         return;
       }
 
       const file = fileInput.files[0];
       const reader = new FileReader();
       reader.onload = function (e) { processCSVImport(e.target.result); };
+      reader.onerror = function () { showToast('Грешка при читање на CSV датотеката!', 'error'); };
       reader.readAsText(file);
     }
 
     function processCSVImport(csvText) {
-      const lines = csvText.split(/\r\n|\n/).map(l => l.trim()).filter(Boolean);
-      if (lines.length < 2) return;
-
-      const delimiter = lines[0].includes(';') ? ';' : ',';
-      const headers = lines[0].split(delimiter).map(h => h.trim().toUpperCase());
-
-      const colMap = {
-        firstName: headers.findIndex(h => h.includes('ИМЕ') && !h.includes('ПРЕЗИМЕ')),
-        lastName: headers.findIndex(h => h.includes('ПРЕЗИМЕ')),
-        phone: headers.findIndex(h => h.includes('ТЕЛЕФОН') || h.includes('TEL')),
-        cardNumber: headers.findIndex(h => h.includes('КАРТИЧКА') || h.includes('КАРТА') || h.includes('CARD')),
-        skis: headers.findIndex(h => h.includes('СКИИ') || h.includes('SKI')),
-        board: headers.findIndex(h => h.includes('БОРД') || h.includes('BOARD')),
-        sled: headers.findIndex(h => h.includes('САНКА') || h.includes('SLED')),
-        poles: headers.findIndex(h => h.includes('СТАПОВИ') || h.includes('POLES')),
-        boots: headers.findIndex(h => h.includes('КОНДУРИ') || h.includes('КОНД') || h.includes('BOOTS')),
-        helmet: headers.findIndex(h => h.includes('КАЦИГА') || h.includes('HELMET')),
-        goggles: headers.findIndex(h => h.includes('НАОЧАРИ') || h.includes('GOGGLES')),
-        gloves: headers.findIndex(h => h.includes('РАКВИЦИ') || h.includes('GLOVES'))
-      };
-
-      let importedClients = 0;
-      let importedRentals = 0;
-
-      for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(delimiter).map(c => c.trim().replace(/^"|"$/g, ''));
-        const firstName = colMap.firstName !== -1 ? cols[colMap.firstName] : '';
-        const lastName = colMap.lastName !== -1 ? cols[colMap.lastName] : '';
-        const phone = colMap.phone !== -1 ? cols[colMap.phone] : '';
-        const cardNumber = colMap.cardNumber !== -1 ? cols[colMap.cardNumber] : '';
-
-        if (!firstName && !phone) continue;
-
-        let client = db.clients.find(c => c.phone === phone && phone !== '');
-        if (!client) {
-          client = {
-            id: 'c_csv_' + Date.now() + '_' + i,
-            firstName: firstName || 'Клиент',
-            lastName: lastName || '',
-            phone: phone || ('070' + Math.floor(100000 + Math.random() * 900000)),
-            cardNumber: cardNumber,
-            notes: 'CSV увоз',
-            createdAt: Date.now()
-          };
-          db.clients.push(client);
-          importedClients++;
+      try {
+        const lines = csvText.split(/\r\n|\n/).map(l => l.trim()).filter(Boolean);
+        if (lines.length < 2) {
+          showToast('CSV датотеката е празна или не содржи доволно редови!', 'error');
+          return;
         }
 
-        const items = [];
-        const checkCategory = (catKey, colIdx) => {
-          if (colIdx !== -1 && cols[colIdx] && cols[colIdx] !== '-' && cols[colIdx] !== '0') {
-            items.push({
-              equipmentId: 'eq_csv_' + catKey + '_' + i,
-              code: catKey.substring(0, 2).toUpperCase() + '-' + i,
-              category: catKey,
-              name: cols[colIdx],
-              size: cols[colIdx],
-              dailyRate: 1.0,
-              returned: true,
-              returnedAt: Date.now()
-            });
-          }
+        const delimiter = lines[0].includes(';') ? ';' : ',';
+        const headers = lines[0].split(delimiter).map(h => h.trim().toUpperCase());
+
+        const colMap = {
+          firstName: headers.findIndex(h => h.includes('ИМЕ') && !h.includes('ПРЕЗИМЕ')),
+          lastName: headers.findIndex(h => h.includes('ПРЕЗИМЕ')),
+          phone: headers.findIndex(h => h.includes('ТЕЛЕФОН') || h.includes('TEL')),
+          cardNumber: headers.findIndex(h => h.includes('КАРТИЧКА') || h.includes('КАРТА') || h.includes('CARD')),
+          skis: headers.findIndex(h => h.includes('СКИИ') || h.includes('SKI')),
+          board: headers.findIndex(h => h.includes('БОРД') || h.includes('BOARD')),
+          sled: headers.findIndex(h => h.includes('САНКА') || h.includes('SLED')),
+          poles: headers.findIndex(h => h.includes('СТАПОВИ') || h.includes('POLES')),
+          boots: headers.findIndex(h => h.includes('КОНДУРИ') || h.includes('КОНД') || h.includes('BOOTS')),
+          helmet: headers.findIndex(h => h.includes('КАЦИГА') || h.includes('HELMET')),
+          goggles: headers.findIndex(h => h.includes('НАОЧАРИ') || h.includes('GOGGLES')),
+          gloves: headers.findIndex(h => h.includes('РАКВИЦИ') || h.includes('GLOVES'))
         };
 
-        checkCategory('skis', colMap.skis);
-        checkCategory('board', colMap.board);
-        checkCategory('sled', colMap.sled);
-        checkCategory('poles', colMap.poles);
-        checkCategory('boots', colMap.boots);
-        checkCategory('helmet', colMap.helmet);
-        checkCategory('goggles', colMap.goggles);
-        checkCategory('gloves', colMap.gloves);
+        let importedClients = 0;
+        let importedRentals = 0;
 
-        if (items.length > 0) {
-          db.rentals.push({
-            id: 'r_csv_' + Date.now() + '_' + i,
-            rentalNumber: 2000 + i,
-            clientId: client.id,
-            clientSnapshot: {
-              firstName: client.firstName,
-              lastName: client.lastName,
-              phone: client.phone,
-              cardNumber: client.cardNumber
-            },
-            startTime: Date.now() - 86400000,
-            expectedReturnTime: Date.now() - 43200000,
-            actualReturnTime: Date.now(),
-            status: 'completed',
-            totalAmount: items.length * 1.0,
-            isPaid: true,
-            paidAt: Date.now(),
-            paymentMethod: 'cash',
-            notes: 'CSV увоз',
-            items: items
-          });
-          importedRentals++;
+        for (let i = 1; i < lines.length; i++) {
+          const cols = lines[i].split(delimiter).map(c => c.trim().replace(/^"|"$/g, ''));
+          const firstName = colMap.firstName !== -1 ? cols[colMap.firstName] : '';
+          const lastName = colMap.lastName !== -1 ? cols[colMap.lastName] : '';
+          const phone = colMap.phone !== -1 ? cols[colMap.phone] : '';
+          const cardNumber = colMap.cardNumber !== -1 ? cols[colMap.cardNumber] : '';
+
+          if (!firstName && !phone) continue;
+
+          let client = db.clients.find(c => c.phone === phone && phone !== '');
+          if (!client) {
+            client = {
+              id: 'c_csv_' + Date.now() + '_' + i,
+              firstName: firstName || 'Клиент',
+              lastName: lastName || '',
+              phone: phone || ('070' + Math.floor(100000 + Math.random() * 900000)),
+              cardNumber: cardNumber,
+              notes: 'CSV увоз',
+              createdAt: Date.now()
+            };
+            db.clients.push(client);
+            importedClients++;
+          }
+
+          const items = [];
+          const checkCategory = (catKey, colIdx) => {
+            if (colIdx !== -1 && cols[colIdx] && cols[colIdx] !== '-' && cols[colIdx] !== '0') {
+              items.push({
+                equipmentId: 'eq_csv_' + catKey + '_' + i,
+                code: catKey.substring(0, 2).toUpperCase() + '-' + i,
+                category: catKey,
+                name: cols[colIdx],
+                size: cols[colIdx],
+                dailyRate: 1.0,
+                returned: true,
+                returnedAt: Date.now()
+              });
+            }
+          };
+
+          checkCategory('skis', colMap.skis);
+          checkCategory('board', colMap.board);
+          checkCategory('sled', colMap.sled);
+          checkCategory('poles', colMap.poles);
+          checkCategory('boots', colMap.boots);
+          checkCategory('helmet', colMap.helmet);
+          checkCategory('goggles', colMap.goggles);
+          checkCategory('gloves', colMap.gloves);
+
+          if (items.length > 0) {
+            db.rentals.push({
+              id: 'r_csv_' + Date.now() + '_' + i,
+              rentalNumber: 2000 + i,
+              clientId: client.id,
+              clientSnapshot: {
+                firstName: client.firstName,
+                lastName: client.lastName,
+                phone: client.phone,
+                cardNumber: client.cardNumber
+              },
+              startTime: Date.now() - 86400000,
+              expectedReturnTime: Date.now() - 43200000,
+              actualReturnTime: Date.now(),
+              status: 'completed',
+              totalAmount: items.length * 1.0,
+              isPaid: true,
+              paidAt: Date.now(),
+              paymentMethod: 'cash',
+              notes: 'CSV увоз',
+              items: items
+            });
+            importedRentals++;
+          }
         }
-      }
 
-      saveToStorage();
-      renderDashboard();
-      renderRentalsTable();
-      renderClientsTable();
-      alert(`Успешен увоз!\nКреирани ${importedClients} клиенти и ${importedRentals} изнајмувања.`);
+        saveToStorage();
+        renderDashboard();
+        renderRentalsTable();
+        renderClientsTable();
+        showToast(`Успешен увоз! Креирани ${importedClients} клиенти и ${importedRentals} изнајмувања.`, 'success');
+      } catch (err) {
+        console.error('CSV import error:', err);
+        showToast('Грешка при обработка на CSV: ' + err.message, 'error');
+      }
     }
 
     function exportToCSV(filename, rows) {
-      const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + rows.map(e => e.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', filename);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      try {
+        const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + rows.map(e => e.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',')).join('\n');
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', filename);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast(`Датотеката "${filename}" е успешно преземена!`, 'success');
+      } catch (err) {
+        console.error('CSV export error:', err);
+        showToast('Грешка при извоз на датотеката: ' + err.message, 'error');
+      }
     }
 
     function exportEquipmentCSV() {
@@ -4151,13 +4717,20 @@
     }
 
     function exportFullBackupJSON() {
-      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(db, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute('href', dataStr);
-      downloadAnchor.setAttribute('download', `skirent_backup_${new Date().toISOString().split('T')[0]}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
+      try {
+        const filename = `skirent_backup_${new Date().toISOString().split('T')[0]}.json`;
+        const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(db, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute('href', dataStr);
+        downloadAnchor.setAttribute('download', filename);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+        showToast(`Резервната копија "${filename}" е преземена!`, 'success');
+      } catch (err) {
+        console.error('Backup export error:', err);
+        showToast('Грешка при генерирање резервна копија: ' + err.message, 'error');
+      }
     }
 
     function restoreFullBackupJSON(event) {
@@ -4165,38 +4738,162 @@
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = async function (e) {
         try {
           const parsed = JSON.parse(e.target.result);
           if (parsed && parsed.equipment && parsed.clients && parsed.rentals) {
+            parsed.isInitialized = true;
             db = parsed;
-            saveToStorage();
-            initApp();
-            alert('Бекапот е вчитан!');
+            await saveToStorage();
+            setupCategoryChips();
+            setupSettingsPrices();
+            renderDashboard();
+            renderRentalsTable();
+            renderEquipmentTable();
+            renderClientsTable();
+            if (currentPaymentsTab === 'list') renderPaymentsTable();
+            else if (typeof generateReport === 'function') generateReport();
+            showToast('Резервната копија е успешно вчитана!', 'success');
+          } else {
+            showToast('Невалиден формат на бекап датотеката!', 'error');
           }
-        } catch (err) { alert('Грешка: ' + err.message); }
+        } catch (err) {
+          console.error('Backup restore error:', err);
+          showToast('Грешка при вчитување на бекапот: ' + err.message, 'error');
+        }
+      };
+      reader.onerror = function () {
+        showToast('Грешка при читање на бекап датотеката!', 'error');
       };
       reader.readAsText(file);
     }
 
-    function loadDemoSampleData() {
+    async function loadDemoSampleData() {
       if (confirm('Вчитај демо податоци?')) {
-        seedInitialStock();
-        initApp();
+        try {
+          seedInitialStock();
+          await saveToStorage();
+          setupCategoryChips();
+          setupSettingsPrices();
+          renderDashboard();
+          renderRentalsTable();
+          renderEquipmentTable();
+          renderClientsTable();
+          if (currentPaymentsTab === 'list') renderPaymentsTable();
+          else if (typeof generateReport === 'function') generateReport();
+          showToast('Демо податоците се успешно вчитани!', 'success');
+        } catch (err) {
+          console.error('Demo data error:', err);
+          showToast('Грешка при вчитување демо податоци: ' + err.message, 'error');
+        }
       }
     }
 
-    function resetAllData() {
-      if (confirm('ВНИМАНИЕ! Дали сакате да ги избришете СИТЕ податоци?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        db = {
-          clients: [], equipment: [], rentals: [],
-          settings: { currency: 'EUR', closingTime: '17:00', prices: { skis: 1.0, board: 1.0, sled: 1.0, poles: 1.0, boots: 1.0, helmet: 1.0, goggles: 1.0, gloves: 1.0 } }
-        };
-        saveToStorage();
-        initApp();
+    async function resetAllData() {
+      if (confirm('ВНИМАНИЕ! Дали сакате да ги избришете СИТЕ податоци од апликацијата (клиенти, опрема, изнајмувања)?')) {
+        try {
+          db = {
+            isInitialized: true,
+            clients: [],
+            equipment: [],
+            rentals: [],
+            settings: {
+              currency: 'EUR',
+              closingTime: '17:00',
+              prices: { skis: 1.0, board: 1.0, sled: 1.0, poles: 1.0, boots: 1.0, helmet: 1.0, goggles: 1.0, gloves: 1.0 }
+            }
+          };
+          newRentalState = { clientId: null, selectedItems: [] };
+
+          await saveToStorage();
+          try { localStorage.removeItem(STORAGE_KEY); } catch (_) { }
+
+          setupCategoryChips();
+          setupSettingsPrices();
+          renderDashboard();
+          renderRentalsTable();
+          renderEquipmentTable();
+          renderClientsTable();
+          if (currentPaymentsTab === 'list') renderPaymentsTable();
+          else if (typeof generateReport === 'function') generateReport();
+
+          navigateTo('dashboard');
+          showToast('Сите податоци се целосно избришани од апликацијата!', 'success');
+        } catch (err) {
+          console.error('Reset data error:', err);
+          showToast('Грешка при бришење на податоците: ' + err.message, 'error');
+        }
       }
     }
+
+    async function clearRentalsData() {
+      const count = (db.rentals || []).length;
+      if (!confirm(`ВНИМАНИЕ! Дали сте сигурни дека сакате да ги избришете СИТЕ изнајмувања (${count})? Оваа акција не може да се врати.`)) {
+        return;
+      }
+      try {
+        db.rentals = [];
+        newRentalState = { clientId: null, selectedItems: [] };
+        // Release rented equipment back to available
+        (db.equipment || []).forEach(eq => {
+          if (eq.status === 'rented') eq.status = 'available';
+        });
+        await saveToStorage();
+        renderDashboard();
+        renderRentalsTable();
+        renderEquipmentTable();
+        if (typeof renderPaymentsTable === 'function') renderPaymentsTable();
+        if (typeof generateReport === 'function') generateReport();
+        showToast('Сите изнајмувања се успешно избришани!', 'success');
+      } catch (err) {
+        console.error('Clear rentals error:', err);
+        showToast('Грешка при бришење на изнајмувањата: ' + err.message, 'error');
+      }
+    }
+
+    async function clearEquipmentData() {
+      const count = (db.equipment || []).length;
+      if (!confirm(`ВНИМАНИЕ! Дали сте сигурни дека сакате да ја избришете ЦЕЛАТА опрема (${count} парчиња) од инвентарот? Оваа акција не може да се врати.`)) {
+        return;
+      }
+      try {
+        db.equipment = [];
+        db.isInitialized = true; // Prevent initApp from auto-reseeding demo equipment
+        if (newRentalState) newRentalState.selectedItems = [];
+        await saveToStorage();
+        setupCategoryChips();
+        renderEquipmentTable();
+        renderDashboard();
+        showToast('Целата опрема е успешно избришана!', 'success');
+      } catch (err) {
+        console.error('Clear equipment error:', err);
+        showToast('Грешка при бришење на опремата: ' + err.message, 'error');
+      }
+    }
+
+    async function clearClientsData() {
+      const count = (db.clients || []).length;
+      if (!confirm(`ВНИМАНИЕ! Дали сте сигурни дека сакате да ги избришете СИТЕ клиенти (${count})? Оваа акција не може да се врати.`)) {
+        return;
+      }
+      try {
+        db.clients = [];
+        currentClientsPage = 1;
+        if (newRentalState) newRentalState.clientId = null;
+        await saveToStorage();
+        renderClientsTable();
+        renderDashboard();
+        showToast('Сите клиенти се успешно избришани!', 'success');
+      } catch (err) {
+        console.error('Clear clients error:', err);
+        showToast('Грешка при бришење на клиентите: ' + err.message, 'error');
+      }
+    }
+
+    // Safety fallback: replace native window.alert with red error toast
+    window.alert = function (msg) {
+      showToast(msg, 'error');
+    };
 
     function openModal(id) {
       const el = document.getElementById(id);
